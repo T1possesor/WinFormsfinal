@@ -30,33 +30,47 @@
         {
             textBox1 = new TextBox();
             textBox2 = new TextBox();
+            textBox3 = new TextBox();
             SuspendLayout();
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(231, 152);
+            textBox1.Location = new Point(330, 253);
+            textBox1.Margin = new Padding(4, 5, 4, 5);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(388, 23);
+            textBox1.Size = new Size(553, 31);
             textBox1.TabIndex = 0;
             textBox1.Text = "XCin chào việt nam";
             textBox1.TextChanged += textBox1_TextChanged;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(231, 201);
+            textBox2.Location = new Point(330, 335);
+            textBox2.Margin = new Padding(4, 5, 4, 5);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(388, 23);
+            textBox2.Size = new Size(553, 31);
             textBox2.TabIndex = 1;
             textBox2.Text = "XCin chào việt nam";
             textBox2.TextChanged += textBox2_TextChanged;
             // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(330, 405);
+            textBox3.Margin = new Padding(4, 5, 4, 5);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(553, 31);
+            textBox3.TabIndex = 2;
+            textBox3.Text = "XCin chào việt nam";
+            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1143, 750);
+            Controls.Add(textBox3);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
+            Margin = new Padding(4, 5, 4, 5);
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
@@ -67,5 +81,6 @@
 
         private TextBox textBox1;
         private TextBox textBox2;
+        private TextBox textBox3;
     }
 }
