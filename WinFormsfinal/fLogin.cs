@@ -130,20 +130,21 @@ namespace WinFormsfinal
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
 
-                Form1 main = new Form1();
-                // main.Tag = vaiTro; // nếu sau này bạn muốn truyền role sang form chính
+                // ❗ TRUYỀN VAITRO SANG FORM1
+                Form1 main = new Form1(vaiTro);
                 main.Show();
                 this.Hide();
             }
             else
             {
-                // Sai tài khoản hoặc mật khẩu
                 MessageBox.Show("Sai tài khoản hoặc mật khẩu!",
                                 "Thông báo",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
             }
         }
+
+
 
 
         private void btnTogglePass_Click(object sender, EventArgs e)
@@ -164,13 +165,21 @@ namespace WinFormsfinal
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Sau này sẽ mở form Đăng ký.", "Thông báo");
+            // mở form đăng ký full, ẩn form đăng nhập
+            var regForm = new fRegister(this);   // truyền this để quay lại
+            regForm.Show();
+            this.Hide();
         }
+
+
 
         private void btnForgot_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Sau này sẽ mở form Quên mật khẩu.", "Thông báo");
+            var forgotForm = new fForgotPassword(this);
+            forgotForm.Show();
+            this.Hide();
         }
+
 
         private void lblPass_Click(object sender, EventArgs e)
         {

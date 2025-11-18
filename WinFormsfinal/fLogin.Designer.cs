@@ -184,7 +184,6 @@ namespace WinFormsfinal
             txtPass.ShadowDecoration.CustomizableEdges = customizableEdges6;
             txtPass.Size = new Size(315, 27);
             txtPass.TabIndex = 4;
-            
             // 
             // btnLogin
             // 
