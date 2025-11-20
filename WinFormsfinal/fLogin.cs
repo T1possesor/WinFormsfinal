@@ -54,15 +54,42 @@ namespace WinFormsfinal
         private void ShowRolePanelInCard()
         {
             currentMode = LoginMode.None;
+
+            // ✨ reset luôn dữ liệu đăng nhập
+            ResetLoginFields();
+
             panelRoleInline.Visible = true;
             panelLoginFields.Visible = false;
             this.Text = "Chọn phương thức đăng nhập";
             CenterLoginPanel();
         }
 
+        // Xoá sạch dữ liệu và lỗi trên form đăng nhập
+        private void ResetLoginFields()
+        {
+            // clear text
+            txtUser.Text = string.Empty;
+            txtPass.Text = string.Empty;
+
+            // reset trạng thái hiện/ẩn mật khẩu
+            isPasswordVisible = false;
+            txtPass.PasswordChar = '●';
+            btnTogglePass.Text = "👁";
+
+            // ẩn bong bóng cảnh báo nếu còn
+            if (_bubbleUser != null) _bubbleUser.Visible = false;
+            if (_bubblePass != null) _bubblePass.Visible = false;
+
+            // ẩn dòng báo lỗi đỏ dưới nút đăng nhập
+            lblAuthError.Visible = false;
+        }
+
         private void ShowLoginPanelInCard(LoginMode mode)
         {
             currentMode = mode;
+
+            // ✨ mỗi lần vào màn login → xóa sạch dữ liệu cũ
+            ResetLoginFields();
 
             bool isAdmin = (mode == LoginMode.Admin);
             btnRegister.Visible = !isAdmin;
@@ -71,14 +98,13 @@ namespace WinFormsfinal
             lblTitle.Text = isAdmin ? "Đăng nhập (Admin)" : "Đăng nhập (Khách hàng)";
             this.Text     = lblTitle.Text;
 
-            lblAuthError.Visible = false;
             panelRoleInline.Visible  = false;
             panelLoginFields.Visible = true;
 
             CenterLoginPanel();
-            RelayoutBottom();
             txtUser.Focus();
         }
+
 
         private void btnRoleAdmin_Click(object sender, EventArgs e) => ShowLoginPanelInCard(LoginMode.Admin);
         private void btnRoleCustomer_Click(object sender, EventArgs e) => ShowLoginPanelInCard(LoginMode.KhachHang);
@@ -125,45 +151,65 @@ namespace WinFormsfinal
         }
 
         // ====== Bong bóng cảnh báo (bo tròn, tự ẩn) ======
+        // ====== Bong bóng cảnh báo (nền trắng, viền đen, tự ẩn) ======
         private void ShowBubbleError(Control target, ref Guna2Panel? bubble, string message)
         {
             if (bubble == null)
             {
                 bubble = new Guna2Panel
                 {
-                    BorderRadius = 10,
-                    FillColor = Color.FromArgb(52, 58, 64),
-                    BackColor = Color.Transparent,
-                    Size = new Size(260, 34),
+                    BorderRadius     = 10,
+                    FillColor        = Color.White,           // nền trắng
+                    BorderColor      = Color.Black,           // viền đen
+                    BorderThickness  = 1,
+                    BackColor        = Color.Transparent,
+                    Size             = new Size(280, 34),
                 };
-                bubble.ShadowDecoration.Enabled = true;
-                bubble.ShadowDecoration.BorderRadius = 10;
-                bubble.ShadowDecoration.Shadow = new Padding(0, 0, 6, 6);
+                // Bóng đổ tắt để viền đen sắc nét (bật lại nếu bạn muốn)
+                bubble.ShadowDecoration.Enabled = false;
 
+                // Icon ! màu cam ở bên trái
+                var icon = new Label
+                {
+                    AutoSize   = false,
+                    Width      = 26,
+                    Dock       = DockStyle.Left,
+                    Text       = "!",
+                    TextAlign  = ContentAlignment.MiddleCenter,
+                    Font       = new Font("Segoe UI", 10F, FontStyle.Bold),
+                    ForeColor  = Color.White,
+                    BackColor  = Color.FromArgb(255, 153, 0) // cam
+                };
+
+                // Nội dung
                 var lbl = new Label
                 {
-                    Dock = DockStyle.Fill,
-                    ForeColor = Color.White,
-                    Font = new Font("Segoe UI", 9F),
-                    TextAlign = ContentAlignment.MiddleLeft,
-                    Padding = new Padding(10, 2, 8, 2),
+                    Dock       = DockStyle.Fill,
+                    ForeColor  = Color.Black,                // chữ đen
+                    Font       = new Font("Segoe UI", 9F),
+                    TextAlign  = ContentAlignment.MiddleLeft,
+                    Padding    = new Padding(8, 2, 8, 2),
                 };
+
                 bubble.Tag = lbl;
                 bubble.Controls.Add(lbl);
+                bubble.Controls.Add(icon);
 
+                // Thêm vào panel chứa form login
                 panelLoginFields.Controls.Add(bubble);
             }
 
             var label = (Label)bubble.Tag!;
-            label.Text = "⚠  " + message;
+            label.Text = "  " + message;
 
-            // đặt ngay dưới textbox
+            // đặt bong bóng ngay dưới control đích
             var ptScreen = target.Parent.PointToScreen(new Point(target.Left, target.Bottom));
             var ptInPanel = panelLoginFields.PointToClient(ptScreen);
             bubble.Location = new Point(ptInPanel.X, ptInPanel.Y + 6);
             bubble.BringToFront();
             bubble.Visible = true;
 
+            // tự ẩn sau 2.5s
             var bubbleLocal = bubble;
             var t = new System.Windows.Forms.Timer { Interval = 2500 };
             t.Tick += (s, e) =>
@@ -175,6 +221,7 @@ namespace WinFormsfinal
 
             target.Focus();
         }
+
 
         // ====== DATABASE ======
         private string GetConnectionString()
@@ -267,7 +314,7 @@ namespace WinFormsfinal
                 // OK
                 lblAuthError.Visible = false;
                 RelayoutBottom();
-                var main = new Form1(vaiTro!);
+                var main = new Form1(user, vaiTro!);
                 main.Show();
                 this.Hide();
             }

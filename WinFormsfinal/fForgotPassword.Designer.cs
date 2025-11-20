@@ -29,6 +29,8 @@ namespace WinFormsfinal
         private Guna2ControlBox controlBoxMax;
         private Guna2ControlBox controlBoxClose;
 
+        private Guna2HtmlLabel lblForgotError;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -43,26 +45,6 @@ namespace WinFormsfinal
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2BorderlessForm1 = new Guna2BorderlessForm(components);
             panelForgot = new Guna2Panel();
             lblTitle = new Label();
@@ -76,6 +58,7 @@ namespace WinFormsfinal
             txtReNewPass = new Guna2TextBox();
             btnChange = new Guna2Button();
             btnCancel = new Guna2Button();
+            lblForgotError = new Guna2HtmlLabel();
             controlBoxMin = new Guna2ControlBox();
             controlBoxMax = new Guna2ControlBox();
             controlBoxClose = new Guna2ControlBox();
@@ -93,6 +76,14 @@ namespace WinFormsfinal
             // 
             panelForgot.BackColor = Color.Transparent;
             panelForgot.BorderRadius = 20;
+            panelForgot.FillColor = Color.FromArgb(240, 240, 240);
+            panelForgot.Location = new Point(250, 120);
+            panelForgot.Name = "panelForgot";
+            panelForgot.ShadowDecoration.BorderRadius = 20;
+            panelForgot.ShadowDecoration.Enabled = true;
+            panelForgot.ShadowDecoration.Shadow = new Padding(0, 0, 6, 6);
+            panelForgot.Size = new Size(400, 310);
+            panelForgot.TabIndex = 0;
             panelForgot.Controls.Add(lblTitle);
             panelForgot.Controls.Add(lblUser);
             panelForgot.Controls.Add(lblEmail);
@@ -102,25 +93,16 @@ namespace WinFormsfinal
             panelForgot.Controls.Add(txtEmail);
             panelForgot.Controls.Add(txtNewPass);
             panelForgot.Controls.Add(txtReNewPass);
+            panelForgot.Controls.Add(lblForgotError);
             panelForgot.Controls.Add(btnChange);
             panelForgot.Controls.Add(btnCancel);
-            panelForgot.CustomizableEdges = customizableEdges13;
-            panelForgot.FillColor = Color.FromArgb(30, 33, 40);
-            panelForgot.Location = new Point(250, 140);
-            panelForgot.Name = "panelForgot";
-            panelForgot.ShadowDecoration.BorderRadius = 20;
-            panelForgot.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            panelForgot.ShadowDecoration.Enabled = true;
-            panelForgot.ShadowDecoration.Shadow = new Padding(0, 0, 5, 5);
-            panelForgot.Size = new Size(400, 266);
-            panelForgot.TabIndex = 0;
             // 
             // lblTitle
             // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            lblTitle.ForeColor = Color.White;
-            lblTitle.Location = new Point(120, 15);
+            lblTitle.ForeColor = Color.Black;
+            lblTitle.Location = new Point(115, 15);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(171, 30);
             lblTitle.TabIndex = 0;
@@ -130,7 +112,7 @@ namespace WinFormsfinal
             // 
             lblUser.AutoSize = true;
             lblUser.Font = new Font("Segoe UI", 10F);
-            lblUser.ForeColor = Color.Gainsboro;
+            lblUser.ForeColor = Color.Black;
             lblUser.Location = new Point(40, 60);
             lblUser.Name = "lblUser";
             lblUser.Size = new Size(66, 19);
@@ -141,8 +123,8 @@ namespace WinFormsfinal
             // 
             lblEmail.AutoSize = true;
             lblEmail.Font = new Font("Segoe UI", 10F);
-            lblEmail.ForeColor = Color.Gainsboro;
-            lblEmail.Location = new Point(40, 105);
+            lblEmail.ForeColor = Color.Black;
+            lblEmail.Location = new Point(40, 100);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(41, 19);
             lblEmail.TabIndex = 2;
@@ -152,8 +134,8 @@ namespace WinFormsfinal
             // 
             lblNewPass.AutoSize = true;
             lblNewPass.Font = new Font("Segoe UI", 10F);
-            lblNewPass.ForeColor = Color.Gainsboro;
-            lblNewPass.Location = new Point(40, 150);
+            lblNewPass.ForeColor = Color.Black;
+            lblNewPass.Location = new Point(40, 140);
             lblNewPass.Name = "lblNewPass";
             lblNewPass.Size = new Size(95, 19);
             lblNewPass.TabIndex = 3;
@@ -163,8 +145,8 @@ namespace WinFormsfinal
             // 
             lblReNewPass.AutoSize = true;
             lblReNewPass.Font = new Font("Segoe UI", 10F);
-            lblReNewPass.ForeColor = Color.Gainsboro;
-            lblReNewPass.Location = new Point(40, 195);
+            lblReNewPass.ForeColor = Color.Black;
+            lblReNewPass.Location = new Point(40, 180);
             lblReNewPass.Name = "lblReNewPass";
             lblReNewPass.Size = new Size(121, 19);
             lblReNewPass.TabIndex = 4;
@@ -173,79 +155,83 @@ namespace WinFormsfinal
             // txtUser
             // 
             txtUser.BorderRadius = 8;
-            txtUser.CustomizableEdges = customizableEdges1;
             txtUser.DefaultText = "";
-            txtUser.FillColor = Color.FromArgb(33, 38, 45);
+            txtUser.FillColor = Color.White;
             txtUser.Font = new Font("Segoe UI", 10F);
-            txtUser.ForeColor = Color.White;
-            txtUser.Location = new Point(170, 57);
+            txtUser.ForeColor = Color.Black;
+            txtUser.Location = new Point(170, 58);
             txtUser.Name = "txtUser";
             txtUser.PlaceholderText = "Nhập tài khoản...";
             txtUser.SelectedText = "";
-            txtUser.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            txtUser.Size = new Size(190, 24);
+            txtUser.Size = new Size(190, 26);
             txtUser.TabIndex = 5;
             // 
             // txtEmail
             // 
             txtEmail.BorderRadius = 8;
-            txtEmail.CustomizableEdges = customizableEdges3;
             txtEmail.DefaultText = "";
-            txtEmail.FillColor = Color.FromArgb(33, 38, 45);
+            txtEmail.FillColor = Color.White;
             txtEmail.Font = new Font("Segoe UI", 10F);
-            txtEmail.ForeColor = Color.White;
-            txtEmail.Location = new Point(170, 102);
+            txtEmail.ForeColor = Color.Black;
+            txtEmail.Location = new Point(170, 98);
             txtEmail.Name = "txtEmail";
             txtEmail.PlaceholderText = "Nhập email...";
             txtEmail.SelectedText = "";
-            txtEmail.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            txtEmail.Size = new Size(190, 24);
+            txtEmail.Size = new Size(190, 26);
             txtEmail.TabIndex = 6;
             // 
             // txtNewPass
             // 
             txtNewPass.BorderRadius = 8;
-            txtNewPass.CustomizableEdges = customizableEdges5;
             txtNewPass.DefaultText = "";
-            txtNewPass.FillColor = Color.FromArgb(33, 38, 45);
+            txtNewPass.FillColor = Color.White;
             txtNewPass.Font = new Font("Segoe UI", 10F);
-            txtNewPass.ForeColor = Color.White;
-            txtNewPass.Location = new Point(170, 147);
+            txtNewPass.ForeColor = Color.Black;
+            txtNewPass.Location = new Point(170, 138);
             txtNewPass.Name = "txtNewPass";
             txtNewPass.PasswordChar = '●';
             txtNewPass.PlaceholderText = "Mật khẩu mới...";
             txtNewPass.SelectedText = "";
-            txtNewPass.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            txtNewPass.Size = new Size(190, 24);
+            txtNewPass.Size = new Size(190, 26);
             txtNewPass.TabIndex = 7;
             // 
             // txtReNewPass
             // 
             txtReNewPass.BorderRadius = 8;
-            txtReNewPass.CustomizableEdges = customizableEdges7;
             txtReNewPass.DefaultText = "";
-            txtReNewPass.FillColor = Color.FromArgb(33, 38, 45);
+            txtReNewPass.FillColor = Color.White;
             txtReNewPass.Font = new Font("Segoe UI", 10F);
-            txtReNewPass.ForeColor = Color.White;
-            txtReNewPass.Location = new Point(170, 192);
+            txtReNewPass.ForeColor = Color.Black;
+            txtReNewPass.Location = new Point(170, 178);
             txtReNewPass.Name = "txtReNewPass";
             txtReNewPass.PasswordChar = '●';
             txtReNewPass.PlaceholderText = "Nhập lại mật khẩu...";
             txtReNewPass.SelectedText = "";
-            txtReNewPass.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            txtReNewPass.Size = new Size(190, 24);
+            txtReNewPass.Size = new Size(190, 26);
             txtReNewPass.TabIndex = 8;
+            // 
+            // lblForgotError
+            // 
+            lblForgotError.BackColor = Color.Transparent;
+            lblForgotError.ForeColor = Color.FromArgb(255, 80, 80);
+            lblForgotError.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblForgotError.Location = new Point(170, 210); // vị trí tạm, sẽ override trong code
+            lblForgotError.Name = "lblForgotError";
+            lblForgotError.Size = new Size(190, 26);
+            lblForgotError.TabIndex = 11;
+            lblForgotError.Text = "";
+            lblForgotError.TextAlignment = ContentAlignment.MiddleCenter;
+            lblForgotError.AutoSize = false;
+            lblForgotError.Visible = false;
             // 
             // btnChange
             // 
             btnChange.BorderRadius = 10;
-            btnChange.CustomizableEdges = customizableEdges9;
             btnChange.FillColor = Color.FromArgb(0, 120, 215);
             btnChange.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnChange.ForeColor = Color.White;
-            btnChange.Location = new Point(70, 225);
+            btnChange.Location = new Point(70, 240);
             btnChange.Name = "btnChange";
-            btnChange.ShadowDecoration.CustomizableEdges = customizableEdges10;
             btnChange.Size = new Size(120, 30);
             btnChange.TabIndex = 9;
             btnChange.Text = "Đổi mật khẩu";
@@ -254,13 +240,11 @@ namespace WinFormsfinal
             // btnCancel
             // 
             btnCancel.BorderRadius = 10;
-            btnCancel.CustomizableEdges = customizableEdges11;
             btnCancel.FillColor = Color.FromArgb(108, 117, 125);
             btnCancel.Font = new Font("Segoe UI", 10F);
             btnCancel.ForeColor = Color.White;
-            btnCancel.Location = new Point(210, 225);
+            btnCancel.Location = new Point(210, 240);
             btnCancel.Name = "btnCancel";
-            btnCancel.ShadowDecoration.CustomizableEdges = customizableEdges12;
             btnCancel.Size = new Size(120, 30);
             btnCancel.TabIndex = 10;
             btnCancel.Text = "Hủy";
@@ -270,12 +254,10 @@ namespace WinFormsfinal
             // 
             controlBoxMin.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             controlBoxMin.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
-            controlBoxMin.CustomizableEdges = customizableEdges15;
             controlBoxMin.FillColor = Color.Transparent;
-            controlBoxMin.IconColor = Color.White;
+            controlBoxMin.IconColor = Color.Black;
             controlBoxMin.Location = new Point(769, 5);
             controlBoxMin.Name = "controlBoxMin";
-            controlBoxMin.ShadowDecoration.CustomizableEdges = customizableEdges16;
             controlBoxMin.Size = new Size(35, 25);
             controlBoxMin.TabIndex = 1;
             // 
@@ -283,24 +265,20 @@ namespace WinFormsfinal
             // 
             controlBoxMax.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             controlBoxMax.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MaximizeBox;
-            controlBoxMax.CustomizableEdges = customizableEdges17;
             controlBoxMax.FillColor = Color.Transparent;
-            controlBoxMax.IconColor = Color.White;
+            controlBoxMax.IconColor = Color.Black;
             controlBoxMax.Location = new Point(810, 5);
             controlBoxMax.Name = "controlBoxMax";
-            controlBoxMax.ShadowDecoration.CustomizableEdges = customizableEdges18;
             controlBoxMax.Size = new Size(35, 25);
             controlBoxMax.TabIndex = 2;
             // 
             // controlBoxClose
             // 
             controlBoxClose.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            controlBoxClose.CustomizableEdges = customizableEdges19;
             controlBoxClose.FillColor = Color.Transparent;
-            controlBoxClose.IconColor = Color.White;
+            controlBoxClose.IconColor = Color.Black;
             controlBoxClose.Location = new Point(851, 5);
             controlBoxClose.Name = "controlBoxClose";
-            controlBoxClose.ShadowDecoration.CustomizableEdges = customizableEdges20;
             controlBoxClose.Size = new Size(35, 25);
             controlBoxClose.TabIndex = 3;
             // 
@@ -308,7 +286,7 @@ namespace WinFormsfinal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(22, 27, 34);
+            BackColor = Color.White;
             ClientSize = new Size(900, 550);
             Controls.Add(panelForgot);
             Controls.Add(controlBoxMin);

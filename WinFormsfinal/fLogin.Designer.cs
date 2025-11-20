@@ -138,15 +138,25 @@ namespace WinFormsfinal
             panelLoginFields.FillColor = Color.Transparent;
             panelLoginFields.Visible = false;
 
+            // btnBack
             btnBack.BorderRadius = 8;
             btnBack.CustomizableEdges = ce3;
-            btnBack.FillColor = Color.FromArgb(108, 117, 125);
+
+            // ĐỔI THÀNH STYLE NÀY:
+            btnBack.FillColor = Color.White;
+            btnBack.ForeColor = Color.Black;
+            btnBack.BorderColor = Color.FromArgb(200, 200, 200);
+            btnBack.BorderThickness = 1;
+            btnBack.HoverState.FillColor = Color.FromArgb(245, 245, 245);
+            btnBack.HoverState.BorderColor = Color.FromArgb(180, 180, 180);
+
+            // GIỮ NGUYÊN MẤY DÒNG CÒN LẠI
             btnBack.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnBack.ForeColor = Color.White;
             btnBack.Size = new Size(100, 28);
             btnBack.Location = new Point(12, 12);
             btnBack.Text = "← Quay lại";
             btnBack.Click += btnBack_Click;
+
 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
@@ -219,7 +229,7 @@ namespace WinFormsfinal
             lblAuthError.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblAuthError.AutoSize = false;
             lblAuthError.TextAlignment = ContentAlignment.MiddleCenter;
-            lblAuthError.Size = new Size(315, 22);
+            lblAuthError.Size = new Size(315, 30);
             lblAuthError.Location = new Point(61, 232); // sẽ được canh lại ở code-behind
             lblAuthError.Visible = false;
             lblAuthError.Text = "";

@@ -7,22 +7,22 @@ namespace WinFormsfinal
 {
     public partial class Form1 : Form
     {
-        // Lưu vai trò của tài khoản đang đăng nhập
+        // Lưu vai trò và tài khoản đang đăng nhập
         private readonly string _vaiTro = string.Empty;
+        private readonly string _username = string.Empty;
 
-
-        // Constructor mặc định (dùng cho Designer)
+        // Constructor mặc định (Designer dùng)
         public Form1()
         {
             InitializeComponent();
-            // đảm bảo thanh menu nằm trên panelContent
             guna2Panel1.BringToFront();
         }
 
-        // Constructor nhận VaiTro từ form đăng nhập
-        public Form1(string vaiTro) : this()
+        // Constructor nhận username + vai trò từ form đăng nhập
+        public Form1(string username, string vaiTro) : this()
         {
-            _vaiTro = vaiTro ?? string.Empty;
+            _username = username ?? string.Empty;
+            _vaiTro   = vaiTro    ?? string.Empty;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -36,14 +36,21 @@ namespace WinFormsfinal
                 label2.Text = "Khu vực quản trị hệ thống";
             }
 
-            // Chỉ cho Admin thấy nút Thống kê
-            if (!string.Equals(_vaiTro, "Admin", StringComparison.OrdinalIgnoreCase))
-            {
-                btnThongKe.Visible = false;
-            }
+            bool isAdmin = string.Equals(_vaiTro, "Admin", StringComparison.OrdinalIgnoreCase);
+            bool isCustomer = string.Equals(_vaiTro, "KhachHang", StringComparison.OrdinalIgnoreCase);
+
+            // Chỉ admin
+            btnThongKe.Visible    = isAdmin;
+            btnNguoiDoc.Visible   = isAdmin;
+            btnKho.Visible        = isAdmin;
+            btnPhong.Visible      = isAdmin;
+            btnSach.Visible       = isAdmin;
+
+            // Chỉ khách hàng
+            btnThongTinCN.Visible = isCustomer;
+            btnTheThuVien.Visible = isCustomer;
+
         }
-
-
 
         /// <summary>
         /// Trang chủ khách hàng: Giới thiệu + quy định làm thẻ thư viện
@@ -64,7 +71,6 @@ namespace WinFormsfinal
             card.ShadowDecoration.BorderRadius = 20;
             card.ShadowDecoration.Shadow = new Padding(0, 0, 10, 10);
 
-            // ----- Tiêu đề -----
             var lblHello = new Label
             {
                 AutoSize = true,
@@ -83,7 +89,6 @@ namespace WinFormsfinal
                 Location = new Point(30, 65)
             };
 
-            // ----- Giới thiệu -----
             var lblIntro = new Label
             {
                 AutoSize = true,
@@ -97,7 +102,6 @@ namespace WinFormsfinal
                     "được dùng để xác nhận thông tin khi giao dịch tại quầy."
             };
 
-            // ----- Quy trình -----
             var lblStepTitle = new Label
             {
                 AutoSize = true,
@@ -121,7 +125,6 @@ namespace WinFormsfinal
                     "• Bước 4: Nhận thẻ thư viện, thời hạn sử dụng tối đa 2–4 năm tùy đối tượng."
             };
 
-            // ----- Quy định -----
             var lblRuleTitle = new Label
             {
                 AutoSize = true,
@@ -146,7 +149,6 @@ namespace WinFormsfinal
                     "• Tuân thủ nội quy phòng đọc, giữ gìn trật tự và bảo vệ tài sản chung."
             };
 
-            // ----- Nút hướng dẫn -----
             var btnHuongDan = new Guna2Button
             {
                 BorderRadius = 12,
@@ -183,16 +185,6 @@ namespace WinFormsfinal
             panelContent.Resize += PanelContent_Resize;
         }
 
-
-        /// <summary>
-        /// Trang chủ giới thiệu thư viện (hiển thị khi bấm vào logo)
-        /// </summary>
-        /// <summary>
-        /// Trang chủ giới thiệu thư viện (full màn hình trong panelContent)
-        /// </summary>
-        /// <summary>
-        /// Trang chủ giống giao diện web: banner trên + 3 thẻ dịch vụ bên dưới
-        /// </summary>
         private void ShowLibraryHome()
         {
             panelContent.Controls.Clear();
@@ -200,16 +192,6 @@ namespace WinFormsfinal
             home.Dock = DockStyle.Fill;
             panelContent.Controls.Add(home);
         }
-
-
-
-
-
-
-
-
-
-
 
         private void PanelContent_Resize(object? sender, EventArgs e)
         {
@@ -228,58 +210,92 @@ namespace WinFormsfinal
             card.Location = new Point(x, y);
         }
 
-        // ================== CÁC SỰ KIỆN MENU CŨ ==================
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             guna2ContextMenuStrip1.Show(btnSach, 0, btnSach.Height);
         }
+
         private void btnThongKe_Click(object sender, EventArgs e)
-{
-    // Chỉ Admin mới xem được
-    if (!string.Equals(_vaiTro, "Admin", StringComparison.OrdinalIgnoreCase))
-    {
-        MessageBox.Show(
-            "Chức năng thống kê chỉ dành cho tài khoản Admin.",
-            "Thông báo",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Warning);
-        return;
-    }
+        {
+            if (!string.Equals(_vaiTro, "Admin", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show(
+                    "Chức năng thống kê chỉ dành cho tài khoản Admin.",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
 
-    // XÓA sạch các control cũ trong panelContent
-    panelContent.Controls.Clear();
-
-    // Tạo ThongKeControl và cho nó chiếm toàn bộ panelContent
-    var tk = new ThongKeControl();
-    tk.Dock = DockStyle.Fill;
-
-    panelContent.Controls.Add(tk);
-}
-
-
-
+            panelContent.Controls.Clear();
+            var tk = new ThongKeControl();
+            tk.Dock = DockStyle.Fill;
+            panelContent.Controls.Add(tk);
+        }
 
         private void btnPhong_Click(object sender, EventArgs e)
         {
             contextMenuStrip1.Show(btnPhong, 0, btnPhong.Height);
         }
 
-        private void guna2Button1_Click_1(object sender, EventArgs e)
-        {
-        }
+        private void guna2Button1_Click_1(object sender, EventArgs e) { }
 
-        private void btnNguoiDoc_Click(object sender, EventArgs e)
-        {
-        }
+        private void btnNguoiDoc_Click(object sender, EventArgs e) { }
 
-        // Nút "Làm thẻ thư viện"
         private void btnTheThuVien_Click(object sender, EventArgs e)
         {
-            ShowCustomerHome();
+            if (string.IsNullOrEmpty(_username))
+            {
+                MessageBox.Show("Không xác định được tài khoản đang đăng nhập.", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (var frm = new fTheThuVien(_username))
+            {
+                frm.StartPosition = FormStartPosition.CenterParent;
+                frm.ShowDialog(this);
+            }
         }
+
+
         private void guna2PictureBox1_Click(object sender, EventArgs e)
         {
             ShowLibraryHome();
+        }
+
+        private void btnLogOut_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show(
+                "Bạn có chắc chắn muốn đăng xuất không?",
+                "Đăng xuất",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                var loginForm = new fLogin();
+                loginForm.Show();
+                this.Close();
+            }
+        }
+
+        // THÔNG TIN CÁ NHÂN – mở form con kiểu “MDI style”
+        private void btnThongTinCN_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(_username))
+            {
+                MessageBox.Show("Không xác định được tài khoản đang đăng nhập.", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Form con hiển thị / chỉnh sửa thông tin cá nhân
+            using (var frm = new fThongTinCaNhan(_username))
+            {
+                frm.StartPosition = FormStartPosition.CenterParent;
+                frm.ShowDialog(this);     // show như cửa sổ con trên Form1
+            }
         }
     }
 }
