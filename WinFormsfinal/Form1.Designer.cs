@@ -1,4 +1,9 @@
-﻿namespace WinFormsfinal
+﻿using Guna.UI2.WinForms;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace WinFormsfinal
 {
     partial class Form1
     {
@@ -287,6 +292,7 @@
             label1.Size = new Size(169, 30);
             label1.TabIndex = 1;
             label1.Text = "Thư viện Alpha";
+            label1.Click += label1_Click;
             // 
             // panelContent
             // 
@@ -384,8 +390,7 @@
         private ToolStripMenuItem đơnĐặtPhòngToolStripMenuItem;
         private Guna.UI2.WinForms.Guna2Panel panelContent;
         private Guna.UI2.WinForms.Guna2Button btnTheThuVien;
-
-        // NÚT MỚI
         private Guna.UI2.WinForms.Guna2Button btnThongTinCN;
+
     }
 }
