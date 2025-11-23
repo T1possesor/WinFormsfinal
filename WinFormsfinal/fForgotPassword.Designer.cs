@@ -22,6 +22,9 @@ namespace WinFormsfinal
         private Guna2TextBox txtNewPass;
         private Guna2TextBox txtReNewPass;
 
+        private Guna2Button btnToggleNewPass;    // 👁 cho NewPass
+        private Guna2Button btnToggleReNewPass;  // 👁 cho ReNewPass
+
         private Guna2Button btnChange;
         private Guna2Button btnCancel;
 
@@ -33,10 +36,7 @@ namespace WinFormsfinal
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
+            if (disposing && (components != null)) components.Dispose();
             base.Dispose(disposing);
         }
 
@@ -47,33 +47,39 @@ namespace WinFormsfinal
             components = new System.ComponentModel.Container();
             guna2BorderlessForm1 = new Guna2BorderlessForm(components);
             panelForgot = new Guna2Panel();
+
             lblTitle = new Label();
             lblUser = new Label();
             lblEmail = new Label();
             lblNewPass = new Label();
             lblReNewPass = new Label();
+
             txtUser = new Guna2TextBox();
             txtEmail = new Guna2TextBox();
             txtNewPass = new Guna2TextBox();
             txtReNewPass = new Guna2TextBox();
+
+            btnToggleNewPass = new Guna2Button();
+            btnToggleReNewPass = new Guna2Button();
+
             btnChange = new Guna2Button();
             btnCancel = new Guna2Button();
             lblForgotError = new Guna2HtmlLabel();
+
             controlBoxMin = new Guna2ControlBox();
             controlBoxMax = new Guna2ControlBox();
             controlBoxClose = new Guna2ControlBox();
+
             panelForgot.SuspendLayout();
             SuspendLayout();
-            // 
-            // guna2BorderlessForm1
-            // 
+
+            // ===== Borderless =====
             guna2BorderlessForm1.BorderRadius = 20;
             guna2BorderlessForm1.ContainerControl = this;
             guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             guna2BorderlessForm1.TransparentWhileDrag = true;
-            // 
-            // panelForgot
-            // 
+
+            // ===== Panel card =====
             panelForgot.BackColor = Color.Transparent;
             panelForgot.BorderRadius = 20;
             panelForgot.FillColor = Color.FromArgb(240, 240, 240);
@@ -84,21 +90,8 @@ namespace WinFormsfinal
             panelForgot.ShadowDecoration.Shadow = new Padding(0, 0, 6, 6);
             panelForgot.Size = new Size(400, 310);
             panelForgot.TabIndex = 0;
-            panelForgot.Controls.Add(lblTitle);
-            panelForgot.Controls.Add(lblUser);
-            panelForgot.Controls.Add(lblEmail);
-            panelForgot.Controls.Add(lblNewPass);
-            panelForgot.Controls.Add(lblReNewPass);
-            panelForgot.Controls.Add(txtUser);
-            panelForgot.Controls.Add(txtEmail);
-            panelForgot.Controls.Add(txtNewPass);
-            panelForgot.Controls.Add(txtReNewPass);
-            panelForgot.Controls.Add(lblForgotError);
-            panelForgot.Controls.Add(btnChange);
-            panelForgot.Controls.Add(btnCancel);
-            // 
-            // lblTitle
-            // 
+
+            // ===== Title =====
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             lblTitle.ForeColor = Color.Black;
@@ -107,9 +100,8 @@ namespace WinFormsfinal
             lblTitle.Size = new Size(171, 30);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Quên mật khẩu";
-            // 
-            // lblUser
-            // 
+
+            // ===== Labels =====
             lblUser.AutoSize = true;
             lblUser.Font = new Font("Segoe UI", 10F);
             lblUser.ForeColor = Color.Black;
@@ -118,9 +110,7 @@ namespace WinFormsfinal
             lblUser.Size = new Size(66, 19);
             lblUser.TabIndex = 1;
             lblUser.Text = "Tài khoản";
-            // 
-            // lblEmail
-            // 
+
             lblEmail.AutoSize = true;
             lblEmail.Font = new Font("Segoe UI", 10F);
             lblEmail.ForeColor = Color.Black;
@@ -129,9 +119,7 @@ namespace WinFormsfinal
             lblEmail.Size = new Size(41, 19);
             lblEmail.TabIndex = 2;
             lblEmail.Text = "Email";
-            // 
-            // lblNewPass
-            // 
+
             lblNewPass.AutoSize = true;
             lblNewPass.Font = new Font("Segoe UI", 10F);
             lblNewPass.ForeColor = Color.Black;
@@ -140,9 +128,7 @@ namespace WinFormsfinal
             lblNewPass.Size = new Size(95, 19);
             lblNewPass.TabIndex = 3;
             lblNewPass.Text = "Mật khẩu mới";
-            // 
-            // lblReNewPass
-            // 
+
             lblReNewPass.AutoSize = true;
             lblReNewPass.Font = new Font("Segoe UI", 10F);
             lblReNewPass.ForeColor = Color.Black;
@@ -151,9 +137,8 @@ namespace WinFormsfinal
             lblReNewPass.Size = new Size(121, 19);
             lblReNewPass.TabIndex = 4;
             lblReNewPass.Text = "Nhập lại mật khẩu";
-            // 
-            // txtUser
-            // 
+
+            // ===== Textboxes =====
             txtUser.BorderRadius = 8;
             txtUser.DefaultText = "";
             txtUser.FillColor = Color.White;
@@ -165,9 +150,7 @@ namespace WinFormsfinal
             txtUser.SelectedText = "";
             txtUser.Size = new Size(190, 26);
             txtUser.TabIndex = 5;
-            // 
-            // txtEmail
-            // 
+
             txtEmail.BorderRadius = 8;
             txtEmail.DefaultText = "";
             txtEmail.FillColor = Color.White;
@@ -179,9 +162,7 @@ namespace WinFormsfinal
             txtEmail.SelectedText = "";
             txtEmail.Size = new Size(190, 26);
             txtEmail.TabIndex = 6;
-            // 
-            // txtNewPass
-            // 
+
             txtNewPass.BorderRadius = 8;
             txtNewPass.DefaultText = "";
             txtNewPass.FillColor = Color.White;
@@ -194,9 +175,7 @@ namespace WinFormsfinal
             txtNewPass.SelectedText = "";
             txtNewPass.Size = new Size(190, 26);
             txtNewPass.TabIndex = 7;
-            // 
-            // txtReNewPass
-            // 
+
             txtReNewPass.BorderRadius = 8;
             txtReNewPass.DefaultText = "";
             txtReNewPass.FillColor = Color.White;
@@ -209,13 +188,12 @@ namespace WinFormsfinal
             txtReNewPass.SelectedText = "";
             txtReNewPass.Size = new Size(190, 26);
             txtReNewPass.TabIndex = 8;
-            // 
-            // lblForgotError
-            // 
+
+            // ===== Label lỗi dưới 2 textbox mật khẩu =====
             lblForgotError.BackColor = Color.Transparent;
             lblForgotError.ForeColor = Color.FromArgb(255, 80, 80);
             lblForgotError.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblForgotError.Location = new Point(170, 210); // vị trí tạm, sẽ override trong code
+            lblForgotError.Location = new Point(170, 210); // sẽ override trong code-behind
             lblForgotError.Name = "lblForgotError";
             lblForgotError.Size = new Size(190, 26);
             lblForgotError.TabIndex = 11;
@@ -223,9 +201,33 @@ namespace WinFormsfinal
             lblForgotError.TextAlignment = ContentAlignment.MiddleCenter;
             lblForgotError.AutoSize = false;
             lblForgotError.Visible = false;
-            // 
-            // btnChange
-            // 
+
+            // ===== Buttons con mắt (sẽ được re-parent vào TextBox trong SetupEyeButtons) =====
+            btnToggleNewPass.BorderRadius = 8;
+            btnToggleNewPass.FillColor = Color.FromArgb(250, 250, 250);
+            btnToggleNewPass.Font = new Font("Segoe UI", 9F);
+            btnToggleNewPass.ForeColor = Color.Black;
+            btnToggleNewPass.HoverState.FillColor = Color.FromArgb(240, 240, 240);
+            btnToggleNewPass.PressedColor = Color.FromArgb(230, 230, 230);
+            btnToggleNewPass.Size = new Size(35, 26);
+            btnToggleNewPass.Location = new Point(0, 0); // sẽ đặt lại trong SetupEyeButtons
+            btnToggleNewPass.Name = "btnToggleNewPass";
+            btnToggleNewPass.Text = "👁";
+            btnToggleNewPass.Click += btnToggleNewPass_Click;
+
+            btnToggleReNewPass.BorderRadius = 8;
+            btnToggleReNewPass.FillColor = Color.FromArgb(250, 250, 250);
+            btnToggleReNewPass.Font = new Font("Segoe UI", 9F);
+            btnToggleReNewPass.ForeColor = Color.Black;
+            btnToggleReNewPass.HoverState.FillColor = Color.FromArgb(240, 240, 240);
+            btnToggleReNewPass.PressedColor = Color.FromArgb(230, 230, 230);
+            btnToggleReNewPass.Size = new Size(35, 26);
+            btnToggleReNewPass.Location = new Point(0, 0); // sẽ đặt lại trong SetupEyeButtons
+            btnToggleReNewPass.Name = "btnToggleReNewPass";
+            btnToggleReNewPass.Text = "👁";
+            btnToggleReNewPass.Click += btnToggleReNewPass_Click;
+
+            // ===== Buttons đổi/hủy =====
             btnChange.BorderRadius = 10;
             btnChange.FillColor = Color.FromArgb(0, 120, 215);
             btnChange.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
@@ -236,9 +238,7 @@ namespace WinFormsfinal
             btnChange.TabIndex = 9;
             btnChange.Text = "Đổi mật khẩu";
             btnChange.Click += btnChange_Click;
-            // 
-            // btnCancel
-            // 
+
             btnCancel.BorderRadius = 10;
             btnCancel.FillColor = Color.FromArgb(108, 117, 125);
             btnCancel.Font = new Font("Segoe UI", 10F);
@@ -249,9 +249,8 @@ namespace WinFormsfinal
             btnCancel.TabIndex = 10;
             btnCancel.Text = "Hủy";
             btnCancel.Click += btnCancel_Click;
-            // 
-            // controlBoxMin
-            // 
+
+            // ===== Control boxes =====
             controlBoxMin.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             controlBoxMin.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
             controlBoxMin.FillColor = Color.Transparent;
@@ -260,9 +259,7 @@ namespace WinFormsfinal
             controlBoxMin.Name = "controlBoxMin";
             controlBoxMin.Size = new Size(35, 25);
             controlBoxMin.TabIndex = 1;
-            // 
-            // controlBoxMax
-            // 
+
             controlBoxMax.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             controlBoxMax.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MaximizeBox;
             controlBoxMax.FillColor = Color.Transparent;
@@ -271,9 +268,7 @@ namespace WinFormsfinal
             controlBoxMax.Name = "controlBoxMax";
             controlBoxMax.Size = new Size(35, 25);
             controlBoxMax.TabIndex = 2;
-            // 
-            // controlBoxClose
-            // 
+
             controlBoxClose.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             controlBoxClose.FillColor = Color.Transparent;
             controlBoxClose.IconColor = Color.Black;
@@ -281,9 +276,27 @@ namespace WinFormsfinal
             controlBoxClose.Name = "controlBoxClose";
             controlBoxClose.Size = new Size(35, 25);
             controlBoxClose.TabIndex = 3;
-            // 
-            // fForgotPassword
-            // 
+
+            // ===== Add controls vào panel =====
+            panelForgot.Controls.Add(lblTitle);
+            panelForgot.Controls.Add(lblUser);
+            panelForgot.Controls.Add(lblEmail);
+            panelForgot.Controls.Add(lblNewPass);
+            panelForgot.Controls.Add(lblReNewPass);
+            panelForgot.Controls.Add(txtUser);
+            panelForgot.Controls.Add(txtEmail);
+            panelForgot.Controls.Add(txtNewPass);
+            panelForgot.Controls.Add(txtReNewPass);
+            panelForgot.Controls.Add(lblForgotError);
+
+            // Thêm 2 nút “mắt” vào panel trước; sẽ re-parent sang TextBox trong SetupEyeButtons()
+            panelForgot.Controls.Add(btnToggleNewPass);
+            panelForgot.Controls.Add(btnToggleReNewPass);
+
+            panelForgot.Controls.Add(btnChange);
+            panelForgot.Controls.Add(btnCancel);
+
+            // ===== Form =====
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
@@ -296,6 +309,7 @@ namespace WinFormsfinal
             Name = "fForgotPassword";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Quên mật khẩu";
+
             panelForgot.ResumeLayout(false);
             panelForgot.PerformLayout();
             ResumeLayout(false);

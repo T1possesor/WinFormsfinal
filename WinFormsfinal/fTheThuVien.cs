@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Drawing;                // THÊM
+using System.Globalization;          // THÊM: để parse/format ngày
 using System.Windows.Forms;
 using Microsoft.Data.Sqlite;
 
@@ -30,6 +32,87 @@ namespace WinFormsfinal
             return $"Data Source={dbPath}";
         }
 
+        // BẢO ĐẢM có cột HinhAnh (an toàn khi DB cũ)
+        private void EnsureNguoiDungHasImageColumn(SqliteConnection conn)
+        {
+            try
+            {
+                bool hasCol = false;
+                using (var cmd = new SqliteCommand("PRAGMA table_info(NguoiDung);", conn))
+                using (var rd = cmd.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        if (string.Equals(rd["name"]?.ToString(), "HinhAnh", StringComparison.OrdinalIgnoreCase))
+                        {
+                            hasCol = true; break;
+                        }
+                    }
+                }
+                if (!hasCol)
+                {
+                    using var alter = new SqliteCommand("ALTER TABLE NguoiDung ADD COLUMN HinhAnh BLOB NULL;", conn);
+                    alter.ExecuteNonQuery();
+                }
+            }
+            catch { /* bỏ qua nếu đã có */ }
+        }
+
+        // Convert byte[] -> Image
+        private static Image? BytesToImage(byte[]? data)
+        {
+            if (data == null || data.Length == 0) return null;
+            using var ms = new MemoryStream(data);
+            return Image.FromStream(ms);
+        }
+
+        // Crop giữa ảnh thành hình vuông và scale về đúng cạnh edge (giống form thông tin cá nhân)
+        private static Image MakeSquare(Image src, int edge)
+        {
+            int side = Math.Min(src.Width, src.Height);
+            int x = (src.Width - side) / 2;
+            int y = (src.Height - side) / 2;
+
+            using var square = new Bitmap(side, side);
+            using (var g = Graphics.FromImage(square))
+            {
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode     = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g.PixelOffsetMode   = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                g.DrawImage(src, new Rectangle(0, 0, side, side), new Rectangle(x, y, side, side), GraphicsUnit.Pixel);
+            }
+
+            var bmp = new Bitmap(edge, edge);
+            using (var g2 = Graphics.FromImage(bmp))
+            {
+                g2.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                g2.SmoothingMode     = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g2.PixelOffsetMode   = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                g2.DrawImage(square, 0, 0, edge, edge);
+            }
+            return bmp;
+        }
+
+        // Helper: cố gắng parse chuỗi ngày theo nhiều định dạng, để hiển thị dd/MM/yyyy
+        private static bool TryParseDateFlexible(string input, out DateTime d)
+        {
+            d = default;
+            if (string.IsNullOrWhiteSpace(input)) return false;
+
+            var vi = CultureInfo.GetCultureInfo("vi-VN");
+            string[] formats =
+            {
+                "dd/MM/yyyy", "d/M/yyyy",
+                "dd-MM-yyyy", "d-M-yyyy",
+                "yyyy-MM-dd", "yyyy/MM/dd",
+                "MM/dd/yyyy", "M/d/yyyy"
+            };
+
+            return DateTime.TryParseExact(input, formats, vi, DateTimeStyles.None, out d)
+                || DateTime.TryParse(input, vi, DateTimeStyles.None, out d)
+                || DateTime.TryParse(input, CultureInfo.InvariantCulture, DateTimeStyles.None, out d);
+        }
+
         private void fTheThuVien_Load(object? sender, EventArgs e)
         {
             try
@@ -37,6 +120,8 @@ namespace WinFormsfinal
                 using (var conn = new SqliteConnection(GetConnectionString()))
                 {
                     conn.Open();
+
+                    EnsureNguoiDungHasImageColumn(conn);
 
                     string sql = @"
                         SELECT tk.TenDangNhap,
@@ -49,7 +134,8 @@ namespace WinFormsfinal
                                nd.DiaChi,
                                nd.NgayTaoThe,
                                nd.NgayHetHanThe,
-                               nd.TrangThai
+                               nd.TrangThai,
+                               nd.HinhAnh                -- THÊM
                         FROM TaiKhoan tk
                         LEFT JOIN NguoiDung nd ON tk.MaNguoiDung = nd.MaNguoiDung
                         WHERE tk.TenDangNhap = @user
@@ -84,15 +170,47 @@ namespace WinFormsfinal
                                 txtSDT.Text        = rd["SoDienThoai"]    as string ?? "";
                                 txtEmail.Text      = rd["Email"]          as string ?? "";
                                 txtDiaChi.Text     = rd["DiaChi"]         as string ?? "";
-                                txtNgayTao.Text    = rd["NgayTaoThe"]     as string ?? "";
-                                txtNgayHetHan.Text = rd["NgayHetHanThe"]  as string ?? "";
+
+                                // ==== Định dạng Ngày tạo thẻ & Ngày hết hạn thẻ thành dd/MM/yyyy nếu có thể ====
+                                var ntVal = rd["NgayTaoThe"];
+                                if (ntVal != DBNull.Value)
+                                {
+                                    var raw = ntVal.ToString();
+                                    if (TryParseDateFlexible(raw!, out var d))
+                                        txtNgayTao.Text = d.ToString("dd/MM/yyyy");
+                                    else
+                                        txtNgayTao.Text = raw ?? "";
+                                }
+                                else txtNgayTao.Text = "";
+
+                                var nhhVal = rd["NgayHetHanThe"];
+                                if (nhhVal != DBNull.Value)
+                                {
+                                    var raw = nhhVal.ToString();
+                                    if (TryParseDateFlexible(raw!, out var d))
+                                        txtNgayHetHan.Text = d.ToString("dd/MM/yyyy");
+                                    else
+                                        txtNgayHetHan.Text = raw ?? "";
+                                }
+                                else txtNgayHetHan.Text = "";
 
                                 string trangThai = rd["TrangThai"] as string ?? "";
                                 txtTrangThai.Text = trangThai;
 
-                                // nếu trạng thái BiKhoa thì hiện nút Thanh toán
                                 btnThanhToan.Visible =
                                     string.Equals(trangThai, "BiKhoa", StringComparison.OrdinalIgnoreCase);
+
+                                // ==== ẢNH THẺ ====
+                                if (rd["HinhAnh"] != DBNull.Value)
+                                {
+                                    var bytes = (byte[])rd["HinhAnh"];
+                                    var img = BytesToImage(bytes);
+                                    picAvatar.Image = (img != null) ? MakeSquare(img, picAvatar.Width) : null;
+                                }
+                                else
+                                {
+                                    picAvatar.Image = null; // hoặc đặt ảnh mặc định
+                                }
                             }
                             else
                             {

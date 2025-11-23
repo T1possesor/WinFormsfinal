@@ -41,6 +41,11 @@ namespace WinFormsfinal
         private Guna2Button btnDong;
         private Guna2HtmlLabel lblError;
 
+        // Ảnh
+        private Guna2CirclePictureBox picAvatar;
+        private Guna2Button btnChonAnh;
+        private Guna2Button btnXoaAnh;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -102,6 +107,11 @@ namespace WinFormsfinal
             btnDong = new Guna2Button();
             lblError= new Guna2HtmlLabel();
 
+            // Avatar & nút ảnh
+            picAvatar = new Guna2CirclePictureBox();
+            btnChonAnh = new Guna2Button();
+            btnXoaAnh  = new Guna2Button();
+
             SuspendLayout();
             panelMain.SuspendLayout();
             groupPass.SuspendLayout();
@@ -152,10 +162,10 @@ namespace WinFormsfinal
             txtHoTen.BorderRadius = 8;
             txtHoTen.CustomizableEdges = ceTxt1;
             txtHoTen.Location = new Point(leftInput, topFirst - 3);
-            txtHoTen.Size = new Size(650, 28);
+            txtHoTen.Size = new Size(450, 28);
             txtHoTen.Font = new Font("Segoe UI", 10F);
 
-            // Ngày sinh (row 1)  **** MỚI ****
+            // Ngày sinh (row 1)
             lblNgaySinh.AutoSize = true;
             lblNgaySinh.Font = new Font("Segoe UI", 10F);
             lblNgaySinh.Location = new Point(leftLabel, topFirst + (lineHeight + gap) * 1);
@@ -176,7 +186,7 @@ namespace WinFormsfinal
             txtEmail.BorderRadius = 8;
             txtEmail.CustomizableEdges = ceTxt3;
             txtEmail.Location = new Point(leftInput, topFirst + (lineHeight + gap) * 2 - 3);
-            txtEmail.Size = new Size(650, 28);
+            txtEmail.Size = new Size(450, 28);
             txtEmail.Font = new Font("Segoe UI", 10F);
 
             // Số điện thoại (row 3)
@@ -200,13 +210,13 @@ namespace WinFormsfinal
             txtDiaChi.BorderRadius = 8;
             txtDiaChi.CustomizableEdges = ceTxt5;
             txtDiaChi.Location = new Point(leftInput, topFirst + (lineHeight + gap) * 4 - 3);
-            txtDiaChi.Size = new Size(650, 28);
+            txtDiaChi.Size = new Size(450, 28);
             txtDiaChi.Font = new Font("Segoe UI", 10F);
 
             // ===== Group đổi mật khẩu =====
             groupPass.Text = "Đổi mật khẩu (không bắt buộc)";
             groupPass.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupPass.Location = new Point(25, 295);     // đẩy xuống thấp hơn vì thêm 1 dòng
+            groupPass.Location = new Point(25, 295);
             groupPass.Size = new Size(830, 180);
 
             int gLeftLabel = 15;
@@ -275,7 +285,7 @@ namespace WinFormsfinal
             groupPass.Controls.Add(lblNhapLaiPassMoi);
             groupPass.Controls.Add(txtNhapLaiPassMoi);
 
-            // ===== Buttons & error (dịch sang phải cho form rộng) =====
+            // ===== Buttons & error =====
             btnLuu.BorderRadius = 10;
             btnLuu.CustomizableEdges = ceBtn1;
             btnLuu.FillColor = Color.FromArgb(0, 123, 255);
@@ -306,6 +316,36 @@ namespace WinFormsfinal
             lblError.Visible = false;
             lblError.Text = "";
 
+            // ====== Avatar + nút ảnh ======
+            // Avatar
+            picAvatar.ImageRotate = 0F;
+            picAvatar.Size = new Size(120, 120);
+            picAvatar.Location = new Point(710, 80); // cùng hàng Họ tên
+            picAvatar.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            picAvatar.SizeMode = PictureBoxSizeMode.Zoom;
+            picAvatar.BorderStyle = BorderStyle.FixedSingle;
+            picAvatar.FillColor = Color.FromArgb(245, 245, 245);
+
+            // Nút Chọn ảnh
+            btnChonAnh.BorderRadius = 8;
+            btnChonAnh.FillColor = Color.FromArgb(25, 135, 84);
+            btnChonAnh.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnChonAnh.ForeColor = Color.White;
+            btnChonAnh.Size = new Size(120, 30);
+            btnChonAnh.Location = new Point(710, 210);
+            btnChonAnh.Text = "Chọn ảnh";
+            btnChonAnh.Click += btnChonAnh_Click;
+
+            // Nút Xoá ảnh
+            btnXoaAnh.BorderRadius = 8;
+            btnXoaAnh.FillColor = Color.FromArgb(220, 53, 69);
+            btnXoaAnh.Font = new Font("Segoe UI", 9F);
+            btnXoaAnh.ForeColor = Color.White;
+            btnXoaAnh.Size = new Size(120, 30);
+            btnXoaAnh.Location = new Point(710, 245);
+            btnXoaAnh.Text = "Xoá ảnh";
+            btnXoaAnh.Click += btnXoaAnh_Click;
+
             // ===== Add vào panelMain =====
             panelMain.Controls.Add(lblTitle);
             panelMain.Controls.Add(lblUserCaption);
@@ -320,6 +360,11 @@ namespace WinFormsfinal
             panelMain.Controls.Add(txtSDT);
             panelMain.Controls.Add(lblDiaChi);
             panelMain.Controls.Add(txtDiaChi);
+
+            // Avatar + nút ảnh
+            panelMain.Controls.Add(picAvatar);
+            panelMain.Controls.Add(btnChonAnh);
+            panelMain.Controls.Add(btnXoaAnh);
 
             panelMain.Controls.Add(groupPass);
             panelMain.Controls.Add(btnLuu);

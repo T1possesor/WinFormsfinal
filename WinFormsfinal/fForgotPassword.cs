@@ -21,10 +21,13 @@ namespace WinFormsfinal
         private int _btnChangeBaseTop;
         private int _btnCancelBaseTop;
 
+        // trạng thái hiển/ẩn 2 ô mật khẩu (giống fLogin)
+        private bool _isNewPassVisible = false;
+        private bool _isReNewPassVisible = false;
+
         public fForgotPassword(Form loginForm)
         {
             InitializeComponent();
-
             _loginForm = loginForm;
 
             // lưu vị trí ban đầu của 2 nút
@@ -39,12 +42,52 @@ namespace WinFormsfinal
             txtEmail.TextChanged     += (_, __) => { HideBubble(_bubbleEmail); HideBottomError(); };
             txtNewPass.TextChanged   += (_, __) => { HideBubble(_bubbleNewPass); HideBottomError(); };
             txtReNewPass.TextChanged += (_, __) => { HideBubble(_bubbleReNewPass); HideBottomError(); };
+
+            // thiết lập 2 nút con mắt giống fLogin
+            SetupEyeButtons();
+
+            // nếu textbox thay đổi kích thước -> reposition icon con mắt
+            txtNewPass.SizeChanged   += (_, __) =>
+                btnToggleNewPass.Location = new Point(txtNewPass.Width - btnToggleNewPass.Width - 2, 2);
+            txtReNewPass.SizeChanged += (_, __) =>
+                btnToggleReNewPass.Location = new Point(txtReNewPass.Width - btnToggleReNewPass.Width - 2, 2);
+        }
+
+        // ====== Eye buttons giống fLogin ======
+        private void SetupEyeButtons()
+        {
+            // con mắt cho "Mật khẩu mới"
+            btnToggleNewPass.Parent = txtNewPass;
+            btnToggleNewPass.BringToFront();
+
+            btnToggleNewPass.Text = "👁";
+            btnToggleNewPass.FillColor = Color.Transparent;
+            btnToggleNewPass.BorderThickness = 0;
+            btnToggleNewPass.HoverState.FillColor = Color.Transparent;
+            btnToggleNewPass.PressedColor = Color.Transparent;
+
+            btnToggleNewPass.Size = new Size(30, txtNewPass.Height - 4);
+            btnToggleNewPass.Location = new Point(txtNewPass.Width - btnToggleNewPass.Width - 2, 2);
+            btnToggleNewPass.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+
+            // con mắt cho "Nhập lại mật khẩu"
+            btnToggleReNewPass.Parent = txtReNewPass;
+            btnToggleReNewPass.BringToFront();
+
+            btnToggleReNewPass.Text = "👁";
+            btnToggleReNewPass.FillColor = Color.Transparent;
+            btnToggleReNewPass.BorderThickness = 0;
+            btnToggleReNewPass.HoverState.FillColor = Color.Transparent;
+            btnToggleReNewPass.PressedColor = Color.Transparent;
+
+            btnToggleReNewPass.Size = new Size(30, txtReNewPass.Height - 4);
+            btnToggleReNewPass.Location = new Point(txtReNewPass.Width - btnToggleReNewPass.Width - 2, 2);
+            btnToggleReNewPass.Anchor = AnchorStyles.Top | AnchorStyles.Right;
         }
 
         private void CenterForgotPanel()
         {
             if (panelForgot == null) return;
-
             panelForgot.Left = (this.ClientSize.Width - panelForgot.Width) / 2;
             panelForgot.Top  = (this.ClientSize.Height - panelForgot.Height) / 2;
         }
@@ -52,19 +95,15 @@ namespace WinFormsfinal
         private string GetConnectionString()
         {
             string dbPath = @"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\project_final.db";
-
             if (!File.Exists(dbPath))
             {
                 MessageBox.Show("KHÔNG tìm thấy file DB tại:\n" + dbPath,
                                 "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
             return $"Data Source={dbPath}";
         }
 
         // ====== HIDE / SHOW ERROR & MOVE BUTTON ======
-
-        // Ẩn dòng lỗi + đưa nút về vị trí ban đầu
         private void HideBottomError()
         {
             if (lblForgotError != null)
@@ -72,15 +111,13 @@ namespace WinFormsfinal
                 lblForgotError.Visible = false;
                 lblForgotError.Text = string.Empty;
             }
-
             btnChange.Top = _btnChangeBaseTop;
             btnCancel.Top = _btnCancelBaseTop;
         }
 
-        // Chỉ dùng khi: tài khoản không tồn tại hoặc email không khớp DB
         private void ShowBottomError(string message)
         {
-            // set style cho label (đảm bảo không còn “vạch đỏ mỏng”)
+            // style label lỗi
             lblForgotError.AutoSize = false;
             lblForgotError.Height   = 26;
             lblForgotError.Width    = txtReNewPass.Width;
@@ -89,7 +126,7 @@ namespace WinFormsfinal
             lblForgotError.ForeColor = Color.FromArgb(255, 80, 80);
             lblForgotError.BackColor = Color.Transparent;
 
-            // đặt ngay dưới ô Nhập lại mật khẩu
+            // đặt ngay dưới ô nhập lại
             lblForgotError.Location = new Point(
                 txtReNewPass.Left,
                 txtReNewPass.Bottom + 4
@@ -98,13 +135,12 @@ namespace WinFormsfinal
             lblForgotError.Visible = true;
             lblForgotError.BringToFront();
 
-            // dời 2 nút xuống bên dưới label 8px
+            // dời 2 nút xuống
             int newTop = lblForgotError.Bottom + 8;
             btnChange.Top = newTop;
             btnCancel.Top = newTop;
         }
 
-        // ẩn bong bóng
         private void HideBubble(Guna2Panel? bubble)
         {
             if (bubble != null) bubble.Visible = false;
@@ -152,21 +188,20 @@ namespace WinFormsfinal
             bubble.BringToFront();
             bubble.Visible = true;
 
-            // auto ẩn sau 2.5s
+            // auto ẩn
             var bubbleLocal = bubble;
             var t = new System.Windows.Forms.Timer { Interval = 2500 };
             t.Tick += (s, e) =>
             {
                 if (bubbleLocal != null) bubbleLocal.Visible = false;
-                t.Stop();
-                t.Dispose();
+                t.Stop(); t.Dispose();
             };
             t.Start();
 
             target.Focus();
         }
 
-        // ====== VALIDATE EMAIL đơn giản giống fRegister ======
+        // ====== VALIDATE EMAIL đơn giản ======
         private bool IsValidEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email)) return false;
@@ -203,7 +238,7 @@ namespace WinFormsfinal
                 hasError = true;
             }
 
-            // Mật khẩu mới bắt buộc + >= 6 ký tự
+            // Mật khẩu mới
             if (string.IsNullOrWhiteSpace(newPass))
             {
                 ShowBubbleError(txtNewPass, ref _bubbleNewPass, "Vui lòng nhập mật khẩu mới.");
@@ -215,7 +250,7 @@ namespace WinFormsfinal
                 hasError = true;
             }
 
-            // Nhập lại mật khẩu
+            // Nhập lại
             if (string.IsNullOrWhiteSpace(reNewPass))
             {
                 ShowBubbleError(txtReNewPass, ref _bubbleReNewPass, "Vui lòng nhập lại mật khẩu.");
@@ -229,7 +264,7 @@ namespace WinFormsfinal
 
             if (hasError) return; // chỉ bong bóng, không hiển thị dòng đỏ
 
-            // ====== Phần kiểm tra DB (ở đây mới dùng dòng đỏ + dịch nút) ======
+            // ====== Kiểm tra DB & cập nhật ======
             try
             {
                 using (var conn = new SqliteConnection(GetConnectionString()))
@@ -237,11 +272,9 @@ namespace WinFormsfinal
                     conn.Open();
 
                     using (var fkCmd = new SqliteCommand("PRAGMA foreign_keys = ON;", conn))
-                    {
                         fkCmd.ExecuteNonQuery();
-                    }
 
-                    // 1) Lấy email trong DB theo tài khoản
+                    // 1) Lấy email theo tài khoản
                     string sqlGetEmail = @"
                         SELECT nd.Email
                         FROM TaiKhoan tk
@@ -259,16 +292,14 @@ namespace WinFormsfinal
                         {
                             if (!reader.Read())
                             {
-                                // Không có dòng nào với tài khoản này
                                 ShowBottomError("Tài khoản không tồn tại!");
                                 return;
                             }
-
-                            emailDb = reader["Email"] as string;  // có thể NULL
+                            emailDb = reader["Email"] as string;
                         }
                     }
 
-                    // 2) Kiểm tra email khớp với DB
+                    // 2) So khớp email
                     if (string.IsNullOrEmpty(emailDb) ||
                         !string.Equals(emailDb, email, StringComparison.OrdinalIgnoreCase))
                     {
@@ -276,7 +307,7 @@ namespace WinFormsfinal
                         return;
                     }
 
-                    // 3) Thông tin đúng -> đổi mật khẩu
+                    // 3) Cập nhật mật khẩu
                     string sqlUpdate = @"
                         UPDATE TaiKhoan
                         SET MatKhau = @newPass
@@ -294,7 +325,6 @@ namespace WinFormsfinal
                         {
                             MessageBox.Show("Đổi mật khẩu thành công! Hãy đăng nhập lại.",
                                 "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                             ShowLoginAndClose();
                         }
                         else
@@ -324,8 +354,22 @@ namespace WinFormsfinal
                 _loginForm.Show();
                 _loginForm.Activate();
             }
-
             this.Close();
+        }
+
+        // ====== CLICK của 2 nút con mắt ======
+        private void btnToggleNewPass_Click(object? sender, EventArgs e)
+        {
+            _isNewPassVisible = !_isNewPassVisible;
+            txtNewPass.PasswordChar = _isNewPassVisible ? '\0' : '●';
+            btnToggleNewPass.Text   = _isNewPassVisible ? "🙈" : "👁";
+        }
+
+        private void btnToggleReNewPass_Click(object? sender, EventArgs e)
+        {
+            _isReNewPassVisible = !_isReNewPassVisible;
+            txtReNewPass.PasswordChar = _isReNewPassVisible ? '\0' : '●';
+            btnToggleReNewPass.Text   = _isReNewPassVisible ? "🙈" : "👁";
         }
     }
 }

@@ -37,6 +37,9 @@ namespace WinFormsfinal
         private Guna2Button btnThanhToan;
         private Guna2Button btnDong;
 
+        // ===== THÊM: khung ảnh thẻ =====
+        private Guna2PictureBox picAvatar;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -93,6 +96,9 @@ namespace WinFormsfinal
 
             btnThanhToan = new Guna2Button();
             btnDong      = new Guna2Button();
+
+            // ===== THÊM: avatar =====
+            picAvatar = new Guna2PictureBox();
 
             SuspendLayout();
 
@@ -155,7 +161,7 @@ namespace WinFormsfinal
             txtHoTen.BorderRadius = 8;
             txtHoTen.CustomizableEdges = ceTxt2;
             txtHoTen.Location = new Point(leftInput, topFirst + (lineHeight + gap) * 1 - 3);
-            txtHoTen.Size = new Size(470, 28);
+            txtHoTen.Size = new Size(310, 28);
             txtHoTen.Font = new Font("Segoe UI", 10F);
             txtHoTen.ReadOnly = true;
             txtHoTen.FillColor = Color.FromArgb(245, 245, 245);
@@ -183,7 +189,7 @@ namespace WinFormsfinal
             txtSDT.BorderRadius = 8;
             txtSDT.CustomizableEdges = ceTxt4;
             txtSDT.Location = new Point(leftInput, topFirst + (lineHeight + gap) * 3 - 3);
-            txtSDT.Size = new Size(200, 28);
+            txtSDT.Size = new Size(180, 28);
             txtSDT.Font = new Font("Segoe UI", 10F);
             txtSDT.ReadOnly = true;
             txtSDT.FillColor = Color.FromArgb(245, 245, 245);
@@ -197,7 +203,7 @@ namespace WinFormsfinal
             txtEmail.BorderRadius = 8;
             txtEmail.CustomizableEdges = ceTxt5;
             txtEmail.Location = new Point(leftInput, topFirst + (lineHeight + gap) * 4 - 3);
-            txtEmail.Size = new Size(470, 28);
+            txtEmail.Size = new Size(310, 28);
             txtEmail.Font = new Font("Segoe UI", 10F);
             txtEmail.ReadOnly = true;
             txtEmail.FillColor = Color.FromArgb(245, 245, 245);
@@ -211,7 +217,7 @@ namespace WinFormsfinal
             txtDiaChi.BorderRadius = 8;
             txtDiaChi.CustomizableEdges = ceTxt6;
             txtDiaChi.Location = new Point(leftInput, topFirst + (lineHeight + gap) * 5 - 3);
-            txtDiaChi.Size = new Size(470, 28);
+            txtDiaChi.Size = new Size(310, 28);
             txtDiaChi.Font = new Font("Segoe UI", 10F);
             txtDiaChi.ReadOnly = true;
             txtDiaChi.FillColor = Color.FromArgb(245, 245, 245);
@@ -258,6 +264,15 @@ namespace WinFormsfinal
             txtTrangThai.ReadOnly = true;
             txtTrangThai.FillColor = Color.FromArgb(245, 245, 245);
 
+            // ===== ẢNH THẺ (bên phải) =====
+            picAvatar.ImageRotate = 0F;
+            picAvatar.Size = new Size(120, 120);
+            picAvatar.Location = new Point(540, 90);            // cột phải
+            picAvatar.SizeMode = PictureBoxSizeMode.Zoom;       // ảnh đã crop vuông ⇒ lấp đầy
+            picAvatar.BorderStyle = BorderStyle.FixedSingle;
+            picAvatar.FillColor = Color.FromArgb(245, 245, 245);
+            picAvatar.BorderRadius = 8;
+
             // ===== Button Thanh toán =====
             btnThanhToan.BorderRadius = 10;
             btnThanhToan.CustomizableEdges = ceBtn1;
@@ -265,9 +280,9 @@ namespace WinFormsfinal
             btnThanhToan.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnThanhToan.ForeColor = Color.White;
             btnThanhToan.Size = new Size(120, 32);
-            btnThanhToan.Location = new Point(400, 445);  // bên trái nút Đóng
+            btnThanhToan.Location = new Point(400, 445);
             btnThanhToan.Text = "Thanh toán";
-            btnThanhToan.Visible = false;                 // chỉ bật khi BiKhoa
+            btnThanhToan.Visible = false;
             btnThanhToan.Click += btnThanhToan_Click;
 
             // ===== Button Đóng =====
@@ -303,6 +318,8 @@ namespace WinFormsfinal
             panelMain.Controls.Add(txtNgayHetHan);
             panelMain.Controls.Add(lblTrangThai);
             panelMain.Controls.Add(txtTrangThai);
+
+            panelMain.Controls.Add(picAvatar);      // THÊM
 
             panelMain.Controls.Add(btnThanhToan);
             panelMain.Controls.Add(btnDong);

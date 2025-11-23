@@ -13,6 +13,14 @@ namespace WinFormsfinal
         private readonly string _vaiTro = string.Empty;
         private readonly string _username = string.Empty;
 
+        // ====== PALETTE cho Admin (màu hài hòa) ======
+        private static readonly Color AdminBg = Color.FromArgb(246, 248, 252);
+        private static readonly Color SectionHeaderColor = Color.FromArgb(30, 83, 214);
+        private static readonly Color SectionHeaderHover = Color.FromArgb(22, 66, 178);
+        private static readonly Color SectionBodyColor = Color.White;
+        private static readonly Color ChildBtnColor = Color.FromArgb(59, 130, 246);
+        private static readonly Color ChildBtnHover = Color.FromArgb(37, 99, 235);
+
         // ================== CLASS PHỤ ĐỂ ANIMATION ACCORDION (ADMIN) ==================
         private class AccordionSectionInfo
         {
@@ -57,6 +65,7 @@ namespace WinFormsfinal
             _username = username ?? string.Empty;
             _vaiTro = vaiTro ?? string.Empty;
         }
+
         private void NewsCard_Click(object? sender, EventArgs e)
         {
             if (sender is not Control control) return;
@@ -98,7 +107,7 @@ namespace WinFormsfinal
             if (isCustomer)
                 ShowCustomerHome();   // khách hàng: banner slider + giới thiệu tài liệu mới + tin tức thư viện
             else
-                ShowLibraryHome();    // admin: accordion
+                ShowLibraryHome();    // admin: accordion 2 cột đẹp hơn
         }
 
         // =====================================================================
@@ -120,10 +129,10 @@ namespace WinFormsfinal
             {
                 _bannerImages = new[]
                 {
-            Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\banner_thu_vien.jpg"),
-            Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\H3.jpg"),
-            Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\Thuviendientu.png"),
-        };
+                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\banner_thu_vien.jpg"),
+                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\H3.jpg"),
+                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\Thuviendientu.png"),
+                };
             }
 
             _bannerRootPanel = new Guna2Panel
@@ -254,7 +263,6 @@ namespace WinFormsfinal
             BannerContainer_Resize(_bannerContainer, EventArgs.Empty);
         }
 
-
         // ======================= GIỚI THIỆU TÀI LIỆU MỚI =======================
         private Panel CreateNewBooksSection()
         {
@@ -268,7 +276,6 @@ namespace WinFormsfinal
                     Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\book3.jpg"),
                     Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\book4.jpg"),
                     Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\book5.jpg"),
-                    
                 };
             }
 
@@ -311,12 +318,8 @@ namespace WinFormsfinal
 
             string[] titles =
             {
-                "Tên sách 1",
-                "Tên sách 2",
-                "Tên sách 3",
-                "Tên sách 4",
-                "Tên sách 5",
-                "Tên sách 6"
+                "Tên sách 1", "Tên sách 2", "Tên sách 3",
+                "Tên sách 4", "Tên sách 5", "Tên sách 6"
             };
 
             for (int i = 0; i < _bookImages.Length && i < titles.Length; i++)
@@ -337,17 +340,14 @@ namespace WinFormsfinal
         {
             var card = new Guna2Panel
             {
-                Width = 290,          // kích thước card
+                Width = 290,
                 Height = 330,
                 BorderRadius = 12,
                 FillColor = Color.White,
                 Margin = new Padding(15, 10, 15, 10)
             };
-
-            // TẮT bóng
             card.ShadowDecoration.Enabled = false;
 
-            // Chỉ còn mỗi PictureBox
             var pic = new PictureBox
             {
                 Dock = DockStyle.Fill,
@@ -357,11 +357,9 @@ namespace WinFormsfinal
             };
 
             card.Controls.Add(pic);
-
             return card;
         }
 
-        // ======================= TIN TỨC THƯ VIỆN (3 HÌNH LỚN) =======================
         // ======================= TIN TỨC THƯ VIỆN (3 HÌNH LỚN) =======================
         private Panel CreateNewsSection()
         {
@@ -369,10 +367,10 @@ namespace WinFormsfinal
             {
                 _newsImages = new[]
                 {
-            Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\new_1.jpg"),
-            Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\new_2.jpg"),
-            Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\new_3.jpg"),
-        };
+                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\new_1.jpg"),
+                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\new_2.jpg"),
+                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\new_3.jpg"),
+                };
             }
 
             var section = new Panel
@@ -413,14 +411,13 @@ namespace WinFormsfinal
 
             string[] newsTitles =
             {
-        "Khai trương không gian đọc mới\ncủa Thư viện tư nhân Alpha",
-        "Ngày hội đổi sách cuối tuần\ncho bạn đọc thân thiết",
-        "Workshop hướng dẫn kỹ năng\ntruy tìm tài liệu khoa học"
-    };
+                "Khai trương không gian đọc mới\ncủa Thư viện tư nhân Alpha",
+                "Ngày hội đổi sách cuối tuần\ncho bạn đọc thân thiết",
+                "Workshop hướng dẫn kỹ năng\ntruy tìm tài liệu khoa học"
+            };
 
             for (int i = 0; i < _newsImages.Length && i < newsTitles.Length; i++)
             {
-                // newsId = i + 1  <=> 1: new_1, 2: new_2, 3: new_3
                 var card = CreateNewsCard(_newsImages[i], newsTitles[i], i + 1);
                 flow.Controls.Add(card);
             }
@@ -431,7 +428,6 @@ namespace WinFormsfinal
 
             return section;
         }
-
 
         private Control CreateNewsCard(Image img, string title, int newsId)
         {
@@ -445,7 +441,7 @@ namespace WinFormsfinal
                 Tag = newsId,
                 Cursor = Cursors.Hand
             };
-            card.ShadowDecoration.Enabled = false;   // không viền bóng
+            card.ShadowDecoration.Enabled = false;
 
             var pic = new PictureBox
             {
@@ -469,7 +465,6 @@ namespace WinFormsfinal
                 Tag = newsId
             };
 
-            // Bắt sự kiện click cho cả card, hình và chữ
             card.Click += NewsCard_Click;
             pic.Click += NewsCard_Click;
             lbl.Click += NewsCard_Click;
@@ -479,7 +474,6 @@ namespace WinFormsfinal
 
             return card;
         }
-
 
         // =====================================================================
         //                    CÁC HÀM HỖ TRỢ BANNER
@@ -491,21 +485,13 @@ namespace WinFormsfinal
             int centerY = _bannerContainer.Height / 2 - 20;
 
             if (_btnPrevBanner != null)
-            {
                 _btnPrevBanner.Location = new Point(15, centerY);
-            }
 
             if (_btnNextBanner != null)
-            {
                 _btnNextBanner.Location = new Point(_bannerContainer.Width - 15 - _btnNextBanner.Width, centerY);
-            }
         }
 
-        // căn giữa dots khi root resize
-        private void Root_Resize(object? sender, EventArgs e)
-        {
-            LayoutDots();
-        }
+        private void Root_Resize(object? sender, EventArgs e) => LayoutDots();
 
         private void LayoutDots()
         {
@@ -518,12 +504,9 @@ namespace WinFormsfinal
             int y = 10;
 
             for (int i = 0; i < _dotButtons.Length; i++)
-            {
                 _dotButtons[i].Location = new Point(startX + i * (dotSize + gap), y);
-            }
         }
 
-        // Tạo bitmap placeholder (nếu sau này cần dùng)
         private Image CreateBookPlaceholder(Color bg, string text)
         {
             var bmp = new Bitmap(220, 300);
@@ -540,22 +523,17 @@ namespace WinFormsfinal
             return bmp;
         }
 
-
-        // ======================= FOOTER TRANG CHỦ KHÁCH HÀNG =======================
-        // ======================= FOOTER TRANG CHỦ KHÁCH HÀNG =======================
         // ======================= FOOTER TRANG CHỦ KHÁCH HÀNG =======================
         private Panel CreateFooterSection()
         {
-            // Panel nền footer – màu trắng
             var footer = new Panel
             {
                 Dock = DockStyle.Top,
-                Height = 260,                      // cao hơn để đủ chỗ map
+                Height = 260,
                 BackColor = Color.White,
                 Padding = new Padding(60, 20, 60, 20)
             };
 
-            // Bố cục 3 cột
             var layout = new TableLayoutPanel
             {
                 Dock = DockStyle.Fill,
@@ -567,12 +545,8 @@ namespace WinFormsfinal
             layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33f));
             layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 34f));
 
-            // ===== CỘT 1: ĐỊA CHỈ + GOOGLE MAP =====
-            var leftPanel = new Panel
-            {
-                Dock = DockStyle.Fill,
-                BackColor = Color.Transparent
-            };
+            // Cột 1: địa chỉ + map
+            var leftPanel = new Panel { Dock = DockStyle.Fill, BackColor = Color.Transparent };
 
             var lblAddressTitle = new Label
             {
@@ -580,13 +554,12 @@ namespace WinFormsfinal
                 Text = "Cơ sở 1",
                 Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(31, 41, 55),
-                Location = new Point(0, 0)
             };
 
             var lblAddress = new Label
             {
                 AutoSize = true,
-                Font = new Font("Segoe UI", 13F, FontStyle.Regular),
+                Font = new Font("Segoe UI", 13F),
                 ForeColor = Color.FromArgb(55, 65, 81),
                 Location = new Point(0, 35),
                 Text =
@@ -596,7 +569,6 @@ namespace WinFormsfinal
                     "TP. Hồ Chí Minh"
             };
 
-            // --- GOOGLE MAP (WEBVIEW2) ---
             var mapView = new WebView2
             {
                 Location = new Point(0, 120),
@@ -608,54 +580,33 @@ namespace WinFormsfinal
             leftPanel.Controls.Add(lblAddress);
             leftPanel.Controls.Add(mapView);
 
-            // link map đúng địa chỉ
-            // link map đúng địa chỉ (giữ lại nếu thích)
-            string mapUrl =
-                "https://www.google.com/maps?q=279+Nguyen+Tri+Phuong,+Quan+10,+TP+Ho+Chi+Minh&output=embed";
-
-            // khởi tạo WebView2 và điều hướng tới Google Maps bằng iframe
             mapView.CoreWebView2InitializationCompleted += (s, e) =>
             {
                 if (e.IsSuccess)
                 {
-                    // HTML có iframe Google Map
                     string html = @"
 <html>
-  <head>
-    <meta charset='UTF-8'>
-  </head>
+  <head><meta charset='UTF-8'></head>
   <body style='margin:0; padding:0;'>
-    <iframe
-      width='100%' height='100%' style='border:0;'
+    <iframe width='100%' height='100%' style='border:0;'
       src='https://www.google.com/maps?q=279+Nguyen+Tri+Phuong,+Quan+10,+TP+Ho+Chi+Minh&output=embed'
-      allowfullscreen
-      loading='lazy'>
-    </iframe>
+      allowfullscreen loading='lazy'></iframe>
   </body>
 </html>";
-
                     mapView.CoreWebView2.NavigateToString(html);
                 }
             };
-
-            // gọi async nhưng không cần await, dùng fire-and-forget
             _ = mapView.EnsureCoreWebView2Async(null);
 
-
-            // ===== CỘT 2: LIÊN HỆ =====
-            var middlePanel = new Panel
-            {
-                Dock = DockStyle.Fill,
-                BackColor = Color.Transparent
-            };
+            // Cột 2: liên hệ
+            var middlePanel = new Panel { Dock = DockStyle.Fill, BackColor = Color.Transparent };
 
             var lblContactTitle = new Label
             {
                 AutoSize = true,
                 Text = "Liên hệ nhà sách",
                 Font = new Font("Segoe UI Semibold", 20F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(31, 41, 55),
-                Location = new Point(0, 0)
+                ForeColor = Color.FromArgb(31, 41, 55)
             };
 
             var lblEmailCaption = new Label
@@ -702,7 +653,7 @@ namespace WinFormsfinal
             middlePanel.Controls.Add(lblPhoneCaption);
             middlePanel.Controls.Add(lblPhone);
 
-            // ===== CỘT 3: CÁC LINK QUY ĐỊNH / THỜI GIAN MỞ CỬA =====
+            // Cột 3: các link
             var rightPanel = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
@@ -710,7 +661,6 @@ namespace WinFormsfinal
                 WrapContents = false,
                 BackColor = Color.Transparent
             };
-
             rightPanel.Controls.Add(CreateFooterLink("➤ Quy định mở cửa", "rules"));
             rightPanel.Controls.Add(CreateFooterLink("➤ Thời gian mở cửa", "hours"));
             rightPanel.Controls.Add(CreateFooterLink("➤ Không gian thư viện", "space"));
@@ -724,16 +674,13 @@ namespace WinFormsfinal
             return footer;
         }
 
-
-
-        // Tạo 1 LinkLabel trong footer
         private LinkLabel CreateFooterLink(string text, string tag)
         {
             var link = new LinkLabel
             {
                 AutoSize = true,
                 Text = text,
-                Font = new Font("Segoe UI", 13F), // chữ lớn hơn
+                Font = new Font("Segoe UI", 13F),
                 LinkBehavior = LinkBehavior.NeverUnderline,
                 LinkColor = Color.FromArgb(55, 65, 81),
                 ActiveLinkColor = Color.FromArgb(37, 99, 235),
@@ -742,12 +689,10 @@ namespace WinFormsfinal
                 Tag = tag,
                 Cursor = Cursors.Hand
             };
-
             link.LinkClicked += FooterLink_LinkClicked;
             return link;
         }
 
-        // Xử lý click trên các link footer
         private void FooterLink_LinkClicked(object? sender, LinkLabelLinkClickedEventArgs e)
         {
             if (sender is not LinkLabel link || link.Tag is not string key) return;
@@ -759,7 +704,7 @@ namespace WinFormsfinal
             {
                 case "rules":
                     message =
-        @"QUY ĐỊNH MỞ CỬA / SỬ DỤNG KHÔNG GIAN
+@"QUY ĐỊNH MỞ CỬA / SỬ DỤNG KHÔNG GIAN
 
 - Vui lòng gửi balo, túi xách lớn tại quầy gửi đồ.
 - Không mang thức ăn, thức uống vào khu vực kệ sách và khu đọc.
@@ -770,7 +715,7 @@ namespace WinFormsfinal
 
                 case "hours":
                     message =
-        @"THỜI GIAN MỞ CỬA
+@"THỜI GIAN MỞ CỬA
 
 - Thứ 2 đến Thứ 6: 08:00 – 21:00
 - Thứ 7, Chủ nhật: 08:00 – 22:00
@@ -781,7 +726,7 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
 
                 case "space":
                     message =
-        @"KHÔNG GIAN THƯ VIỆN / NHÀ SÁCH
+@"KHÔNG GIAN THƯ VIỆN / NHÀ SÁCH
 
 - Khu vực kệ sách tổng hợp và sách thiếu nhi.
 - Khu đọc yên tĩnh dành cho bạn đọc ngồi lại đọc sách.
@@ -791,7 +736,7 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
 
                 case "guide":
                     message =
-        @"HƯỚNG DẪN SỬ DỤNG THƯ VIỆN
+@"HƯỚNG DẪN SỬ DỤNG THƯ VIỆN
 
 - Đăng ký làm thẻ thư viện để được mượn sách mang về.
 - Hỏi nhân viên quầy thông tin nếu bạn cần gợi ý sách theo chủ đề.
@@ -805,9 +750,7 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
             }
 
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.None);
-
         }
-
 
         private void BannerTimer_Tick(object? sender, EventArgs e)
         {
@@ -844,20 +787,15 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
             _currentBannerIndex = newIndex;
             _bannerPictureBox.Image = _bannerImages[_currentBannerIndex];
 
-            // reset timer để khi click thì đếm lại từ đầu
             _bannerTimer?.Stop();
             _bannerTimer?.Start();
 
-            // cập nhật dot
             if (_dotButtons != null)
             {
                 for (int i = 0; i < _dotButtons.Length; i++)
-                {
-                    _dotButtons[i].FillColor =
-                        (i == _currentBannerIndex)
+                    _dotButtons[i].FillColor = (i == _currentBannerIndex)
                         ? Color.FromArgb(26, 86, 219)
                         : Color.Silver;
-                }
             }
         }
 
@@ -871,90 +809,138 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
             if (_dotButtons != null)
             {
                 for (int i = 0; i < _dotButtons.Length; i++)
-                {
-                    _dotButtons[i].FillColor =
-                        (i == _currentBannerIndex)
+                    _dotButtons[i].FillColor = (i == _currentBannerIndex)
                         ? Color.FromArgb(26, 86, 219)
                         : Color.Silver;
-                }
             }
         }
 
         // =====================================================================
-        //                    TRANG CHỦ ADMIN – ACCORDION
+        //                    TRANG CHỦ ADMIN – 2 CỘT HÀI HÒA
         // =====================================================================
         private void ShowLibraryHome()
         {
             if (panelContent == null) return;
 
-            // nếu đang dùng banner thì tắt timer lại
             _bannerTimer?.Stop();
 
             panelContent.Resize -= PanelContent_Resize;
             panelContent.Controls.Clear();
             panelContent.AutoScroll = true;
-            panelContent.Padding = new Padding(80, 90, 80, 30);
+            panelContent.BackColor = AdminBg;
+            panelContent.Padding = new Padding(60, 120, 60, 40);
 
-            var sectionThongKe = CreateSectionPanel(
-                "THỐNG KÊ",
-                ("Thống kê", OpenThongKe)
-            );
+            // Lưới 2 cột
+            var grid = new TableLayoutPanel
+            {
+                Dock = DockStyle.Top,
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                ColumnCount = 2,
+                RowCount = 1,
+                BackColor = AdminBg
+            };
+            grid.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
+            grid.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
 
-            var sectionNguoiDoc = CreateSectionPanel(
-                "NGƯỜI ĐỌC",
-                ("Người đọc", OpenNguoiDoc)
-            );
+            var leftCol = CreateColumnStackPanel(); // Sách + Phòng
+            var rightCol = CreateColumnStackPanel(); // Kho + Người đọc + Thống kê
 
-            var sectionKho = CreateSectionPanel(
-                "KHO",
-                ("Kho", OpenKho)
+            // Sections
+            // Sections (mỗi thanh một màu riêng)
+            var sectionSach = CreateSectionPanel(
+                "SÁCH",
+                new (string, EventHandler)[] {
+        ("Đầu sách", OpenDauSach),
+        ("Mượn sách", OpenMuonSach),
+        ("Trả sách", OpenTraSach)
+                },
+                headerColor: Color.FromArgb(144, 213, 255) // xanh lam đậm
             );
 
             var sectionPhong = CreateSectionPanel(
                 "PHÒNG",
-                ("Thông tin phòng", OpenThongTinPhong),
-                ("Đơn đặt phòng", OpenDonDatPhong)
+                new (string, EventHandler)[] {
+        ("Thông tin phòng", OpenThongTinPhong),
+        ("Đơn đặt phòng", OpenDonDatPhong)
+                },
+                headerColor: Color.FromArgb(144, 213, 255) // royal blue
             );
 
-            var sectionSach = CreateSectionPanel(
-                "SÁCH",
-                ("Đầu sách", OpenDauSach),
-                ("Mượn sách", OpenMuonSach),
-                ("Trả sách", OpenTraSach)
+            var sectionKho = CreateSectionPanel(
+                "KHO",
+                new (string, EventHandler)[] { ("Kho", OpenKho) },
+                headerColor: Color.FromArgb(144, 213, 255) // tím
             );
 
-            AddSectionWithSpacing(sectionThongKe);
-            AddSectionWithSpacing(sectionNguoiDoc);
-            AddSectionWithSpacing(sectionKho);
-            AddSectionWithSpacing(sectionPhong);
-            AddSectionWithSpacing(sectionSach);
-        }
+            var sectionNguoiDoc = CreateSectionPanel(
+                "NGƯỜI ĐỌC",
+                new (string, EventHandler)[] { ("Người đọc", OpenNguoiDoc) },
+                headerColor: Color.FromArgb(144, 213, 255)  // brand blue
+            );
 
-        private void AddSectionWithSpacing(Control section)
-        {
-            var spacer = new Panel
+            var sectionThongKe = CreateSectionPanel(
+                "THỐNG KÊ",
+                new (string, EventHandler)[] { ("Thống kê", OpenThongKe) },
+                headerColor: Color.FromArgb(144, 213, 255)  // xanh thiên thanh
+            );
+
+
+            // Đặt vào 2 cột
+            leftCol.Controls.Add(sectionSach);
+            leftCol.Controls.Add(CreateSpacer(24));
+            leftCol.Controls.Add(sectionPhong);
+
+            rightCol.Controls.Add(sectionKho);
+            rightCol.Controls.Add(CreateSpacer(24));
+            rightCol.Controls.Add(sectionNguoiDoc);
+            rightCol.Controls.Add(CreateSpacer(24));
+            rightCol.Controls.Add(sectionThongKe);
+
+            grid.Controls.Add(leftCol, 0, 0);
+            grid.Controls.Add(rightCol, 1, 0);
+
+            var wrapper = new Panel
             {
                 Dock = DockStyle.Top,
-                Height = 30,
-                BackColor = panelContent.BackColor
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                BackColor = AdminBg
             };
+            wrapper.Controls.Add(grid);
 
-            panelContent.Controls.Add(spacer);
-            panelContent.Controls.Add(section);
+            panelContent.Controls.Add(wrapper);
         }
 
+        private FlowLayoutPanel CreateColumnStackPanel() =>
+            new FlowLayoutPanel
+            {
+                Dock = DockStyle.Top,
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                BackColor = AdminBg,
+                Margin = new Padding(0, 0, 20, 0)
+            };
+
+        private Control CreateSpacer(int h) =>
+            new Panel { Width = 10, Height = h, BackColor = AdminBg, Margin = new Padding(0) };
+
         private Guna2Panel CreateSectionPanel(
-            string title,
-            params (string text, EventHandler onClick)[] childButtons)
+    string title,
+    (string text, EventHandler onClick)[] childButtons,
+    Color? headerColor = null  // truyền màu riêng cho từng thanh
+)
         {
             var section = new Guna2Panel
             {
-                Dock = DockStyle.Top,
+                Width = 720,
                 BorderRadius = 16,
-                FillColor = panelContent.BackColor,
+                FillColor = AdminBg,
                 Margin = new Padding(0),
                 Padding = new Padding(0),
-                Height = 50
+                Height = 56
             };
             section.ShadowDecoration.Enabled = false;
             section.ShadowDecoration.BorderRadius = 16;
@@ -964,45 +950,48 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
             {
                 Text = title,
                 Dock = DockStyle.Top,
-                Height = 50,
+                Height = 56,
                 BorderRadius = 16,
-                FillColor = Color.FromArgb(26, 86, 219),
-                Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold),
+                Font = new Font("Segoe UI Semibold", 12.5F, FontStyle.Bold),
                 ForeColor = Color.White,
                 TextAlign = HorizontalAlignment.Left,
                 Padding = new Padding(20, 0, 0, 0),
                 Cursor = Cursors.Hand,
+                FillColor = headerColor ?? SectionHeaderColor
             };
+            header.HoverState.FillColor = headerColor ?? SectionHeaderHover;
+            header.PressedColor = header.HoverState.FillColor;
 
             var body = new Panel
             {
                 Dock = DockStyle.Top,
                 Visible = false,
-                BackColor = Color.FromArgb(248, 250, 252),
+                BackColor = SectionBodyColor,
+                Padding = new Padding(18, 12, 18, 18)
             };
 
-            int top = 10;
-            foreach (var b in childButtons)
+            int top = 0;
+            foreach (var (text, onClick) in childButtons)
             {
                 var btn = new Guna2Button
                 {
-                    Text = b.text,
+                    Text = text,
                     Width = 220,
-                    Height = 36,
+                    Height = 38,
                     BorderRadius = 10,
-                    FillColor = Color.FromArgb(59, 130, 246),
-                    Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                    FillColor = ChildBtnColor,
+                    Font = new Font("Segoe UI", 10.5F, FontStyle.Bold),
                     ForeColor = Color.White,
-                    Location = new Point(25, top),
-                    Cursor = Cursors.Hand
+                    Location = new Point(10, top),
+                    Cursor = Cursors.Hand,
+                    Margin = new Padding(0, 0, 10, 10)
                 };
-                btn.Click += b.onClick;
+                btn.HoverState.FillColor = ChildBtnHover;
+                btn.Click += onClick;
                 body.Controls.Add(btn);
-                top += 44;
+                top += 46;
             }
-
-            int bodyHeight = top + 10;
-            body.Height = bodyHeight;
+            body.Height = top + 6;
 
             var info = new AccordionSectionInfo
             {
@@ -1010,15 +999,10 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
                 Section = section,
                 CollapsedHeight = header.Height,
                 ExpandedHeight = header.Height + body.Height,
-                IsExpanded = false
+                IsExpanded = false,
+                Timer = new System.Windows.Forms.Timer { Interval = 5 }
             };
-
-            var timer = new System.Windows.Forms.Timer
-            {
-                Interval = 5 // animation mượt
-            };
-            timer.Tick += (s, e) => AnimateAccordion(info);
-            info.Timer = timer;
+            info.Timer.Tick += (s, e) => AnimateAccordion(info);
 
             header.Tag = info;
             header.Click += SectionHeader_Click;
@@ -1029,6 +1013,7 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
 
             return section;
         }
+
 
         private void SectionHeader_Click(object? sender, EventArgs e)
         {
@@ -1075,7 +1060,7 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
                 {
                     info.Section.Height = info.CollapsedHeight;
                     info.Body.Visible = false;
-                    info.Section.FillColor = panelContent.BackColor;
+                    info.Section.FillColor = AdminBg; // đồng bộ nền khi thu gọn
                     info.Section.ShadowDecoration.Enabled = false;
                     info.Timer.Stop();
                 }
