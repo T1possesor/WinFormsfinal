@@ -8,8 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-//using Stripe;
-//using Stripe.Checkout;
 using Newtonsoft.Json;
 using System.Net;
 using System.Security.Cryptography;
@@ -223,52 +221,7 @@ namespace WinFormsfinal
                         cmd.ExecuteNonQuery();
                     }
 
-                    //}
-
-                    //MessageBox.Show("Đặt phòng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //    // API stripe payment methods
-                    //    Stripe.StripeConfiguration.ApiKey = "sk_test_51SWHxZBw1R11yJh1XR2Is4qBrqsAtw7wAhpKJIGVP1FjiGvAu54CZzwGVUvrBuNLtTGuB11tWZyPoDwQiOtG11pA00seDNa4wu";
-
-                    //    var options = new Stripe.Checkout.SessionCreateOptions
-                    //    {
-                    //        PaymentMethodTypes = new List<string> { "card" },
-                    //        Mode = "payment",
-                    //        LineItems = new List<Stripe.Checkout.SessionLineItemOptions>
-                    //    {
-                    //        new Stripe.Checkout.SessionLineItemOptions
-                    //        {
-                    //            PriceData = new Stripe.Checkout.SessionLineItemPriceDataOptions
-                    //            {
-                    //                Currency = "usd", 
-                    //                //UnitAmount = (long)(decimal.Parse(txtTienCoc.Text) * 100),
-                    //                UnitAmount = (long)(decimal.Parse(txtTienCoc.Text) / 25000 * 100), // quy đổi tạm VNĐ sang USD
-                    //                ProductData = new Stripe.Checkout.SessionLineItemPriceDataProductDataOptions
-                    //                {
-                    //                    Name = $"Đặt phòng {txtTenPhong.Text}" //ban đầu là cbb
-                    //                }
-                    //            },
-                    //            Quantity = 1
-                    //        }
-                    //    },
-                    //        SuccessUrl = "https://example.com/payment-success",
-                    //        CancelUrl = "https://example.com/payment-cancel"
-                    //    };
-
-                    //    var service = new Stripe.Checkout.SessionService();
-                    //    Stripe.Checkout.Session session = service.Create(options);
-
-                    //    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                    //    {
-                    //        FileName = session.Url,
-                    //        UseShellExecute = true
-                    //    });
-                    //}
-                    //    catch (Exception ex)
-                    //{
-                    //    MessageBox.Show("Lỗi khi thanh toán: " + ex.Message);
-                    //}
-
-
+                    
                     // VietQR API 
                 
                     string bank = "OCB";
