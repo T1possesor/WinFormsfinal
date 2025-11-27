@@ -92,16 +92,8 @@ namespace WinFormsfinal
             bool isAdmin = string.Equals(_vaiTro, "Admin", StringComparison.OrdinalIgnoreCase);
             bool isCustomer = string.Equals(_vaiTro, "KhachHang", StringComparison.OrdinalIgnoreCase);
 
-            // Chỉ admin
-            btnThongKe.Visible = isAdmin;
-            btnNguoiDoc.Visible = isAdmin;
-            btnKho.Visible = isAdmin;
-            btnPhong.Visible = isAdmin;
-            btnSach.Visible = isAdmin;
+            ArrangeMenuByRole(isAdmin, isCustomer);
 
-            // Chỉ khách hàng
-            btnThongTinCN.Visible = isCustomer;
-            btnTheThuVien.Visible = isCustomer;
 
             // Trang chủ lúc mới đăng nhập
             if (isCustomer)
@@ -141,14 +133,14 @@ namespace WinFormsfinal
                 AutoSize = true,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 FillColor = Color.FromArgb(240, 243, 250),
-                Padding = new Padding(60, 40, 60, 40)
+                Padding = new Padding(60, 90, 60, 40)
             };
 
             // Panel chứa ảnh banner
             _bannerContainer = new Guna2Panel
             {
                 Dock = DockStyle.Top,
-                Height = 360,
+                Height = 500,
                 BorderRadius = 20,
                 FillColor = Color.Black,
             };
@@ -236,8 +228,17 @@ namespace WinFormsfinal
             // ---------- 4. FOOTER -----------
             var footerSection = CreateFooterSection();
 
+            var footerSpacer = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 24,
+                BackColor = Color.Transparent
+            };
+
+
             // Thêm vào root: trên cùng là banner, rồi dots, sách mới, tin tức, footer ở dưới cùng
             _bannerRootPanel.Controls.Add(footerSection);    // dưới cùng
+            _bannerRootPanel.Controls.Add(footerSpacer);
             _bannerRootPanel.Controls.Add(newsSection);
             _bannerRootPanel.Controls.Add(booksSection);
             _bannerRootPanel.Controls.Add(_dotsPanel);
@@ -376,7 +377,7 @@ namespace WinFormsfinal
             var section = new Panel
             {
                 Dock = DockStyle.Top,
-                Height = 360,
+                Height = 400,
                 BackColor = Color.FromArgb(240, 243, 250),
                 Padding = new Padding(0, 35, 0, 0)
             };
@@ -529,7 +530,7 @@ namespace WinFormsfinal
             var footer = new Panel
             {
                 Dock = DockStyle.Top,
-                Height = 260,
+                Height = 400,
                 BackColor = Color.White,
                 Padding = new Padding(60, 20, 60, 20)
             };
@@ -572,7 +573,7 @@ namespace WinFormsfinal
             var mapView = new WebView2
             {
                 Location = new Point(0, 120),
-                Size = new Size(260, 130),
+                Size = new Size(260, 230),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left
             };
 
@@ -615,18 +616,18 @@ namespace WinFormsfinal
                 Text = "Email:",
                 Font = new Font("Segoe UI", 13F),
                 ForeColor = Color.FromArgb(55, 65, 81),
-                Location = new Point(0, 40)
+                Location = new Point(0, 49)
             };
 
             var linkEmail = new LinkLabel
             {
                 AutoSize = true,
-                Text = "thuvienTuNhan@gmail.com",
+                Text = " thuvienTuNhan@gmail.com",
                 Font = new Font("Segoe UI", 13F, FontStyle.Underline),
                 LinkColor = Color.FromArgb(37, 99, 235),
                 ActiveLinkColor = Color.FromArgb(37, 99, 235),
                 VisitedLinkColor = Color.FromArgb(37, 99, 235),
-                Location = new Point(60, 40)
+                Location = new Point(70, 44)
             };
 
             var lblPhoneCaption = new Label
@@ -635,16 +636,16 @@ namespace WinFormsfinal
                 Text = "Điện thoại:",
                 Font = new Font("Segoe UI", 13F),
                 ForeColor = Color.FromArgb(55, 65, 81),
-                Location = new Point(0, 70)
+                Location = new Point(0, 90)
             };
 
             var lblPhone = new Label
             {
                 AutoSize = true,
-                Text = "028 7306 1976",
+                Text = "       028 7306 1976",
                 Font = new Font("Segoe UI", 13F),
                 ForeColor = Color.FromArgb(55, 65, 81),
-                Location = new Point(80, 70)
+                Location = new Point(90, 90)
             };
 
             middlePanel.Controls.Add(lblContactTitle);
@@ -828,7 +829,7 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
             panelContent.Controls.Clear();
             panelContent.AutoScroll = true;
             panelContent.BackColor = AdminBg;
-            panelContent.Padding = new Padding(60, 120, 60, 40);
+            panelContent.Padding = new Padding(60, 200, 60, 40);
 
             // Lưới 2 cột
             var grid = new TableLayoutPanel
@@ -1074,6 +1075,41 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
                 CenterHomeCard(panelContent.Controls[0]);
         }
 
+        private void ArrangeMenuByRole(bool isAdmin, bool isCustomer)
+        {
+            int startX = btnSach.Location.X;
+            int y = btnSach.Location.Y;
+            int spacing = 10;
+
+            void AddIf(Control c, bool condition)
+            {
+                c.Visible = condition;
+                if (!condition) return;
+
+                c.Location = new Point(startX, y);
+                startX += c.Width + spacing;
+            }
+
+            // ADMIN
+            AddIf(btnSach, isAdmin);
+            AddIf(btnPhong, isAdmin);
+            AddIf(btnKho, isAdmin);
+            AddIf(btnNguoiDoc, isAdmin);
+            AddIf(btnThongKe, isAdmin);
+
+            // KHÁCH HÀNG
+            AddIf(btnTheThuVien, isCustomer);
+            AddIf(btnThongTinCN, isCustomer);
+
+            // --- HẠ RIÊNG NÚT THẺ THƯ VIỆN XUỐNG 5px ---
+            if (isCustomer)
+            {
+                btnTheThuVien.Top += 10;  // tăng Top -> nút đi xuống
+            }
+        }
+
+
+
         private void CenterHomeCard(Control card)
         {
             if (card == null) return;
@@ -1168,11 +1204,10 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
 
             if (result == DialogResult.Yes)
             {
-                var loginForm = new fLogin();
-                loginForm.Show();
-                this.Close();
+                this.Close();   // chỉ đóng Form1, form login tự Show lại
             }
         }
+
 
         // ================== FORM CON – THÔNG TIN CÁ NHÂN ==================
         private void btnThongTinCN_Click(object sender, EventArgs e)

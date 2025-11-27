@@ -106,7 +106,7 @@ namespace WinFormsfinal
             btnLogOut.FillColor = Color.Transparent;
             btnLogOut.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnLogOut.ForeColor = Color.White;
-            btnLogOut.Location = new Point(1300, 24);
+            btnLogOut.Location = new Point(1150, 24);
             btnLogOut.Name = "btnLogOut";
             btnLogOut.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnLogOut.Size = new Size(117, 36);

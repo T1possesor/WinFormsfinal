@@ -269,29 +269,37 @@ namespace WinFormsfinal
             string user = txtUser.Text.Trim();
             string pass = txtPass.Text.Trim();
 
-            // Thiếu trường -> bong bóng tiếng Việt
+            // ----- 1. Kiểm tra bỏ trống các ô -----
             bool missing = false;
+
             if (string.IsNullOrWhiteSpace(user))
             {
                 ShowBubbleError(txtUser, ref _bubbleUser, "Vui lòng điền trường này.");
                 missing = true;
             }
+
             if (string.IsNullOrWhiteSpace(pass))
             {
+                // Nếu cả user và pass đều trống thì để bubble không bị chồng nhau
                 if (missing)
-                    BeginInvoke(new Action(() => ShowBubbleError(txtPass, ref _bubblePass, "Vui lòng điền trường này.")));
+                    BeginInvoke(new Action(() =>
+                        ShowBubbleError(txtPass, ref _bubblePass, "Vui lòng điền trường này.")
+                    ));
                 else
                     ShowBubbleError(txtPass, ref _bubblePass, "Vui lòng điền trường này.");
+
                 missing = true;
             }
-            if (missing) return;
 
-            // Kiểm tra DB
+            if (missing) return;   // thiếu ô nào thì không kiểm tra DB nữa
+
+
+            // ----- 2. Kiểm tra tài khoản trong DB -----
             if (CheckLoginFromDb(user, pass, out string? vaiTro))
             {
                 bool isAdminAcc = string.Equals(vaiTro, "Admin", StringComparison.OrdinalIgnoreCase);
 
-                // kiểm tra đúng cửa
+                // 2.1. Đăng nhập sai chế độ (ví dụ dùng TK KH vào cửa Admin)
                 if (currentMode == LoginMode.Admin && !isAdminAcc)
                 {
                     lblAuthError.ForeColor = Color.FromArgb(220, 53, 69);
@@ -301,6 +309,7 @@ namespace WinFormsfinal
                     RelayoutBottom();
                     return;
                 }
+
                 if (currentMode == LoginMode.KhachHang && isAdminAcc)
                 {
                     lblAuthError.ForeColor = Color.FromArgb(220, 53, 69);
@@ -311,16 +320,31 @@ namespace WinFormsfinal
                     return;
                 }
 
-                // OK
+                // ----- 3. Đăng nhập hợp lệ -----
                 lblAuthError.Visible = false;
                 RelayoutBottom();
+
+                // Tạo form chính
                 var main = new Form1(user, vaiTro!);
-                main.Show();
-                this.Hide();
+
+                // KHI Form1 ĐÓNG (logout / bấm X) ⇒ quay lại màn chọn phương thức đăng nhập
+                main.FormClosed += (s, args) =>
+                {
+                    // hiện lại form login
+                    this.Show();
+                    this.WindowState = FormWindowState.Normal;
+
+                    // quay về màn chọn Admin / Khách hàng + xóa data, ẩn lỗi
+                    ShowRolePanelInCard();
+                    ResetLoginFields();
+                };
+
+                this.Hide();   // Ẩn form login
+                main.Show();   // Hiển thị form chính
             }
             else
             {
-                // Sai tài khoản hoặc mật khẩu
+                // ----- 4. Sai tài khoản hoặc mật khẩu -----
                 lblAuthError.ForeColor = Color.FromArgb(220, 53, 69);
                 lblAuthError.Text = "Sai tài khoản hoặc mật khẩu.";
                 lblAuthError.Visible = true;
@@ -328,6 +352,8 @@ namespace WinFormsfinal
                 RelayoutBottom();
             }
         }
+
+
 
         private void btnTogglePass_Click(object sender, EventArgs e)
         {

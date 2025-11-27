@@ -95,10 +95,10 @@ namespace WinFormsfinal
             // 
             this.panelSectionTinhTrangSach.BorderRadius = 12;
             this.panelSectionTinhTrangSach.FillColor = System.Drawing.Color.White;
-            this.panelSectionTinhTrangSach.Location = new System.Drawing.Point(30, 770);  // dưới cùng
+            this.panelSectionTinhTrangSach.Location = new System.Drawing.Point(30, 1190);  // dưới cùng
             this.panelSectionTinhTrangSach.Name = "panelSectionTinhTrangSach";
             this.panelSectionTinhTrangSach.Padding = new Padding(20, 30, 20, 10);
-            this.panelSectionTinhTrangSach.Size = new System.Drawing.Size(1140, 160);   // cao 160
+            this.panelSectionTinhTrangSach.Size = new System.Drawing.Size(1140, 300);   // cao 160
             this.panelSectionTinhTrangSach.TabIndex = 5;
             this.panelSectionTinhTrangSach.ShadowDecoration.BorderRadius = 12;
             this.panelSectionTinhTrangSach.ShadowDecoration.Enabled = true;
@@ -135,10 +135,10 @@ namespace WinFormsfinal
             // 
             this.panelSectionThanhToan.BorderRadius = 12;
             this.panelSectionThanhToan.FillColor = System.Drawing.Color.White;
-            this.panelSectionThanhToan.Location = new System.Drawing.Point(30, 600);
+            this.panelSectionThanhToan.Location = new System.Drawing.Point(30, 880);
             this.panelSectionThanhToan.Name = "panelSectionThanhToan";
             this.panelSectionThanhToan.Padding = new Padding(20, 30, 20, 10);
-            this.panelSectionThanhToan.Size = new System.Drawing.Size(1140, 160);
+            this.panelSectionThanhToan.Size = new System.Drawing.Size(1140, 300);
             this.panelSectionThanhToan.TabIndex = 4;
             this.panelSectionThanhToan.ShadowDecoration.BorderRadius = 12;
             this.panelSectionThanhToan.ShadowDecoration.Enabled = true;
@@ -175,10 +175,10 @@ namespace WinFormsfinal
             // 
             this.panelSectionTrangThaiThe.BorderRadius = 12;
             this.panelSectionTrangThaiThe.FillColor = System.Drawing.Color.White;
-            this.panelSectionTrangThaiThe.Location = new System.Drawing.Point(30, 430);
+            this.panelSectionTrangThaiThe.Location = new System.Drawing.Point(30, 570);
             this.panelSectionTrangThaiThe.Name = "panelSectionTrangThaiThe";
             this.panelSectionTrangThaiThe.Padding = new Padding(20, 30, 20, 10);
-            this.panelSectionTrangThaiThe.Size = new System.Drawing.Size(1140, 160);
+            this.panelSectionTrangThaiThe.Size = new System.Drawing.Size(1140, 300);
             this.panelSectionTrangThaiThe.TabIndex = 3;
             this.panelSectionTrangThaiThe.ShadowDecoration.BorderRadius = 12;
             this.panelSectionTrangThaiThe.ShadowDecoration.Enabled = true;
@@ -218,7 +218,7 @@ namespace WinFormsfinal
             this.panelSectionMucDich.Location = new System.Drawing.Point(30, 260);
             this.panelSectionMucDich.Name = "panelSectionMucDich";
             this.panelSectionMucDich.Padding = new Padding(20, 30, 20, 10);
-            this.panelSectionMucDich.Size = new System.Drawing.Size(1140, 160);
+            this.panelSectionMucDich.Size = new System.Drawing.Size(1140, 300);
             this.panelSectionMucDich.TabIndex = 2;
             this.panelSectionMucDich.ShadowDecoration.BorderRadius = 12;
             this.panelSectionMucDich.ShadowDecoration.Enabled = true;
@@ -436,7 +436,7 @@ namespace WinFormsfinal
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(30, 64, 175);
-            this.lblTitle.Location = new System.Drawing.Point(25, 15);
+            this.lblTitle.Location = new System.Drawing.Point(25, 5);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(337, 32);
             this.lblTitle.TabIndex = 0;
