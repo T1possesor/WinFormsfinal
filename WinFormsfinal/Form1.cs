@@ -1,9 +1,10 @@
-﻿using Guna.UI2.WinForms;
+﻿using DoAn_1;
+using Guna.UI2.WinForms;
+using Microsoft.Web.WebView2.Core;
+using Microsoft.Web.WebView2.WinForms;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Microsoft.Web.WebView2.WinForms;
-using Microsoft.Web.WebView2.Core;
 
 namespace WinFormsfinal
 {
@@ -105,6 +106,7 @@ namespace WinFormsfinal
         // =====================================================================
         //        TRANG CHỦ KHÁCH HÀNG – BANNER + GIỚI THIỆU TÀI LIỆU MỚI + TIN TỨC
         // =====================================================================
+        
         private void ShowCustomerHome()
         {
             if (panelContent == null) return;
@@ -117,15 +119,18 @@ namespace WinFormsfinal
             panelContent.Padding = new Padding(0);
 
             // ---------- 1. ẢNH BANNER (SLIDER) ----------
+            // ---------- 1. ẢNH BANNER (SLIDER) ----------
             if (_bannerImages == null)
             {
                 _bannerImages = new[]
                 {
-                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\banner_thu_vien.jpg"),
-                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\H3.jpg"),
-                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\Thuviendientu.png"),
-                };
+        Properties.Resources.banner_thu_vien,
+        Properties.Resources.H3,
+        Properties.Resources.Thuviendientu
+    };
             }
+
+
 
             _bannerRootPanel = new Guna2Panel
             {
@@ -272,13 +277,17 @@ namespace WinFormsfinal
             {
                 _bookImages = new[]
                 {
-                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\book1.jpg"),
-                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\book2.jpg"),
-                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\book3.jpg"),
-                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\book4.jpg"),
-                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\book5.jpg"),
-                };
+        Properties.Resources.book1,
+        Properties.Resources.book2,
+        Properties.Resources.book3,
+        Properties.Resources.book4,
+        Properties.Resources.book5,
+        // nếu bạn có book6 trong Resources thì thêm:
+        // Properties.Resources.book6
+    };
             }
+
+
 
             var section = new Panel
             {
@@ -368,11 +377,13 @@ namespace WinFormsfinal
             {
                 _newsImages = new[]
                 {
-                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\new_1.jpg"),
-                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\new_2.jpg"),
-                    Image.FromFile(@"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\new_3.jpg"),
-                };
+        Properties.Resources.new_1,
+        Properties.Resources.new_2,
+        Properties.Resources.new_3,
+    };
             }
+
+
 
             var section = new Panel
             {
@@ -816,6 +827,21 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
             }
         }
 
+
+
+
+
+
+        private void OpenLichSuMuon(object? sender, EventArgs e)
+        {
+            using (var frm = new LichSuMuon())
+            {
+                frm.StartPosition = FormStartPosition.CenterParent;
+                frm.ShowDialog(this);
+            }
+        }
+
+
         // =====================================================================
         //                    TRANG CHỦ ADMIN – 2 CỘT HÀI HÒA
         // =====================================================================
@@ -854,7 +880,8 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
                 new (string, EventHandler)[] {
         ("Đầu sách", OpenDauSach),
         ("Mượn sách", OpenMuonSach),
-        ("Trả sách", OpenTraSach)
+        ("Trả sách", OpenTraSach),
+        ("Lịch sử mượn", OpenLichSuMuon)
                 },
                 headerColor: Color.FromArgb(144, 213, 255) // xanh lam đậm
             );
@@ -1034,6 +1061,17 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
 
             info.Timer.Start();
         }
+        private void btnDatPhong_Click(object sender, EventArgs e)
+        {
+            // Nếu cần kiểm tra đăng nhập thì thêm đoạn if ở đây
+
+            using (var frm = new UserDatPhongHocNhom())
+            {
+                frm.StartPosition = FormStartPosition.CenterParent; // hiện giữa Form1
+                frm.ShowDialog(this);                               // mở dạng dialog
+            }
+        }
+
 
         private void AnimateAccordion(AccordionSectionInfo info)
         {
@@ -1098,14 +1136,18 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
             AddIf(btnThongKe, isAdmin);
 
             // KHÁCH HÀNG
+            // KHÁCH HÀNG
             AddIf(btnTheThuVien, isCustomer);
+            AddIf(btnDatPhong, isCustomer);      // <--- thêm
             AddIf(btnThongTinCN, isCustomer);
 
-            // --- HẠ RIÊNG NÚT THẺ THƯ VIỆN XUỐNG 5px ---
+            // --- HẠ RIÊNG NÚT THẺ THƯ VIỆN XUỐNG 10px ---
             if (isCustomer)
             {
-                btnTheThuVien.Top += 10;  // tăng Top -> nút đi xuống
+                btnTheThuVien.Top += 10;
+                btnDatPhong.Top += 0;          // <--- cho nút Đặt phòng xuống cùng hàng
             }
+
         }
 
 
@@ -1229,33 +1271,69 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
         // =============== HÀM STUB CHO CÁC NÚT CON TRONG ACCORDION ===============
         private void OpenDauSach(object? sender, EventArgs e)
         {
-            MessageBox.Show("Mở màn hình Đầu sách (bạn gắn form thật vào đây).");
+            using (var frm = new QLSach())
+            {
+                frm.StartPosition = FormStartPosition.CenterParent;
+                frm.ShowDialog(this);  // hiển thị dạng dialog trên Form1
+            }
         }
+
 
         private void OpenMuonSach(object? sender, EventArgs e)
         {
-            MessageBox.Show("Mở màn hình Mượn sách (bạn gắn form thật vào đây).");
+            using (var frm = new MuonSach())
+            {
+                frm.StartPosition = FormStartPosition.CenterParent; // hiện giữa Form1
+                frm.ShowDialog(this);                               // mở dạng dialog
+            }
         }
+
 
         private void OpenTraSach(object? sender, EventArgs e)
         {
-            MessageBox.Show("Mở màn hình Trả sách (bạn gắn form thật vào đây).");
+            using (var frm = new TraSach())
+            {
+                frm.StartPosition = FormStartPosition.CenterParent; // hiện giữa Form1
+                frm.ShowDialog(this);                               // mở dạng dialog
+            }
         }
+
 
         private void OpenThongTinPhong(object? sender, EventArgs e)
         {
-            MessageBox.Show("Mở màn hình Thông tin phòng (bạn gắn form thật vào đây).");
+            using (var frm = new ThongTinPhong())
+            {
+                frm.StartPosition = FormStartPosition.CenterParent;
+                frm.ShowDialog(this);
+            }
         }
+
 
         private void OpenDonDatPhong(object? sender, EventArgs e)
         {
-            MessageBox.Show("Mở màn hình Đơn đặt phòng (bạn gắn form thật vào đây).");
+            // TẠO DỮ LIỆU MẶC ĐỊNH CHO FORM
+            string maPhong = "P501";                 // hoặc phòng đầu tiên bạn muốn
+            DateTime ngay = DateTime.Today;          // hôm nay
+            TimeSpan bd = TimeSpan.Parse("09:00");   // mặc định 9h
+            TimeSpan kt = TimeSpan.Parse("11:00");   // mặc định 11h
+
+            using (var frm = new BieuMauDatPhong(maPhong, ngay, bd, kt))
+            {
+                frm.StartPosition = FormStartPosition.CenterParent;
+                frm.ShowDialog(this);
+            }
         }
+
 
         private void OpenKho(object? sender, EventArgs e)
         {
-            guna2Button1_Click_1(btnKho, EventArgs.Empty);
+            using (var frm = new QLNhapSach())
+            {
+                frm.StartPosition = FormStartPosition.CenterParent; // hiện giữa Form1
+                frm.ShowDialog(this);                               // mở dạng dialog
+            }
         }
+
 
         private void OpenNguoiDoc(object? sender, EventArgs e)
         {

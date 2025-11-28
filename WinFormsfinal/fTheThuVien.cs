@@ -3,7 +3,7 @@ using System.IO;
 using System.Drawing;                // THÊM
 using System.Globalization;          // THÊM: để parse/format ngày
 using System.Windows.Forms;
-using Microsoft.Data.Sqlite;
+using System.Data.SQLite;            // ĐỔI: dùng System.Data.SQLite giống fLogin
 
 namespace WinFormsfinal
 {
@@ -20,25 +20,26 @@ namespace WinFormsfinal
             this.Load += fTheThuVien_Load;
         }
 
-        // giống connection string form thông tin cá nhân
+        // giống kiểu "Data Source=project_final.db;Version=3;"
         private string GetConnectionString()
         {
-            string dbPath = @"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\project_final.db";
+            // DB đặt cạnh file .exe
+            string dbPath = "project_final.db";
             if (!File.Exists(dbPath))
             {
-                MessageBox.Show("KHÔNG tìm thấy file DB tại:\n" + dbPath,
+                MessageBox.Show("KHÔNG tìm thấy file DB tại:\n" + Path.GetFullPath(dbPath),
                     "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            return $"Data Source={dbPath}";
+            return @"Data Source=project_final.db;Version=3;";
         }
 
         // BẢO ĐẢM có cột HinhAnh (an toàn khi DB cũ)
-        private void EnsureNguoiDungHasImageColumn(SqliteConnection conn)
+        private void EnsureNguoiDungHasImageColumn(SQLiteConnection conn)
         {
             try
             {
                 bool hasCol = false;
-                using (var cmd = new SqliteCommand("PRAGMA table_info(NguoiDung);", conn))
+                using (var cmd = new SQLiteCommand("PRAGMA table_info(NguoiDung);", conn))
                 using (var rd = cmd.ExecuteReader())
                 {
                     while (rd.Read())
@@ -51,7 +52,7 @@ namespace WinFormsfinal
                 }
                 if (!hasCol)
                 {
-                    using var alter = new SqliteCommand("ALTER TABLE NguoiDung ADD COLUMN HinhAnh BLOB NULL;", conn);
+                    using var alter = new SQLiteCommand("ALTER TABLE NguoiDung ADD COLUMN HinhAnh BLOB NULL;", conn);
                     alter.ExecuteNonQuery();
                 }
             }
@@ -77,8 +78,8 @@ namespace WinFormsfinal
             using (var g = Graphics.FromImage(square))
             {
                 g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                g.SmoothingMode     = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                g.PixelOffsetMode   = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
                 g.DrawImage(src, new Rectangle(0, 0, side, side), new Rectangle(x, y, side, side), GraphicsUnit.Pixel);
             }
 
@@ -86,8 +87,8 @@ namespace WinFormsfinal
             using (var g2 = Graphics.FromImage(bmp))
             {
                 g2.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                g2.SmoothingMode     = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                g2.PixelOffsetMode   = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                g2.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g2.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
                 g2.DrawImage(square, 0, 0, edge, edge);
             }
             return bmp;
@@ -117,7 +118,7 @@ namespace WinFormsfinal
         {
             try
             {
-                using (var conn = new SqliteConnection(GetConnectionString()))
+                using (var conn = new SQLiteConnection(GetConnectionString()))
                 {
                     conn.Open();
 
@@ -141,7 +142,7 @@ namespace WinFormsfinal
                         WHERE tk.TenDangNhap = @user
                     ";
 
-                    using (var cmd = new SqliteCommand(sql, conn))
+                    using (var cmd = new SQLiteCommand(sql, conn))
                     {
                         cmd.Parameters.AddWithValue("@user", _username);
 
@@ -164,12 +165,12 @@ namespace WinFormsfinal
                                     return;
                                 }
 
-                                txtMaSoThe.Text     = rd["MaSoThe"]        as string ?? "";
-                                txtHoTen.Text      = rd["HoTen"]          as string ?? "";
-                                txtNgaySinh.Text   = rd["NgaySinh"]       as string ?? "";
-                                txtSDT.Text        = rd["SoDienThoai"]    as string ?? "";
-                                txtEmail.Text      = rd["Email"]          as string ?? "";
-                                txtDiaChi.Text     = rd["DiaChi"]         as string ?? "";
+                                txtMaSoThe.Text = rd["MaSoThe"] as string ?? "";
+                                txtHoTen.Text = rd["HoTen"] as string ?? "";
+                                txtNgaySinh.Text = rd["NgaySinh"] as string ?? "";
+                                txtSDT.Text = rd["SoDienThoai"] as string ?? "";
+                                txtEmail.Text = rd["Email"] as string ?? "";
+                                txtDiaChi.Text = rd["DiaChi"] as string ?? "";
 
                                 // ==== Định dạng Ngày tạo thẻ & Ngày hết hạn thẻ thành dd/MM/yyyy nếu có thể ====
                                 var ntVal = rd["NgayTaoThe"];

@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using System;
+using System.Data.SQLite;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using System.Drawing;
-using Microsoft.Data.Sqlite;
-using Guna.UI2.WinForms;
 
 namespace WinFormsfinal
 {
     public partial class fForgotPassword : Form
     {
         private readonly Form _loginForm;
+
+        private readonly string connectionString = @"Data Source=project_final.db;Version=3;";
 
         // bong bóng cảnh báo cho từng ô
         private Guna2Panel? _bubbleUser;
@@ -44,46 +46,42 @@ namespace WinFormsfinal
             txtReNewPass.TextChanged += (_, __) => { HideBubble(_bubbleReNewPass); HideBottomError(); };
 
             // thiết lập 2 nút con mắt giống fLogin
-            SetupEyeButtons();
-
-            // nếu textbox thay đổi kích thước -> reposition icon con mắt
-            txtNewPass.SizeChanged   += (_, __) =>
-                btnToggleNewPass.Location = new Point(txtNewPass.Width - btnToggleNewPass.Width - 2, 2);
-            txtReNewPass.SizeChanged += (_, __) =>
-                btnToggleReNewPass.Location = new Point(txtReNewPass.Width - btnToggleReNewPass.Width - 2, 2);
+            SetupEyeIcons();
+            
         }
 
         // ====== Eye buttons giống fLogin ======
-        private void SetupEyeButtons()
+        private void SetupEyeIcons()
         {
-            // con mắt cho "Mật khẩu mới"
-            btnToggleNewPass.Parent = txtNewPass;
-            btnToggleNewPass.BringToFront();
+            // --- Mật khẩu mới ---
+            txtNewPass.PasswordChar = '●';
+            txtNewPass.IconRight = Properties.Resources.eye_closed;
+            txtNewPass.IconRightCursor = Cursors.Hand;
 
-            btnToggleNewPass.Text = "👁";
-            btnToggleNewPass.FillColor = Color.Transparent;
-            btnToggleNewPass.BorderThickness = 0;
-            btnToggleNewPass.HoverState.FillColor = Color.Transparent;
-            btnToggleNewPass.PressedColor = Color.Transparent;
+            txtNewPass.IconRightClick += (s, e) =>
+            {
+                _isNewPassVisible = !_isNewPassVisible;
+                txtNewPass.PasswordChar = _isNewPassVisible ? '\0' : '●';
+                txtNewPass.IconRight = _isNewPassVisible
+                    ? Properties.Resources.eye_open
+                    : Properties.Resources.eye_closed;
+            };
 
-            btnToggleNewPass.Size = new Size(30, txtNewPass.Height - 4);
-            btnToggleNewPass.Location = new Point(txtNewPass.Width - btnToggleNewPass.Width - 2, 2);
-            btnToggleNewPass.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            // --- Nhập lại mật khẩu ---
+            txtReNewPass.PasswordChar = '●';
+            txtReNewPass.IconRight = Properties.Resources.eye_closed;
+            txtReNewPass.IconRightCursor = Cursors.Hand;
 
-            // con mắt cho "Nhập lại mật khẩu"
-            btnToggleReNewPass.Parent = txtReNewPass;
-            btnToggleReNewPass.BringToFront();
-
-            btnToggleReNewPass.Text = "👁";
-            btnToggleReNewPass.FillColor = Color.Transparent;
-            btnToggleReNewPass.BorderThickness = 0;
-            btnToggleReNewPass.HoverState.FillColor = Color.Transparent;
-            btnToggleReNewPass.PressedColor = Color.Transparent;
-
-            btnToggleReNewPass.Size = new Size(30, txtReNewPass.Height - 4);
-            btnToggleReNewPass.Location = new Point(txtReNewPass.Width - btnToggleReNewPass.Width - 2, 2);
-            btnToggleReNewPass.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtReNewPass.IconRightClick += (s, e) =>
+            {
+                _isReNewPassVisible = !_isReNewPassVisible;
+                txtReNewPass.PasswordChar = _isReNewPassVisible ? '\0' : '●';
+                txtReNewPass.IconRight = _isReNewPassVisible
+                    ? Properties.Resources.eye_open
+                    : Properties.Resources.eye_closed;
+            };
         }
+
 
         private void CenterForgotPanel()
         {
@@ -92,16 +90,7 @@ namespace WinFormsfinal
             panelForgot.Top  = (this.ClientSize.Height - panelForgot.Height) / 2;
         }
 
-        private string GetConnectionString()
-        {
-            string dbPath = @"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\project_final.db";
-            if (!File.Exists(dbPath))
-            {
-                MessageBox.Show("KHÔNG tìm thấy file DB tại:\n" + dbPath,
-                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return $"Data Source={dbPath}";
-        }
+        
 
         // ====== HIDE / SHOW ERROR & MOVE BUTTON ======
         private void HideBottomError()
@@ -117,16 +106,14 @@ namespace WinFormsfinal
 
         private void ShowBottomError(string message)
         {
-            // style label lỗi
-            lblForgotError.AutoSize = false;
-            lblForgotError.Height   = 26;
-            lblForgotError.Width    = txtReNewPass.Width;
+            lblForgotError.AutoSize = true;                 // cho tự tính chiều cao
+            lblForgotError.MaximumSize = new Size(txtReNewPass.Width, 0); // giới hạn chiều rộng
 
-            lblForgotError.Text      = message;
+            lblForgotError.Text = message;
             lblForgotError.ForeColor = Color.FromArgb(255, 80, 80);
             lblForgotError.BackColor = Color.Transparent;
 
-            // đặt ngay dưới ô nhập lại
+            // đặt dưới ô nhập lại
             lblForgotError.Location = new Point(
                 txtReNewPass.Left,
                 txtReNewPass.Bottom + 4
@@ -135,11 +122,12 @@ namespace WinFormsfinal
             lblForgotError.Visible = true;
             lblForgotError.BringToFront();
 
-            // dời 2 nút xuống
-            int newTop = lblForgotError.Bottom + 8;
+            // dời nút xuống theo chiều cao thực tế của label
+            int newTop = lblForgotError.Bottom + 20;
             btnChange.Top = newTop;
             btnCancel.Top = newTop;
         }
+
 
         private void HideBubble(Guna2Panel? bubble)
         {
@@ -158,7 +146,7 @@ namespace WinFormsfinal
                     BorderColor = Color.Black,
                     BorderThickness = 1,
                     BackColor = Color.Transparent,
-                    Size = new Size(260, 34),
+                    Size = new Size(300, 34),
                 };
                 bubble.ShadowDecoration.Enabled = true;
                 bubble.ShadowDecoration.BorderRadius = 8;
@@ -267,24 +255,24 @@ namespace WinFormsfinal
             // ====== Kiểm tra DB & cập nhật ======
             try
             {
-                using (var conn = new SqliteConnection(GetConnectionString()))
+                using (var conn = new SQLiteConnection(connectionString))
                 {
                     conn.Open();
 
-                    using (var fkCmd = new SqliteCommand("PRAGMA foreign_keys = ON;", conn))
+                    using (var fkCmd = new SQLiteCommand("PRAGMA foreign_keys = ON;", conn))
                         fkCmd.ExecuteNonQuery();
 
                     // 1) Lấy email theo tài khoản
                     string sqlGetEmail = @"
-                        SELECT nd.Email
-                        FROM TaiKhoan tk
-                        LEFT JOIN NguoiDung nd ON tk.MaNguoiDung = nd.MaNguoiDung
-                        WHERE tk.TenDangNhap = @user
-                    ";
+        SELECT nd.Email
+        FROM TaiKhoan tk
+        LEFT JOIN NguoiDung nd ON tk.MaNguoiDung = nd.MaNguoiDung
+        WHERE tk.TenDangNhap = @user
+    ";
 
                     string? emailDb = null;
 
-                    using (var cmdGet = new SqliteCommand(sqlGetEmail, conn))
+                    using (var cmdGet = new SQLiteCommand(sqlGetEmail, conn))
                     {
                         cmdGet.Parameters.AddWithValue("@user", user);
 
@@ -309,12 +297,12 @@ namespace WinFormsfinal
 
                     // 3) Cập nhật mật khẩu
                     string sqlUpdate = @"
-                        UPDATE TaiKhoan
-                        SET MatKhau = @newPass
-                        WHERE TenDangNhap = @user
-                    ";
+        UPDATE TaiKhoan
+        SET MatKhau = @newPass
+        WHERE TenDangNhap = @user
+    ";
 
-                    using (var cmdUpdate = new SqliteCommand(sqlUpdate, conn))
+                    using (var cmdUpdate = new SQLiteCommand(sqlUpdate, conn))
                     {
                         cmdUpdate.Parameters.AddWithValue("@newPass", newPass);
                         cmdUpdate.Parameters.AddWithValue("@user", user);
@@ -334,6 +322,7 @@ namespace WinFormsfinal
                         }
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -357,19 +346,7 @@ namespace WinFormsfinal
             this.Close();
         }
 
-        // ====== CLICK của 2 nút con mắt ======
-        private void btnToggleNewPass_Click(object? sender, EventArgs e)
-        {
-            _isNewPassVisible = !_isNewPassVisible;
-            txtNewPass.PasswordChar = _isNewPassVisible ? '\0' : '●';
-            btnToggleNewPass.Text   = _isNewPassVisible ? "🙈" : "👁";
-        }
-
-        private void btnToggleReNewPass_Click(object? sender, EventArgs e)
-        {
-            _isReNewPassVisible = !_isReNewPassVisible;
-            txtReNewPass.PasswordChar = _isReNewPassVisible ? '\0' : '●';
-            btnToggleReNewPass.Text   = _isReNewPassVisible ? "🙈" : "👁";
-        }
+        
+        
     }
 }

@@ -47,9 +47,14 @@ namespace WinFormsfinal
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             btnLogOut = new Guna.UI2.WinForms.Guna2Button();
             btnThongTinCN = new Guna.UI2.WinForms.Guna2Button();
+            btnDatPhong = new Guna.UI2.WinForms.Guna2Button();
+
             btnThongKe = new Guna.UI2.WinForms.Guna2Button();
             btnTheThuVien = new Guna.UI2.WinForms.Guna2Button();
             btnNguoiDoc = new Guna.UI2.WinForms.Guna2Button();
@@ -79,6 +84,7 @@ namespace WinFormsfinal
             guna2Panel1.Controls.Add(btnLogOut);
             guna2Panel1.Controls.Add(btnThongTinCN);
             guna2Panel1.Controls.Add(btnThongKe);
+            guna2Panel1.Controls.Add(btnDatPhong);
             guna2Panel1.Controls.Add(btnTheThuVien);
             guna2Panel1.Controls.Add(btnNguoiDoc);
             guna2Panel1.Controls.Add(guna2Button1);
@@ -167,6 +173,27 @@ namespace WinFormsfinal
             btnTheThuVien.TabIndex = 9;
             btnTheThuVien.Text = "Làm thẻ thư viện";
             btnTheThuVien.Click += btnTheThuVien_Click;
+
+
+            // 
+            // btnDatPhong
+            // 
+            btnDatPhong.CustomizableEdges = customizableEdges25;
+            btnDatPhong.DisabledState.BorderColor = Color.DarkGray;
+            btnDatPhong.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnDatPhong.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnDatPhong.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnDatPhong.FillColor = Color.Transparent;
+            btnDatPhong.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnDatPhong.ForeColor = Color.White;
+            btnDatPhong.Location = new Point(0, 30);        // vị trí sẽ được ArrangeMenuByRole set lại
+            btnDatPhong.Name = "btnDatPhong";
+            btnDatPhong.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            btnDatPhong.Size = new Size(130, 36);
+            btnDatPhong.TabIndex = 13;
+            btnDatPhong.Text = "Đặt phòng";
+            btnDatPhong.Click += btnDatPhong_Click;
+
             // 
             // btnNguoiDoc
             // 
@@ -391,6 +418,7 @@ namespace WinFormsfinal
         private Guna.UI2.WinForms.Guna2Panel panelContent;
         private Guna.UI2.WinForms.Guna2Button btnTheThuVien;
         private Guna.UI2.WinForms.Guna2Button btnThongTinCN;
+        private Guna.UI2.WinForms.Guna2Button btnDatPhong;
 
     }
 }

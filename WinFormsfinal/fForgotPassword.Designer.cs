@@ -22,8 +22,7 @@ namespace WinFormsfinal
         private Guna2TextBox txtNewPass;
         private Guna2TextBox txtReNewPass;
 
-        private Guna2Button btnToggleNewPass;    // 👁 cho NewPass
-        private Guna2Button btnToggleReNewPass;  // 👁 cho ReNewPass
+       
 
         private Guna2Button btnChange;
         private Guna2Button btnCancel;
@@ -59,8 +58,7 @@ namespace WinFormsfinal
             txtNewPass = new Guna2TextBox();
             txtReNewPass = new Guna2TextBox();
 
-            btnToggleNewPass = new Guna2Button();
-            btnToggleReNewPass = new Guna2Button();
+           
 
             btnChange = new Guna2Button();
             btnCancel = new Guna2Button();
@@ -203,29 +201,7 @@ namespace WinFormsfinal
             lblForgotError.Visible = false;
 
             // ===== Buttons con mắt (sẽ được re-parent vào TextBox trong SetupEyeButtons) =====
-            btnToggleNewPass.BorderRadius = 8;
-            btnToggleNewPass.FillColor = Color.FromArgb(250, 250, 250);
-            btnToggleNewPass.Font = new Font("Segoe UI", 9F);
-            btnToggleNewPass.ForeColor = Color.Black;
-            btnToggleNewPass.HoverState.FillColor = Color.FromArgb(240, 240, 240);
-            btnToggleNewPass.PressedColor = Color.FromArgb(230, 230, 230);
-            btnToggleNewPass.Size = new Size(35, 26);
-            btnToggleNewPass.Location = new Point(0, 0); // sẽ đặt lại trong SetupEyeButtons
-            btnToggleNewPass.Name = "btnToggleNewPass";
-            btnToggleNewPass.Text = "👁";
-            btnToggleNewPass.Click += btnToggleNewPass_Click;
-
-            btnToggleReNewPass.BorderRadius = 8;
-            btnToggleReNewPass.FillColor = Color.FromArgb(250, 250, 250);
-            btnToggleReNewPass.Font = new Font("Segoe UI", 9F);
-            btnToggleReNewPass.ForeColor = Color.Black;
-            btnToggleReNewPass.HoverState.FillColor = Color.FromArgb(240, 240, 240);
-            btnToggleReNewPass.PressedColor = Color.FromArgb(230, 230, 230);
-            btnToggleReNewPass.Size = new Size(35, 26);
-            btnToggleReNewPass.Location = new Point(0, 0); // sẽ đặt lại trong SetupEyeButtons
-            btnToggleReNewPass.Name = "btnToggleReNewPass";
-            btnToggleReNewPass.Text = "👁";
-            btnToggleReNewPass.Click += btnToggleReNewPass_Click;
+            
 
             // ===== Buttons đổi/hủy =====
             btnChange.BorderRadius = 10;
@@ -290,8 +266,7 @@ namespace WinFormsfinal
             panelForgot.Controls.Add(lblForgotError);
 
             // Thêm 2 nút “mắt” vào panel trước; sẽ re-parent sang TextBox trong SetupEyeButtons()
-            panelForgot.Controls.Add(btnToggleNewPass);
-            panelForgot.Controls.Add(btnToggleReNewPass);
+            
 
             panelForgot.Controls.Add(btnChange);
             panelForgot.Controls.Add(btnCancel);

@@ -6,7 +6,7 @@ using System.Globalization;       // << thêm để parse/format ngày sinh
 using System.IO;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
-using Microsoft.Data.Sqlite;
+using System.Data.SQLite;        // ĐỔI: dùng System.Data.SQLite
 
 namespace WinFormsfinal
 {
@@ -44,22 +44,23 @@ namespace WinFormsfinal
         // ====== DB ======
         private string GetConnectionString()
         {
-            string dbPath = @"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\project_final.db";
+            // dùng chung style như fLogin: "Data Source=project_final.db;Version=3;"
+            string dbPath = "project_final.db";
             if (!File.Exists(dbPath))
             {
-                MessageBox.Show("KHÔNG tìm thấy file DB tại:\n" + dbPath,
+                MessageBox.Show("KHÔNG tìm thấy file DB tại:\n" + Path.GetFullPath(dbPath),
                     "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            return $"Data Source={dbPath}";
+            return @"Data Source=project_final.db;Version=3;";
         }
 
         // Đảm bảo có cột HinhAnh trong bảng NguoiDung (migration an toàn)
-        private void EnsureNguoiDungHasImageColumn(SqliteConnection conn)
+        private void EnsureNguoiDungHasImageColumn(SQLiteConnection conn)
         {
             try
             {
                 bool hasCol = false;
-                using (var cmd = new SqliteCommand("PRAGMA table_info(NguoiDung);", conn))
+                using (var cmd = new SQLiteCommand("PRAGMA table_info(NguoiDung);", conn))
                 using (var rd = cmd.ExecuteReader())
                 {
                     while (rd.Read())
@@ -75,7 +76,7 @@ namespace WinFormsfinal
 
                 if (!hasCol)
                 {
-                    using (var alter = new SqliteCommand("ALTER TABLE NguoiDung ADD COLUMN HinhAnh BLOB NULL;", conn))
+                    using (var alter = new SQLiteCommand("ALTER TABLE NguoiDung ADD COLUMN HinhAnh BLOB NULL;", conn))
                     {
                         alter.ExecuteNonQuery();
                     }
@@ -91,7 +92,7 @@ namespace WinFormsfinal
         {
             try
             {
-                using (var conn = new SqliteConnection(GetConnectionString()))
+                using (var conn = new SQLiteConnection(GetConnectionString()))
                 {
                     conn.Open();
 
@@ -114,7 +115,7 @@ namespace WinFormsfinal
                         WHERE tk.TenDangNhap = @user
                     ";
 
-                    using (var cmd = new SqliteCommand(sql, conn))
+                    using (var cmd = new SQLiteCommand(sql, conn))
                     {
                         cmd.Parameters.AddWithValue("@user", _username);
 
@@ -124,10 +125,10 @@ namespace WinFormsfinal
                             {
                                 _maNguoiDung = rd["MaNguoiDung"] as string ?? string.Empty;
 
-                                txtHoTen.Text  = rd["HoTen"]       as string ?? "";
-                                txtEmail.Text  = rd["Email"]       as string ?? "";
-                                txtSDT.Text    = rd["SoDienThoai"] as string ?? "";
-                                txtDiaChi.Text = rd["DiaChi"]      as string ?? "";
+                                txtHoTen.Text = rd["HoTen"] as string ?? "";
+                                txtEmail.Text = rd["Email"] as string ?? "";
+                                txtSDT.Text = rd["SoDienThoai"] as string ?? "";
+                                txtDiaChi.Text = rd["DiaChi"] as string ?? "";
 
                                 // ==== Ngày sinh: cố gắng hiển thị dd/MM/yyyy, không parse được thì để nguyên ====
                                 var nsVal = rd["NgaySinh"];
@@ -145,7 +146,7 @@ namespace WinFormsfinal
                                 }
 
                                 txtTenDangNhap.Text = _username;
-                                _matKhauHienTai     = rd["MatKhau"] as string ?? "";
+                                _matKhauHienTai = rd["MatKhau"] as string ?? "";
 
                                 // ==== Ảnh đại diện ====
                                 if (rd["HinhAnh"] != DBNull.Value)
@@ -228,8 +229,8 @@ namespace WinFormsfinal
             using (var g = Graphics.FromImage(square))
             {
                 g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                g.SmoothingMode     = SmoothingMode.AntiAlias;
-                g.PixelOffsetMode   = PixelOffsetMode.HighQuality;
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
                 g.DrawImage(src, new Rectangle(0, 0, side, side),
                                 new Rectangle(x, y, side, side), GraphicsUnit.Pixel);
             }
@@ -238,8 +239,8 @@ namespace WinFormsfinal
             using (var g2 = Graphics.FromImage(bmp))
             {
                 g2.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                g2.SmoothingMode     = SmoothingMode.AntiAlias;
-                g2.PixelOffsetMode   = PixelOffsetMode.HighQuality;
+                g2.SmoothingMode = SmoothingMode.AntiAlias;
+                g2.PixelOffsetMode = PixelOffsetMode.HighQuality;
                 g2.DrawImage(square, 0, 0, edge, edge);
             }
             return bmp;
@@ -375,7 +376,7 @@ namespace WinFormsfinal
 
             try
             {
-                using (var conn = new SqliteConnection(GetConnectionString()))
+                using (var conn = new SQLiteConnection(GetConnectionString()))
                 {
                     conn.Open();
                     using (var tran = conn.BeginTransaction())
@@ -404,7 +405,7 @@ namespace WinFormsfinal
 
                             sqlUpdateND += " WHERE MaNguoiDung = @id;";
 
-                            using (var cmdND = new SqliteCommand(sqlUpdateND, conn, tran))
+                            using (var cmdND = new SQLiteCommand(sqlUpdateND, conn, tran))
                             {
                                 cmdND.Parameters.AddWithValue("@hoten", hoTen);
                                 cmdND.Parameters.AddWithValue("@ngaysinh",
@@ -416,7 +417,7 @@ namespace WinFormsfinal
 
                                 if (!_clearImage && _hinhAnhPending != null)
                                 {
-                                    cmdND.Parameters.Add("@hinhAnh", SqliteType.Blob).Value = _hinhAnhPending;
+                                    cmdND.Parameters.Add("@hinhAnh", DbType.Binary).Value = _hinhAnhPending;
                                 }
 
                                 cmdND.ExecuteNonQuery();
@@ -438,7 +439,7 @@ namespace WinFormsfinal
                                      date('now','+1 year'), 'BiKhoa', @hinhAnh)
                             ";
 
-                            using (var cmdND = new SqliteCommand(sqlInsertND, conn, tran))
+                            using (var cmdND = new SQLiteCommand(sqlInsertND, conn, tran))
                             {
                                 cmdND.Parameters.AddWithValue("@id", newId);
                                 cmdND.Parameters.AddWithValue("@hoten", hoTen);
@@ -449,7 +450,7 @@ namespace WinFormsfinal
                                 cmdND.Parameters.AddWithValue("@diachi", diaChi);
 
                                 if (_hinhAnhPending != null)
-                                    cmdND.Parameters.Add("@hinhAnh", SqliteType.Blob).Value = _hinhAnhPending;
+                                    cmdND.Parameters.Add("@hinhAnh", DbType.Binary).Value = _hinhAnhPending;
                                 else
                                     cmdND.Parameters.AddWithValue("@hinhAnh", DBNull.Value);
 
@@ -463,7 +464,7 @@ namespace WinFormsfinal
                                 WHERE TenDangNhap = @user
                             ";
 
-                            using (var cmdTkNd = new SqliteCommand(sqlUpdateTK_ND, conn, tran))
+                            using (var cmdTkNd = new SQLiteCommand(sqlUpdateTK_ND, conn, tran))
                             {
                                 cmdTkNd.Parameters.AddWithValue("@id", newId);
                                 cmdTkNd.Parameters.AddWithValue("@user", _username);
@@ -482,7 +483,7 @@ namespace WinFormsfinal
                                 WHERE TenDangNhap = @user
                             ";
 
-                            using (var cmdPass = new SqliteCommand(sqlUpdatePass, conn, tran))
+                            using (var cmdPass = new SQLiteCommand(sqlUpdatePass, conn, tran))
                             {
                                 cmdPass.Parameters.AddWithValue("@pass", matKhauMoi);
                                 cmdPass.Parameters.AddWithValue("@user", _username);
@@ -528,12 +529,12 @@ namespace WinFormsfinal
         private void SetupPasswordEyes()
         {
             // mặc định ẩn
-            txtPassCu.PasswordChar         = '●';
-            txtPassMoi.PasswordChar        = '●';
+            txtPassCu.PasswordChar = '●';
+            txtPassMoi.PasswordChar = '●';
             txtNhapLaiPassMoi.PasswordChar = '●';
 
-            _eyeCu   = CreateEyeOnTextbox(txtPassCu, ToggleEyeGeneric);
-            _eyeMoi  = CreateEyeOnTextbox(txtPassMoi, ToggleEyeGeneric);
+            _eyeCu = CreateEyeOnTextbox(txtPassCu, ToggleEyeGeneric);
+            _eyeMoi = CreateEyeOnTextbox(txtPassMoi, ToggleEyeGeneric);
             _eyeMoi2 = CreateEyeOnTextbox(txtNhapLaiPassMoi, ToggleEyeGeneric);
         }
 
@@ -541,23 +542,23 @@ namespace WinFormsfinal
         {
             var btn = new Guna2Button
             {
-                Parent                 = txt,
-                Text                   = "👁",
-                Font                   = new Font("Segoe UI Emoji", 10F, FontStyle.Regular, GraphicsUnit.Point),
-                ForeColor              = Color.Black,
-                FillColor              = Color.Transparent,
-                BorderThickness        = 0,
-                Cursor                 = Cursors.Hand,
+                Parent = txt,
+                Text = "👁",
+                Font = new Font("Segoe UI Emoji", 10F, FontStyle.Regular, GraphicsUnit.Point),
+                ForeColor = Color.Black,
+                FillColor = Color.Transparent,
+                BorderThickness = 0,
+                Cursor = Cursors.Hand,
                 UseTransparentBackground = true,
-                Size                   = new Size(28, Math.Max(22, txt.Height - 6)),
-                Visible                = true,
-                TabStop                = false
+                Size = new Size(28, Math.Max(22, txt.Height - 6)),
+                Visible = true,
+                TabStop = false
             };
 
             btn.HoverState.FillColor = Color.Transparent;
-            btn.PressedColor         = Color.Transparent;
-            btn.Anchor               = AnchorStyles.Top | AnchorStyles.Right;
-            btn.Click               += onClick;
+            btn.PressedColor = Color.Transparent;
+            btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btn.Click += onClick;
 
             // đặt bên phải & canh giữa dọc trong textbox
             btn.Location = new Point(txt.Width - btn.Width - 4, (txt.Height - btn.Height) / 2);
@@ -565,7 +566,7 @@ namespace WinFormsfinal
             // canh lại khi textbox đổi kích thước
             txt.SizeChanged += (_, __) =>
             {
-                btn.Size     = new Size(28, Math.Max(22, txt.Height - 6));
+                btn.Size = new Size(28, Math.Max(22, txt.Height - 6));
                 btn.Location = new Point(txt.Width - btn.Width - 4, (txt.Height - btn.Height) / 2);
                 btn.BringToFront();
             };
@@ -584,7 +585,7 @@ namespace WinFormsfinal
 
             bool isVisible = (txt.PasswordChar == '\0');
             txt.PasswordChar = isVisible ? '●' : '\0';
-            btn.Text         = isVisible ? "👁" : "🙈";
+            btn.Text = isVisible ? "👁" : "🙈";
         }
     }
 }

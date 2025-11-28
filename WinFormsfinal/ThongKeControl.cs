@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Windows.Forms;
-using Microsoft.Data.Sqlite;
+using System.Data.SQLite;                           // ĐỔI: dùng System.Data.SQLite
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace WinFormsfinal
 {
     public partial class ThongKeControl : UserControl
     {
-        // ĐƯỜNG DẪN DB – chỉnh đúng như của bạn
+        // KẾT NỐI DB – giống kiểu fLogin / fRegister
         private const string ConnectionString =
-            @"Data Source=D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\project_final.db";
+            @"Data Source=project_final.db;Version=3;";
 
         public ThongKeControl()
         {
@@ -145,8 +145,8 @@ namespace WinFormsfinal
         ORDER BY NhomMucDich;
     ";
 
-            using (var conn = new SqliteConnection(ConnectionString))
-            using (var cmd = new SqliteCommand(sql, conn))
+            using (var conn = new SQLiteConnection(ConnectionString))
+            using (var cmd = new SQLiteCommand(sql, conn))
             {
                 conn.Open();
                 using (var reader = cmd.ExecuteReader())
@@ -212,8 +212,8 @@ namespace WinFormsfinal
                 GROUP BY TrangThai;
             ";
 
-            using (var conn = new SqliteConnection(ConnectionString))
-            using (var cmd = new SqliteCommand(sql, conn))
+            using (var conn = new SQLiteConnection(ConnectionString))
+            using (var cmd = new SQLiteCommand(sql, conn))
             {
                 conn.Open();
                 using (var reader = cmd.ExecuteReader())
@@ -282,8 +282,8 @@ namespace WinFormsfinal
         ORDER BY Ngay;
     ";
 
-            using (var conn = new SqliteConnection(ConnectionString))
-            using (var cmd = new SqliteCommand(sql, conn))
+            using (var conn = new SQLiteConnection(ConnectionString))
+            using (var cmd = new SQLiteCommand(sql, conn))
             {
                 conn.Open();
                 using (var reader = cmd.ExecuteReader())
@@ -360,8 +360,8 @@ namespace WinFormsfinal
 
             int xIndex = 1;
 
-            using (var conn = new SqliteConnection(ConnectionString))
-            using (var cmd = new SqliteCommand(sql, conn))
+            using (var conn = new SQLiteConnection(ConnectionString))
+            using (var cmd = new SQLiteCommand(sql, conn))
             {
                 conn.Open();
                 using (var reader = cmd.ExecuteReader())
@@ -407,8 +407,8 @@ namespace WinFormsfinal
 
         private int ExecuteScalarInt(string sql, params (string name, object value)[] parameters)
         {
-            using (var conn = new SqliteConnection(ConnectionString))
-            using (var cmd = new SqliteCommand(sql, conn))
+            using (var conn = new SQLiteConnection(ConnectionString))
+            using (var cmd = new SQLiteCommand(sql, conn))
             {
                 foreach (var p in parameters)
                 {

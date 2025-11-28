@@ -3,13 +3,15 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
-using Microsoft.Data.Sqlite;
+using System.Data.SQLite;
 
 namespace WinFormsfinal
 {
     public partial class fLogin : Form
     {
         private bool isPasswordVisible = false;
+
+        private readonly string connectionString = @"Data Source=project_final.db;Version=3;";
 
         // Chế độ hiển thị trong card
         private enum LoginMode { None, KhachHang, Admin }
@@ -18,6 +20,12 @@ namespace WinFormsfinal
         // Bong bóng cảnh báo (runtime)
         private Guna2Panel? _bubbleUser;
         private Guna2Panel? _bubblePass;
+        // Ẩn bong bóng
+        private void HideBubble(Guna2Panel? bubble)
+        {
+            if (bubble != null) bubble.Visible = false;
+        }
+
 
         public fLogin()
         {
@@ -25,6 +33,7 @@ namespace WinFormsfinal
 
             // canh lại dòng lỗi theo vị trí nút đăng nhập
             RelayoutBottom();
+
 
             // mặc định: màn chọn vai trò trong card
             ShowRolePanelInCard();
@@ -35,19 +44,22 @@ namespace WinFormsfinal
             // nút con mắt trong textbox mật khẩu
             SetupEyeButton();
 
+
             // gõ chữ -> ẩn lỗi và relayout
             txtUser.TextChanged += (_, __) =>
             {
-                if (_bubbleUser != null) _bubbleUser.Visible = false;
+                HideBubble(_bubbleUser);
                 lblAuthError.Visible = false;
                 RelayoutBottom();
             };
+
             txtPass.TextChanged += (_, __) =>
             {
-                if (_bubblePass != null) _bubblePass.Visible = false;
+                HideBubble(_bubblePass);
                 lblAuthError.Visible = false;
                 RelayoutBottom();
             };
+
         }
 
         // ====== Chuyển giữa 2 màn trong card ======
@@ -77,8 +89,10 @@ namespace WinFormsfinal
             btnTogglePass.Text = "👁";
 
             // ẩn bong bóng cảnh báo nếu còn
-            if (_bubbleUser != null) _bubbleUser.Visible = false;
-            if (_bubblePass != null) _bubblePass.Visible = false;
+            // ẩn bong bóng cảnh báo nếu còn
+            HideBubble(_bubbleUser);
+            HideBubble(_bubblePass);
+
 
             // ẩn dòng báo lỗi đỏ dưới nút đăng nhập
             lblAuthError.Visible = false;
@@ -136,73 +150,60 @@ namespace WinFormsfinal
         // ====== Nút con mắt trong textbox mật khẩu ======
         private void SetupEyeButton()
         {
-            btnTogglePass.Parent = txtPass;
-            btnTogglePass.BringToFront();
+            txtPass.IconRight = Properties.Resources.eye_closed;
+            txtPass.IconRightCursor = Cursors.Hand;
 
-            btnTogglePass.Text = "👁";
-            btnTogglePass.FillColor = Color.Transparent;
-            btnTogglePass.BorderThickness = 0;
-            btnTogglePass.HoverState.FillColor = Color.Transparent;
-            btnTogglePass.PressedColor = Color.Transparent;
-
-            btnTogglePass.Size = new Size(30, txtPass.Height - 4);
-            btnTogglePass.Location = new Point(txtPass.Width - btnTogglePass.Width - 2, 2);
-            btnTogglePass.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtPass.IconRightClick += (s, e) =>
+            {
+                isPasswordVisible = !isPasswordVisible;
+                txtPass.PasswordChar = isPasswordVisible ? '\0' : '●';
+                txtPass.IconRight = isPasswordVisible
+                    ? Properties.Resources.eye_open
+                    : Properties.Resources.eye_closed;
+            };
         }
+
+
 
         // ====== Bong bóng cảnh báo (bo tròn, tự ẩn) ======
         // ====== Bong bóng cảnh báo (nền trắng, viền đen, tự ẩn) ======
+        // ====== Bong bóng cảnh báo (trắng, viền đen, tự ẩn) giống fRegister ======
         private void ShowBubbleError(Control target, ref Guna2Panel? bubble, string message)
         {
             if (bubble == null)
             {
                 bubble = new Guna2Panel
                 {
-                    BorderRadius     = 10,
-                    FillColor        = Color.White,           // nền trắng
-                    BorderColor      = Color.Black,           // viền đen
-                    BorderThickness  = 1,
-                    BackColor        = Color.Transparent,
-                    Size             = new Size(280, 34),
+                    BorderRadius = 8,
+                    FillColor = Color.White,
+                    BorderColor = Color.Black,
+                    BorderThickness = 1,
+                    BackColor = Color.Transparent,
+                    Size = new Size(300, 34),
                 };
-                // Bóng đổ tắt để viền đen sắc nét (bật lại nếu bạn muốn)
-                bubble.ShadowDecoration.Enabled = false;
+                bubble.ShadowDecoration.Enabled = true;
+                bubble.ShadowDecoration.BorderRadius = 8;
+                bubble.ShadowDecoration.Shadow = new Padding(0, 0, 4, 4);
 
-                // Icon ! màu cam ở bên trái
-                var icon = new Label
-                {
-                    AutoSize   = false,
-                    Width      = 26,
-                    Dock       = DockStyle.Left,
-                    Text       = "!",
-                    TextAlign  = ContentAlignment.MiddleCenter,
-                    Font       = new Font("Segoe UI", 10F, FontStyle.Bold),
-                    ForeColor  = Color.White,
-                    BackColor  = Color.FromArgb(255, 153, 0) // cam
-                };
-
-                // Nội dung
                 var lbl = new Label
                 {
-                    Dock       = DockStyle.Fill,
-                    ForeColor  = Color.Black,                // chữ đen
-                    Font       = new Font("Segoe UI", 9F),
-                    TextAlign  = ContentAlignment.MiddleLeft,
-                    Padding    = new Padding(8, 2, 8, 2),
+                    Dock = DockStyle.Fill,
+                    ForeColor = Color.Black,
+                    Font = new Font("Segoe UI", 9F),
+                    TextAlign = ContentAlignment.MiddleLeft,
+                    Padding = new Padding(10, 2, 8, 2),
                 };
-
                 bubble.Tag = lbl;
                 bubble.Controls.Add(lbl);
-                bubble.Controls.Add(icon);
 
-                // Thêm vào panel chứa form login
+                // thêm vào panel chứa các ô login
                 panelLoginFields.Controls.Add(bubble);
             }
 
             var label = (Label)bubble.Tag!;
-            label.Text = "  " + message;
+            label.Text = "⚠  " + message;
 
-            // đặt bong bóng ngay dưới control đích
+            // đặt ngay dưới control target
             var ptScreen = target.Parent.PointToScreen(new Point(target.Left, target.Bottom));
             var ptInPanel = panelLoginFields.PointToClient(ptScreen);
             bubble.Location = new Point(ptInPanel.X, ptInPanel.Y + 6);
@@ -223,36 +224,30 @@ namespace WinFormsfinal
         }
 
 
+
         // ====== DATABASE ======
-        private string GetConnectionString()
-        {
-            // Sửa đường dẫn DB theo máy bạn
-            string dbPath = @"D:\btvnptudesktop\Bai_final\test2\WinFormsfinal\Database\project_final.db";
-            if (!File.Exists(dbPath))
-            {
-                MessageBox.Show("KHÔNG tìm thấy file DB tại:\n" + dbPath,
-                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return $"Data Source={dbPath}";
-        }
+
 
         private bool CheckLoginFromDb(string username, string password, out string? vaiTro)
         {
             vaiTro = null;
-            using (var conn = new SqliteConnection(GetConnectionString()))
+
+            using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
+
                 string sql = @"
-                    SELECT VaiTro
-                    FROM TaiKhoan
-                    WHERE TenDangNhap = @user AND MatKhau = @pass
-                ";
-                using (var cmd = new SqliteCommand(sql, conn))
+            SELECT VaiTro
+            FROM TaiKhoan
+            WHERE TenDangNhap = @user AND MatKhau = @pass
+        ";
+
+                using (var cmd = new SQLiteCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@user", username);
                     cmd.Parameters.AddWithValue("@pass", password);
 
-                    object result = cmd.ExecuteScalar();
+                    object? result = cmd.ExecuteScalar();
                     if (result != null && result != DBNull.Value)
                     {
                         vaiTro = result.ToString();
@@ -262,6 +257,7 @@ namespace WinFormsfinal
                 }
             }
         }
+
 
         // ====== EVENTS ======
         private void btnLogin_Click(object sender, EventArgs e)
@@ -274,7 +270,7 @@ namespace WinFormsfinal
 
             if (string.IsNullOrWhiteSpace(user))
             {
-                ShowBubbleError(txtUser, ref _bubbleUser, "Vui lòng điền trường này.");
+                ShowBubbleError(txtUser, ref _bubbleUser, "Vui lòng điền tài khoản.");
                 missing = true;
             }
 
@@ -283,13 +279,14 @@ namespace WinFormsfinal
                 // Nếu cả user và pass đều trống thì để bubble không bị chồng nhau
                 if (missing)
                     BeginInvoke(new Action(() =>
-                        ShowBubbleError(txtPass, ref _bubblePass, "Vui lòng điền trường này.")
+                        ShowBubbleError(txtPass, ref _bubblePass, "Vui lòng điền mật khẩu.")
                     ));
                 else
-                    ShowBubbleError(txtPass, ref _bubblePass, "Vui lòng điền trường này.");
+                    ShowBubbleError(txtPass, ref _bubblePass, "Vui lòng điền mật khẩu.");
 
                 missing = true;
             }
+
 
             if (missing) return;   // thiếu ô nào thì không kiểm tra DB nữa
 
@@ -358,9 +355,23 @@ namespace WinFormsfinal
         private void btnTogglePass_Click(object sender, EventArgs e)
         {
             isPasswordVisible = !isPasswordVisible;
+
+            // Đổi chế độ hiển thị mật khẩu
             txtPass.PasswordChar = isPasswordVisible ? '\0' : '●';
-            btnTogglePass.Text   = isPasswordVisible ? "🙈" : "👁";
+
+            // Đổi icon theo trạng thái
+            if (isPasswordVisible)
+            {
+                // Đang HIỆN mật khẩu → dùng icon "mắt mở"
+                btnTogglePass.Image = Properties.Resources.eye_open;   // ví dụ
+            }
+            else
+            {
+                // Đang ẨN mật khẩu → dùng icon "mắt đóng"
+                btnTogglePass.Image = Properties.Resources.eye_closed;
+            }
         }
+
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
