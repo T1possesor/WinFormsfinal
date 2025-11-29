@@ -42,7 +42,7 @@ namespace WinFormsfinal
         private Guna2HtmlLabel lblError;
 
         // Ảnh
-        private Guna2CirclePictureBox picAvatar;
+        private Guna2PictureBox picAvatar;
         private Guna2Button btnChonAnh;
         private Guna2Button btnXoaAnh;
 
@@ -108,7 +108,9 @@ namespace WinFormsfinal
             lblError= new Guna2HtmlLabel();
 
             // Avatar & nút ảnh
-            picAvatar = new Guna2CirclePictureBox();
+            // Avatar & nút ảnh
+            picAvatar = new Guna2PictureBox();
+
             btnChonAnh = new Guna2Button();
             btnXoaAnh  = new Guna2Button();
 
@@ -320,11 +322,15 @@ namespace WinFormsfinal
             // Avatar
             picAvatar.ImageRotate = 0F;
             picAvatar.Size = new Size(120, 120);
-            picAvatar.Location = new Point(710, 80); // cùng hàng Họ tên
-            picAvatar.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            picAvatar.Location = new Point(710, 80);
             picAvatar.SizeMode = PictureBoxSizeMode.Zoom;
             picAvatar.BorderStyle = BorderStyle.FixedSingle;
+            // Nếu báo lỗi FillColor thì có thể giữ hoặc bỏ tuỳ version Guna:
             picAvatar.FillColor = Color.FromArgb(245, 245, 245);
+            // ❌ Bỏ dòng này vì chỉ dùng cho Circle:
+            // picAvatar.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+
+
 
             // Nút Chọn ảnh
             btnChonAnh.BorderRadius = 8;

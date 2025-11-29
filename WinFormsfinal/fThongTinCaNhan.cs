@@ -33,7 +33,8 @@ namespace WinFormsfinal
             _username = username ?? string.Empty;
 
             lblUserCaption.Text = "Tài khoản: " + _username;
-
+            picAvatar.SizeMode = PictureBoxSizeMode.Zoom;
+            picAvatar.SizeChanged += (_, __) => RefreshAvatarFromBytes();
             // load dữ liệu khi form mở
             this.Load += fThongTinCaNhan_Load;
 
@@ -42,6 +43,29 @@ namespace WinFormsfinal
         }
 
         // ====== DB ======
+
+
+        private void RefreshAvatarFromBytes()
+        {
+            var data = _hinhAnhPending ?? _hinhAnhCurrent;
+            if (data == null || data.Length == 0)
+            {
+                picAvatar.Image = null;
+                return;
+            }
+
+            using var img = BytesToImage(data);
+            if (img == null)
+            {
+                picAvatar.Image = null;
+                return;
+            }
+
+            int edge = Math.Min(picAvatar.Width, picAvatar.Height);
+            if (edge <= 0) edge = 1; // tránh crash nếu control chưa layout xong
+            picAvatar.Image = MakeSquare(img, edge);
+        }
+
         private string GetConnectionString()
         {
             // dùng chung style như fLogin: "Data Source=project_final.db;Version=3;"
@@ -152,14 +176,12 @@ namespace WinFormsfinal
                                 if (rd["HinhAnh"] != DBNull.Value)
                                 {
                                     _hinhAnhCurrent = (byte[])rd["HinhAnh"];
-                                    var img = BytesToImage(_hinhAnhCurrent);
-                                    picAvatar.Image = (img != null) ? MakeSquare(img, picAvatar.Width) : null;
                                 }
                                 else
                                 {
                                     _hinhAnhCurrent = null;
-                                    picAvatar.Image = null;
                                 }
+                                RefreshAvatarFromBytes();
                             }
                             else
                             {
@@ -249,41 +271,47 @@ namespace WinFormsfinal
         // ====== Chọn ảnh mới ======
         private void btnChonAnh_Click(object? sender, EventArgs e)
         {
-            using var ofd = new OpenFileDialog();
-            ofd.Title = "Chọn ảnh đại diện";
-            ofd.Filter = "Ảnh (*.png;*.jpg;*.jpeg;*.bmp)|*.png;*.jpg;*.jpeg;*.bmp";
-            ofd.Multiselect = false;
-
-            if (ofd.ShowDialog() == DialogResult.OK)
+            using (var ofd = new OpenFileDialog())
             {
-                try
+                ofd.Title = "Chọn ảnh đại diện";
+                ofd.Filter = "Ảnh (*.png;*.jpg;*.jpeg;*.bmp)|*.png;*.jpg;*.jpeg;*.bmp";
+                ofd.Multiselect = false;
+
+                if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    var fi = new FileInfo(ofd.FileName);
-                    if (fi.Length > 2 * 1024 * 1024)
+                    try
                     {
-                        MessageBox.Show("Ảnh vượt quá 2MB, vui lòng chọn ảnh nhỏ hơn.", "Cảnh báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
+                        var fi = new FileInfo(ofd.FileName);
+                        if (fi.Length > 2 * 1024 * 1024)
+                        {
+                            MessageBox.Show("Ảnh vượt quá 2MB, vui lòng chọn ảnh nhỏ hơn.", "Cảnh báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // --- đọc ảnh & lưu bytes gốc dạng PNG ---
+                        using (var fs = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read))
+                        using (var img = Image.FromStream(fs))
+                        using (var ms = new MemoryStream())
+                        {
+                            img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                            _hinhAnhPending = ms.ToArray();
+                        }
+
+                        _clearImage = false;
+
+                        // --- hiển thị lại ảnh theo khung hiện tại ---
+                        RefreshAvatarFromBytes();
                     }
-
-                    using var fs = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read);
-                    using var img = Image.FromStream(fs);
-
-                    // Cắt vuông & scale theo khung hiển thị
-                    var showImg = MakeSquare(img, picAvatar.Width);
-                    picAvatar.Image = showImg;
-
-                    // Lưu bytes ảnh đã chuẩn hoá vào DB
-                    _hinhAnhPending = ImageToBytes(showImg);
-                    _clearImage = false;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Không thể đọc ảnh: " + ex.Message, "Lỗi",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Không thể đọc ảnh: " + ex.Message, "Lỗi",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
+
 
         // ====== Xoá ảnh ======
         private void btnXoaAnh_Click(object? sender, EventArgs e)

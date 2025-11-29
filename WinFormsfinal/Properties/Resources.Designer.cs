@@ -133,6 +133,16 @@ namespace WinFormsfinal.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cau_truc_du_lieu {
+            get {
+                object obj = ResourceManager.GetObject("cau_truc_du_lieu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap eye_closed {
             get {
                 object obj = ResourceManager.GetObject("eye_closed", resourceCulture);

@@ -5,6 +5,11 @@ using Microsoft.Web.WebView2.WinForms;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using QuanLyThuVien_PhanHeDocGia;
+using Microsoft.Data.Sqlite;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
 
 namespace WinFormsfinal
 {
@@ -21,6 +26,7 @@ namespace WinFormsfinal
         private static readonly Color SectionBodyColor = Color.White;
         private static readonly Color ChildBtnColor = Color.FromArgb(59, 130, 246);
         private static readonly Color ChildBtnHover = Color.FromArgb(37, 99, 235);
+
 
         // ================== CLASS PHỤ ĐỂ ANIMATION ACCORDION (ADMIN) ==================
         private class AccordionSectionInfo
@@ -52,12 +58,79 @@ namespace WinFormsfinal
 
         // ================== CÁC ẢNH TIN TỨC THƯ VIỆN ==================
         private Image[]? _newsImages;
+        private Guna2Button? btnSachKH;
 
         // Constructor mặc định (Designer dùng)
         public Form1()
         {
             InitializeComponent();
             guna2Panel1.BringToFront();
+            btnSachKH = new Guna2Button
+            {
+                Name = "btnSachKH",
+                Text = "Sách",
+                Size = btnDatPhong.Size,
+                BorderRadius = btnDatPhong.BorderRadius,
+                Font = btnDatPhong.Font,
+                FillColor = btnDatPhong.FillColor,
+                ForeColor = btnDatPhong.ForeColor,
+                HoverState = { FillColor = btnDatPhong.HoverState.FillColor },
+                Cursor = Cursors.Hand,
+                Visible = false
+            };
+
+            // Gán sự kiện click mở form sách
+            btnSachKH.Click += OpenSachForCustomer;
+
+            // Thêm lên cùng thanh với Đặt phòng
+            (btnDatPhong.Parent ?? this).Controls.Add(btnSachKH);
+
+            // =================================================================
+            // >>> THÊM ĐOẠN NÀY: TẠO MENU CON CHO NÚT SÁCH (ADMIN) <<<
+            // =================================================================
+            // guna2ContextMenuStrip1 là cái bạn đang dùng trong
+            // private void guna2Button1_Click(object sender, EventArgs e)
+
+            var mnuDauSach = new ToolStripMenuItem("Đầu sách");
+            mnuDauSach.Click += OpenDauSach;          // gọi hàm mở form Đầu sách
+
+            var mnuMuonSach = new ToolStripMenuItem("Mượn sách");
+            mnuMuonSach.Click += OpenMuonSach;        // gọi hàm mở form Mượn sách
+
+            var mnuTraSach = new ToolStripMenuItem("Trả sách");
+            mnuTraSach.Click += OpenTraSach;          // gọi hàm mở form Trả sách
+
+            var mnuLichSuMuon = new ToolStripMenuItem("Lịch sử mượn");
+            mnuLichSuMuon.Click += OpenLichSuMuon;    // gọi hàm mở form Lịch sử mượn
+
+            // Xóa item cũ (nếu có) rồi thêm mới
+            guna2ContextMenuStrip1.Items.Clear();
+            guna2ContextMenuStrip1.Items.AddRange(new ToolStripItem[]
+            {
+        mnuDauSach,
+        mnuMuonSach,
+        mnuTraSach,
+        mnuLichSuMuon
+            });
+
+            // =================================================================
+            // >>> THÊM ĐOẠN NÀY: TẠO MENU CON CHO NÚT PHÒNG (ADMIN) <<<
+            // =================================================================
+            // contextMenuStrip1 là cái bạn đang dùng trong
+            // private void btnPhong_Click(object sender, EventArgs e)
+
+            var mnuThongTinPhong = new ToolStripMenuItem("Thông tin phòng");
+            mnuThongTinPhong.Click += OpenThongTinPhong;  // gọi hàm mở form Thông tin phòng
+
+            var mnuDonDatPhong = new ToolStripMenuItem("Đơn đặt phòng");
+            mnuDonDatPhong.Click += OpenDonDatPhong;      // gọi hàm mở form Đơn đặt phòng
+
+            contextMenuStrip1.Items.Clear();
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[]
+            {
+        mnuThongTinPhong,
+        mnuDonDatPhong
+            });
         }
 
         // Constructor nhận username + vai trò từ form đăng nhập
@@ -66,6 +139,62 @@ namespace WinFormsfinal
             _username = username ?? string.Empty;
             _vaiTro = vaiTro ?? string.Empty;
         }
+        private sealed class BookThumb
+        {
+            public string MaSach { get; set; } = "";
+            public string TenSach { get; set; } = "";
+            public string RelativePath { get; set; } = "";
+            public Image? Cover { get; set; }
+        }
+
+        private List<BookThumb> LoadRandomBookThumbs(int count = 5)
+        {
+            var list = new List<BookThumb>();
+            try
+            {
+                using (var conn = new SqliteConnection("Data Source=project_final.db"))
+                {
+                    conn.Open();
+                    using (var cmd = new SqliteCommand(@"
+                SELECT MaSach, TenSach, AnhBiaURL
+                FROM Sach
+                WHERE AnhBiaURL IS NOT NULL AND AnhBiaURL <> ''
+                ORDER BY RANDOM()
+                LIMIT @n;", conn))
+                    {
+                        cmd.Parameters.AddWithValue("@n", count);
+                        using (var rd = cmd.ExecuteReader())
+                        {
+                            while (rd.Read())
+                            {
+                                var rel = rd["AnhBiaURL"]?.ToString() ?? "";
+                                Image? img = null;
+                                if (!string.IsNullOrWhiteSpace(rel))
+                                {
+                                    var full = Path.Combine(Application.StartupPath, rel);
+                                    if (File.Exists(full))
+                                    {
+                                        using var fs = new FileStream(full, FileMode.Open, FileAccess.Read);
+                                        img = Image.FromStream(fs);
+                                    }
+                                }
+                                list.Add(new BookThumb
+                                {
+                                    MaSach = rd["MaSach"].ToString() ?? "",
+                                    TenSach = rd["TenSach"].ToString() ?? "",
+                                    RelativePath = rel,
+                                    Cover = img
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch { /* có thể log nếu cần */ }
+
+            return list;
+        }
+
 
         private void NewsCard_Click(object? sender, EventArgs e)
         {
@@ -106,7 +235,15 @@ namespace WinFormsfinal
         // =====================================================================
         //        TRANG CHỦ KHÁCH HÀNG – BANNER + GIỚI THIỆU TÀI LIỆU MỚI + TIN TỨC
         // =====================================================================
-        
+        private void OpenSachForCustomer(object? sender, EventArgs e)
+        {
+            using (var frm = new FormSach())
+            {
+                frm.StartPosition = FormStartPosition.CenterParent;
+                frm.ShowDialog(this);
+            }
+        }
+
         private void ShowCustomerHome()
         {
             if (panelContent == null) return;
@@ -269,25 +406,61 @@ namespace WinFormsfinal
             BannerContainer_Resize(_bannerContainer, EventArgs.Empty);
         }
 
+        private void BookThumb_Click(object? sender, EventArgs e)
+        {
+            string? ma = null;
+            if (sender is Control c && c.Tag is string s) ma = s;
+            if (string.IsNullOrEmpty(ma)) return;
+
+            using (var frm = new QuanLyThuVien_PhanHeDocGia.FormChiTietSach(ma))
+            {
+                frm.StartPosition = FormStartPosition.CenterParent;
+                frm.ShowDialog(this);
+            }
+        }
+
+
+        private Control CreateBookCard(BookThumb t)
+        {
+            var card = new Guna2Panel
+            {
+                Width = 290,
+                Height = 330,
+                BorderRadius = 12,
+                FillColor = Color.White,
+                Margin = new Padding(15, 10, 15, 10),
+                Cursor = Cursors.Hand,
+                Tag = t.MaSach
+            };
+            card.ShadowDecoration.Enabled = false;
+
+            var pic = new PictureBox
+            {
+                Dock = DockStyle.Fill,
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Image = t.Cover,             // có thể null → sẽ để trống
+                BackColor = Color.White,
+                Cursor = Cursors.Hand,
+                Tag = t.MaSach
+            };
+
+            // Tooltip nhỏ tên sách (tùy thích)
+            var tt = new ToolTip();
+            tt.SetToolTip(pic, t.TenSach);
+
+            // Click vào bìa (hoặc card) → mở chi tiết
+            pic.Click += BookThumb_Click;
+            card.Click += BookThumb_Click;
+
+            card.Controls.Add(pic);
+            return card;
+        }
+
         // ======================= GIỚI THIỆU TÀI LIỆU MỚI =======================
         private Panel CreateNewBooksSection()
         {
-            // DÙNG ẢNH THẬT
-            if (_bookImages == null)
-            {
-                _bookImages = new[]
-                {
-        Properties.Resources.book1,
-        Properties.Resources.book2,
-        Properties.Resources.book3,
-        Properties.Resources.book4,
-        Properties.Resources.book5,
-        // nếu bạn có book6 trong Resources thì thêm:
-        // Properties.Resources.book6
-    };
-            }
-
-
+            // Lấy 5 sách ngẫu nhiên kèm ảnh từ Images/BookCovers
+            var thumbs = LoadRandomBookThumbs(5);
 
             var section = new Panel
             {
@@ -321,20 +494,13 @@ namespace WinFormsfinal
                 AutoScroll = false,
                 WrapContents = false,
                 FlowDirection = FlowDirection.LeftToRight,
-                // Padding LEFT = 120 để cả dãy hình dịch sang phải
                 Padding = new Padding(120, 15, 10, 10),
                 BackColor = Color.Transparent
             };
 
-            string[] titles =
+            foreach (var t in thumbs)
             {
-                "Tên sách 1", "Tên sách 2", "Tên sách 3",
-                "Tên sách 4", "Tên sách 5", "Tên sách 6"
-            };
-
-            for (int i = 0; i < _bookImages.Length && i < titles.Length; i++)
-            {
-                var card = CreateBookCard(_bookImages[i], titles[i]);
+                var card = CreateBookCard(t);
                 flow.Controls.Add(card);
             }
 
@@ -344,6 +510,7 @@ namespace WinFormsfinal
 
             return section;
         }
+
 
         // Tạo 1 card tài liệu (CHỈ CÓ HÌNH, KHÔNG CÓ CHỮ, KHÔNG BÓNG)
         private Control CreateBookCard(Image img, string title)
@@ -1139,6 +1306,7 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
             // KHÁCH HÀNG
             AddIf(btnTheThuVien, isCustomer);
             AddIf(btnDatPhong, isCustomer);      // <--- thêm
+            AddIf(btnSachKH!, isCustomer);
             AddIf(btnThongTinCN, isCustomer);
 
             // --- HẠ RIÊNG NÚT THẺ THƯ VIỆN XUỐNG 10px ---
@@ -1194,13 +1362,18 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
 
         private void guna2Button1_Click_1(object sender, EventArgs e)
         {
-            // mở form kho nếu muốn
+            OpenKho(sender, e);
         }
 
         private void btnNguoiDoc_Click(object sender, EventArgs e)
         {
-            // mở người đọc nếu muốn
+            using (var frm = new FormQuanLyDocGia())
+            {
+                frm.StartPosition = FormStartPosition.CenterParent;
+                frm.ShowDialog(this);
+            }
         }
+
 
         private void btnTheThuVien_Click(object sender, EventArgs e)
         {

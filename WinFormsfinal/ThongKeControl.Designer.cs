@@ -95,7 +95,7 @@ namespace WinFormsfinal
             // 
             this.panelSectionTinhTrangSach.BorderRadius = 12;
             this.panelSectionTinhTrangSach.FillColor = System.Drawing.Color.White;
-            this.panelSectionTinhTrangSach.Location = new System.Drawing.Point(30, 1190);  // dưới cùng
+            this.panelSectionTinhTrangSach.Location = new System.Drawing.Point(30, 1290);  // dưới cùng
             this.panelSectionTinhTrangSach.Name = "panelSectionTinhTrangSach";
             this.panelSectionTinhTrangSach.Padding = new Padding(20, 30, 20, 10);
             this.panelSectionTinhTrangSach.Size = new System.Drawing.Size(1240, 300);   // cao 160
@@ -138,7 +138,7 @@ namespace WinFormsfinal
             this.panelSectionThanhToan.Location = new System.Drawing.Point(30, 880);
             this.panelSectionThanhToan.Name = "panelSectionThanhToan";
             this.panelSectionThanhToan.Padding = new Padding(20, 30, 20, 10);
-            this.panelSectionThanhToan.Size = new System.Drawing.Size(1240, 300);
+            this.panelSectionThanhToan.Size = new System.Drawing.Size(1240, 400);
             this.panelSectionThanhToan.TabIndex = 4;
             this.panelSectionThanhToan.ShadowDecoration.BorderRadius = 12;
             this.panelSectionThanhToan.ShadowDecoration.Enabled = true;

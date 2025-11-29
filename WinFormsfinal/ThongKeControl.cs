@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Data;                                    // <-- cần cho DataTable / DataAdapter
 using System.Windows.Forms;
-using System.Data.SQLite;                           // ĐỔI: dùng System.Data.SQLite
+using System.Data.SQLite;                             // dùng System.Data.SQLite
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace WinFormsfinal
@@ -8,42 +9,46 @@ namespace WinFormsfinal
     public partial class ThongKeControl : UserControl
     {
         // KẾT NỐI DB – giống kiểu fLogin / fRegister
-        private const string ConnectionString =
-            @"Data Source=project_final.db;Version=3;";
+        private const string ConnectionString = @"Data Source=project_final.db;Version=3;";
 
         public ThongKeControl()
         {
             InitializeComponent();
+
+            // Đổi tiêu đề khu vực biểu đồ 3 cho đúng nội dung mới (nếu bạn chưa sửa ở Designer)
+            if (lblThanhToanTitle != null)
+                lblThanhToanTitle.Text = "THỐNG KÊ LƯỢT MƯỢN THEO THỂ LOẠI";
+
             LoadStatisticsFromDatabase();
         }
 
         /// <summary>
-        /// Đọc dữ liệu từ database và đổ lên các label + biểu đồ
+        /// Đọc dữ liệu từ database và đổ lên các card + biểu đồ
         /// </summary>
         private void LoadStatisticsFromDatabase()
         {
             try
             {
-                // 1. Tổng số đầu sách (trong các phiếu mượn)
+                // 1) Tổng số đầu sách (trong các phiếu mượn)
                 int tongDauSach = GetTotalTitles();
                 lblTongSachValue.Text = tongDauSach.ToString("N0");
 
-                // 2. Tổng lượt mượn trong tháng hiện tại
+                // 2) Tổng lượt mượn trong tháng hiện tại
                 int luotMuonThang = GetBorrowCountThisMonth();
                 lblLuotMuonValue.Text = luotMuonThang.ToString("N0") + " lượt";
 
-                // 3. Số độc giả đang hoạt động
+                // 3) Số độc giả đang hoạt động
                 int docGiaHoatDong = GetActiveReaders();
                 lblDocGiaValue.Text = docGiaHoatDong.ToString("N0");
 
-                // 4. Số phòng đã từng được đặt
+                // 4) Số phòng đã từng được đặt
                 int soPhongDaDat = GetBookedRooms();
                 lblPhongValue.Text = $"{soPhongDaDat} phòng";
 
-                // ================== CÁC BIỂU ĐỒ ==================
+                // ====== BIỂU ĐỒ ======
                 LoadChartMucDichDatPhong();     // Column
                 LoadChartTrangThaiTheDocGia();  // Pie
-                LoadChartHinhThucThanhToan();   // Line
+                LoadChartHinhThucThanhToan();   // Column theo thể loại
                 LoadChartTinhTrangSach();       // Bubble
             }
             catch (Exception ex)
@@ -56,7 +61,7 @@ namespace WinFormsfinal
             }
         }
 
-        #region Các hàm lấy số liệu cho card
+        #region CARD NUMBERS
 
         // Đếm số mã sách khác nhau trong chi tiết phiếu mượn
         private int GetTotalTitles()
@@ -96,11 +101,9 @@ namespace WinFormsfinal
         #endregion
 
         // =====================================================================
-        //  HÌNH 1 – COLUMN CHART
-        //  ĐƠN ĐẶT PHÒNG THEO KHUNG GIỜ
-        //  -> 2 cột: Buổi sáng / Buổi chiều
+        //  BIỂU ĐỒ 1 – COLUMN: Đơn đặt phòng theo mục đích (nhỏ/lớn)
         // =====================================================================
-        #region Biểu đồ 1 – Column: Đơn đặt phòng theo khung giờ
+        #region Chart 1: Mục đích đặt phòng
 
         private void LoadChartMucDichDatPhong()
         {
@@ -115,7 +118,6 @@ namespace WinFormsfinal
             area.AxisX.Title = "Mục đích";
             area.AxisY.Title = "Số đơn đặt";
 
-            // ------- 2 series (2 cột) ----------
             var seriesPhongNho = new Series("Phòng ≤ 5 chỗ")
             {
                 ChartType = SeriesChartType.Column,
@@ -131,19 +133,19 @@ namespace WinFormsfinal
             };
 
             const string sql = @"
-        SELECT 
-            CASE 
-                WHEN d.MucDich = 'Thảo luận nhóm'    THEN 'Thảo luận'
-                WHEN d.MucDich = 'Thuyết trình nhóm' THEN 'Thuyết trình'
-                ELSE 'Khác'
-            END AS NhomMucDich,
-            SUM(CASE WHEN p.SucChua <= 5 THEN 1 ELSE 0 END) AS PhongNho,
-            SUM(CASE WHEN p.SucChua  > 5 THEN 1 ELSE 0 END) AS PhongLon
-        FROM DonDatPhongHocNhom d
-        JOIN Phong p ON d.MaPhong = p.MaPhong
-        GROUP BY NhomMucDich
-        ORDER BY NhomMucDich;
-    ";
+                SELECT 
+                    CASE 
+                        WHEN d.MucDich = 'Thảo luận nhóm'    THEN 'Thảo luận'
+                        WHEN d.MucDich = 'Thuyết trình nhóm' THEN 'Thuyết trình'
+                        ELSE 'Khác'
+                    END AS NhomMucDich,
+                    SUM(CASE WHEN p.SucChua <= 5 THEN 1 ELSE 0 END) AS PhongNho,
+                    SUM(CASE WHEN p.SucChua  > 5 THEN 1 ELSE 0 END) AS PhongLon
+                FROM DonDatPhongHocNhom d
+                JOIN Phong p ON d.MaPhong = p.MaPhong
+                GROUP BY NhomMucDich
+                ORDER BY NhomMucDich;
+            ";
 
             using (var conn = new SQLiteConnection(ConnectionString))
             using (var cmd = new SQLiteCommand(sql, conn))
@@ -155,14 +157,10 @@ namespace WinFormsfinal
                     {
                         string label = reader["NhomMucDich"]?.ToString() ?? "";
 
-                        // xử lý NULL -> 0
-                        int soPhongNho = 0;
-                        if (!reader.IsDBNull(reader.GetOrdinal("PhongNho")))
-                            soPhongNho = Convert.ToInt32(reader["PhongNho"]);
-
-                        int soPhongLon = 0;
-                        if (!reader.IsDBNull(reader.GetOrdinal("PhongLon")))
-                            soPhongLon = Convert.ToInt32(reader["PhongLon"]);
+                        int soPhongNho = reader.IsDBNull(reader.GetOrdinal("PhongNho"))
+                                         ? 0 : Convert.ToInt32(reader["PhongNho"]);
+                        int soPhongLon = reader.IsDBNull(reader.GetOrdinal("PhongLon"))
+                                         ? 0 : Convert.ToInt32(reader["PhongLon"]);
 
                         seriesPhongNho.Points.AddXY(label, soPhongNho);
                         seriesPhongLon.Points.AddXY(label, soPhongLon);
@@ -172,20 +170,16 @@ namespace WinFormsfinal
 
             chartMucDich.Legends[0].Docking = Docking.Right;
             chartMucDich.Legends[0].Font = new System.Drawing.Font("Segoe UI", 9F);
-
             chartMucDich.Series.Add(seriesPhongNho);
             chartMucDich.Series.Add(seriesPhongLon);
         }
 
-
         #endregion
 
         // =====================================================================
-        //  HÌNH 2 – PIE CHART
-        //  TRẠNG THÁI THẺ ĐỘC GIẢ
-        //  -> Tỉ lệ Hoạt động / Bị khóa
+        //  BIỂU ĐỒ 2 – PIE: Trạng thái thẻ độc giả
         // =====================================================================
-        #region Biểu đồ 2 – Pie: Trạng thái thẻ độc giả
+        #region Chart 2: Trạng thái thẻ độc giả
 
         private void LoadChartTrangThaiTheDocGia()
         {
@@ -236,50 +230,69 @@ namespace WinFormsfinal
         #endregion
 
         // =====================================================================
-        //  HÌNH 3 – LINE CHART
-        //  HÌNH THỨC THANH TOÁN TIỀN CỌC
-        //  -> Tổng tiền cọc theo NGÀY, tách 2 line Momo / Ngân hàng
+        //  BIỂU ĐỒ 3 – COLUMN: Lượt mượn theo THỂ LOẠI
+        //  -> Mỗi thể loại = 1 cột
         // =====================================================================
-        #region Biểu đồ 3 – Line: Hình thức thanh toán tiền cọc
+        #region Chart 3: Lượt mượn theo thể loại
 
         private void LoadChartHinhThucThanhToan()
         {
             chartThanhToan.Series.Clear();
+            chartThanhToan.DataSource = null;
 
             var area = chartThanhToan.ChartAreas[0];
+            // 1) Đừng để auto-fit cắt chữ
+            area.AxisX.IsLabelAutoFit = false;                 // tắt auto-fit
+            area.AxisX.LabelStyle.TruncatedLabels = false;     // KHÔNG cắt ngắn nhãn
+            area.AxisX.Interval = 1;                           // hiện mọi nhãn
+            area.AxisX.LabelStyle.Angle = -30;                 // xoay nhẹ cho đỡ chồng (tùy bạn)
+            area.AxisX.LabelStyle.Font = new Font("Segoe UI", 9f);
+
+            // 2) Dành thêm khoảng trống dưới để nhãn không chạm mép control
+            area.Position.Auto = false;
+            area.Position = new ElementPosition(3f, 8f, 96f, 88f);     // kéo ChartArea lên một chút
+
+            area.InnerPlotPosition.Auto = false;
+            area.InnerPlotPosition = new ElementPosition(10f, -3f, 86f, 78f); // plot nằm cao hơn, chừa đáy cho nhãn
+
+
             area.AxisX.MajorGrid.Enabled = false;
             area.AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
-            area.AxisX.LabelStyle.Format = "dd/MM";
+            area.AxisX.Interval = 1;
+            area.AxisX.IsMarginVisible = true;
+            area.AxisX.IsLabelAutoFit = true;
+            area.AxisX.LabelStyle.Angle = -20;
             area.AxisX.LabelStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
             area.AxisY.LabelStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
-            area.AxisX.Title = "Ngày thanh toán";
-            area.AxisY.Title = "Tổng tiền cọc";
+            area.AxisX.Title = "Thể loại";
+            area.AxisY.Title = "Số lượt mượn";
 
-            var seriesMomo = new Series("Momo")
+            // 1 series cột
+            var series = new Series("Lượt mượn")
             {
-                ChartType = SeriesChartType.Line,
-                BorderWidth = 2,
-                XValueType = ChartValueType.DateTime,
-                Font = new System.Drawing.Font("Segoe UI", 9F),
-                IsValueShownAsLabel = false
+                ChartType = SeriesChartType.Column,
+                BorderWidth = 1,
+                IsValueShownAsLabel = true,
+                XValueType = ChartValueType.String,   // QUAN TRỌNG: trục X là chuỗi
+                IsXValueIndexed = true,               // phân bổ đều theo danh mục
+                Font = new System.Drawing.Font("Segoe UI", 9F)
             };
 
-            var seriesNganHang = new Series("Ngân hàng")
-            {
-                ChartType = SeriesChartType.Line,
-                BorderWidth = 2,
-                XValueType = ChartValueType.DateTime,
-                Font = new System.Drawing.Font("Segoe UI", 9F),
-                IsValueShownAsLabel = false
-            };
-
+            // Lấy TẤT CẢ thể loại trong Sách và đếm lượt mượn (kể cả = 0)
             const string sql = @"
-        SELECT date(ThoiGianThanhToan) AS Ngay,
-               HinhThucThanhToan,
-               SUM(SoTienCoc) AS TongTien
-        FROM ThanhToanTienCoc
-        GROUP BY Ngay, HinhThucThanhToan
-        ORDER BY Ngay;
+        WITH TheLoaiBase AS (
+            SELECT DISTINCT COALESCE(NULLIF(TRIM(TheLoai), ''), 'Khác') AS TheLoaiNorm
+            FROM Sach
+        )
+        SELECT b.TheLoaiNorm AS TheLoai,
+               COUNT(ct.MaSach) AS LuotMuon
+        FROM TheLoaiBase b
+        LEFT JOIN Sach s
+               ON COALESCE(NULLIF(TRIM(s.TheLoai), ''), 'Khác') = b.TheLoaiNorm
+        LEFT JOIN ChiTietPhieuMuon ct
+               ON ct.MaSach = s.MaSach
+        GROUP BY b.TheLoaiNorm
+        ORDER BY LuotMuon DESC, TheLoai;
     ";
 
             using (var conn = new SQLiteConnection(ConnectionString))
@@ -290,45 +303,38 @@ namespace WinFormsfinal
                 {
                     while (reader.Read())
                     {
-                        string ngayStr = reader["Ngay"]?.ToString() ?? "";
-                        if (!DateTime.TryParse(ngayStr, out DateTime ngay))
-                            continue; // nếu parse không được thì bỏ qua
+                        string theLoai = reader["TheLoai"]?.ToString() ?? "Khác";
+                        int luotMuon = reader.IsDBNull(reader.GetOrdinal("LuotMuon"))
+                                         ? 0 : Convert.ToInt32(reader["LuotMuon"]);
 
-                        // xử lý NULL → 0
-                        double tongTien = 0;
-                        if (!reader.IsDBNull(reader.GetOrdinal("TongTien")))
-                            tongTien = Convert.ToDouble(reader["TongTien"]);
-
-                        string hinhThuc = reader["HinhThucThanhToan"]?.ToString() ?? "";
-
-                        if (hinhThuc == "Momo")
+                        // QUAN TRỌNG: đặt AxisLabel để trục X hiểu là chuỗi riêng
+                        var p = new DataPoint
                         {
-                            seriesMomo.Points.AddXY(ngay, tongTien);
-                        }
-                        else if (hinhThuc == "Ngân hàng")
-                        {
-                            seriesNganHang.Points.AddXY(ngay, tongTien);
-                        }
+                            AxisLabel = theLoai
+                        };
+                        p.YValues = new[] { (double)luotMuon };
+                        series.Points.Add(p);
                     }
                 }
             }
 
-            chartThanhToan.Legends[0].Docking = Docking.Right;
-            chartThanhToan.Legends[0].Font = new System.Drawing.Font("Segoe UI", 9F);
+            // 1 series thì tắt legend cho gọn
+            if (chartThanhToan.Legends.Count > 0)
+                chartThanhToan.Legends[0].Enabled = false;
 
-            chartThanhToan.Series.Add(seriesMomo);
-            chartThanhToan.Series.Add(seriesNganHang);
+            // Độ rộng cột dễ nhìn (tuỳ)
+            series["PixelPointWidth"] = "40";
+
+            chartThanhToan.Series.Add(series);
         }
+
 
         #endregion
 
         // =====================================================================
-        //  HÌNH 4 – BUBBLE CHART
-        //  TÌNH TRẠNG SÁCH KHI MƯỢN/TRẢ
-        //  -> Mỗi bubble = 1 tình trạng
-        //     X: vị trí (1,2,3), Y: Tổng tiền phạt, Kích thước: Số lượng sách
+        //  BIỂU ĐỒ 4 – BUBBLE: Tình trạng sách khi mượn/trả
         // =====================================================================
-        #region Biểu đồ 4 – Bubble: Tình trạng sách khi mượn/trả
+        #region Chart 4: Tình trạng sách
 
         private void LoadChartTinhTrangSach()
         {
@@ -351,12 +357,12 @@ namespace WinFormsfinal
             };
 
             const string sql = @"
-        SELECT TinhTrang,
-               COUNT(*) AS SoLuong,
-               SUM(TienPhat) AS TongPhat
-        FROM ChiTietPhieuMuon
-        GROUP BY TinhTrang;
-    ";
+                SELECT TinhTrang,
+                       COUNT(*) AS SoLuong,
+                       SUM(TienPhat) AS TongPhat
+                FROM ChiTietPhieuMuon
+                GROUP BY TinhTrang;
+            ";
 
             int xIndex = 1;
 
@@ -373,20 +379,16 @@ namespace WinFormsfinal
                                        raw == "HuHong" ? "Hư hỏng" :
                                        raw == "Mat" ? "Mất" : raw;
 
-                        // số lượng
-                        double soLuong = 0;
-                        if (!reader.IsDBNull(reader.GetOrdinal("SoLuong")))
-                            soLuong = Convert.ToDouble(reader["SoLuong"]);
+                        double soLuong = reader.IsDBNull(reader.GetOrdinal("SoLuong"))
+                                         ? 0 : Convert.ToDouble(reader["SoLuong"]);
 
-                        // tổng phạt có thể NULL → 0
-                        double tongPhat = 0;
-                        if (!reader.IsDBNull(reader.GetOrdinal("TongPhat")))
-                            tongPhat = Convert.ToDouble(reader["TongPhat"]);
+                        double tongPhat = reader.IsDBNull(reader.GetOrdinal("TongPhat"))
+                                         ? 0 : Convert.ToDouble(reader["TongPhat"]);
 
                         int pointIndex = series.Points.AddXY(xIndex, tongPhat);
                         var point = series.Points[pointIndex];
 
-                        // Y value 0 = tổng phạt, Y value 1 = kích thước bubble
+                        // Y[0] = tổng phạt, Y[1] = kích thước bubble
                         point.YValues = new double[] { tongPhat, soLuong };
                         point.AxisLabel = label;
                         point.Label = $"{label}\nSL:{soLuong}";
@@ -403,7 +405,7 @@ namespace WinFormsfinal
 
         #endregion
 
-        #region Helper: chạy scalar int
+        #region Helper: ExecuteScalarInt
 
         private int ExecuteScalarInt(string sql, params (string name, object value)[] parameters)
         {
