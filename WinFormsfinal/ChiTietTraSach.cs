@@ -32,12 +32,11 @@ namespace WinFormsfinal
             dgvChiTiet.CurrentCellDirtyStateChanged += dgvChiTiet_CurrentCellDirtyStateChanged;
             dgvChiTiet.CellValueChanged += dgvChiTiet_CellValueChanged;
 
-            // ❌ Bỏ đoạn kiểm tra đã trả / khóa form:
-            // bool phieuDaTra = KiemTraPhieuDaTra(maPhieu);
-            // if (phieuDaTra)
-            // {
-            //     ChuyenSangCheDoXem();
-            // }
+            bool phieuDaTra = KiemTraPhieuDaTra(maPhieu);
+            if (phieuDaTra)
+            {
+                ChuyenSangCheDoXem();
+            }
 
             TinhPhatTreHanLucLoad();
         }

@@ -102,7 +102,7 @@ namespace WinFormsfinal
         {
             currentMode = mode;
 
-            // ✨ mỗi lần vào màn login → xóa sạch dữ liệu cũ
+            //  mỗi lần vào màn login → xóa sạch dữ liệu cũ
             ResetLoginFields();
 
             bool isAdmin = (mode == LoginMode.Admin);
@@ -228,16 +228,16 @@ namespace WinFormsfinal
         // ====== DATABASE ======
 
 
-        private bool CheckLoginFromDb(string username, string password, out string? vaiTro)
+        private bool CheckLoginFromDb(string username, string password, out string? vaiTro, out string? maNguoiDung)
         {
             vaiTro = null;
-
+            maNguoiDung = null;
             using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
                 string sql = @"
-            SELECT VaiTro
+            SELECT VaiTro,  MaNguoiDung
             FROM TaiKhoan
             WHERE TenDangNhap = @user AND MatKhau = @pass
         ";
@@ -247,17 +247,20 @@ namespace WinFormsfinal
                     cmd.Parameters.AddWithValue("@user", username);
                     cmd.Parameters.AddWithValue("@pass", password);
 
-                    object? result = cmd.ExecuteScalar();
-                    if (result != null && result != DBNull.Value)
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        vaiTro = result.ToString();
-                        return true;
+                        if (reader.Read())
+                        {
+                            vaiTro = reader["VaiTro"].ToString();
+                            maNguoiDung = reader["MaNguoiDung"].ToString();
+                            return true;
+                        }
                     }
-                    return false;
                 }
             }
-        }
+            return false;
 
+        }
 
         // ====== EVENTS ======
         private void btnLogin_Click(object sender, EventArgs e)
@@ -292,7 +295,7 @@ namespace WinFormsfinal
 
 
             // ----- 2. Kiểm tra tài khoản trong DB -----
-            if (CheckLoginFromDb(user, pass, out string? vaiTro))
+            if (CheckLoginFromDb(user, pass, out string? vaiTro, out string? maNguoiDung))
             {
                 bool isAdminAcc = string.Equals(vaiTro, "Admin", StringComparison.OrdinalIgnoreCase);
 
@@ -322,7 +325,7 @@ namespace WinFormsfinal
                 RelayoutBottom();
 
                 // Tạo form chính
-                var main = new Form1(user, vaiTro!);
+                var main = new Form1(user, vaiTro!, maNguoiDung);
 
                 // KHI Form1 ĐÓNG (logout / bấm X) ⇒ quay lại màn chọn phương thức đăng nhập
                 main.FormClosed += (s, args) =>

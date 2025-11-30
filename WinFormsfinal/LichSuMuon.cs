@@ -15,11 +15,15 @@ namespace WinFormsfinal
     public partial class LichSuMuon : Form
     {
         string connectionString = "Data Source=project_final.db;Version=3;";
+        private readonly string _maNguoiDung;
 
-        public LichSuMuon()
+        public LichSuMuon(string maNguoiDung)
         {
             InitializeComponent();
             dgvLichSu.ColumnHeadersHeight = 40;
+            _maNguoiDung = maNguoiDung;
+
+
         }
 
         private void LoadLichSu(string maNguoiDung)
@@ -139,8 +143,7 @@ namespace WinFormsfinal
 
         private void LichSuMuon_Load(object sender, EventArgs e)
         {
-            string maNguoiDung = "ND001";
-            LoadLichSu(maNguoiDung);
+            LoadLichSu(_maNguoiDung);
         }
     }
 }

@@ -18,6 +18,8 @@ namespace WinFormsfinal
         // Lưu vai trò và tài khoản đang đăng nhập
         private readonly string _vaiTro = string.Empty;
         private readonly string _username = string.Empty;
+        private readonly string _maNguoiDung = string.Empty;
+
 
         // ====== PALETTE cho Admin (màu hài hòa) ======
         private static readonly Color AdminBg = Color.FromArgb(246, 248, 252);
@@ -134,10 +136,12 @@ namespace WinFormsfinal
         }
 
         // Constructor nhận username + vai trò từ form đăng nhập
-        public Form1(string username, string vaiTro) : this()
+        public Form1(string username, string vaiTro, string maNguoiDung) : this()
         {
             _username = username ?? string.Empty;
             _vaiTro = vaiTro ?? string.Empty;
+            _maNguoiDung = maNguoiDung ?? string.Empty;
+
         }
         private sealed class BookThumb
         {
@@ -1001,7 +1005,7 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
 
         private void OpenLichSuMuon(object? sender, EventArgs e)
         {
-            using (var frm = new LichSuMuon())
+            using (var frm = new LichSuMuon(_maNguoiDung))
             {
                 frm.StartPosition = FormStartPosition.CenterParent;
                 frm.ShowDialog(this);

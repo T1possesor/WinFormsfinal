@@ -34,13 +34,8 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TraSach));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
@@ -49,12 +44,12 @@
             btnTimKiem = new Guna.UI2.WinForms.Guna2Button();
             txtMaThe = new Guna.UI2.WinForms.Guna2TextBox();
             panelUserInfo = new Guna.UI2.WinForms.Guna2GradientPanel();
+            label6 = new Label();
+            label5 = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
             lblMaNguoiDung = new Label();
-            pictureBox3 = new PictureBox();
-            pictureBox2 = new PictureBox();
-            pictureBox1 = new PictureBox();
-            guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
-            guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             lblTrangThaiThe = new Label();
             lblNgayHetThe = new Label();
             lblNgayTaoThe = new Label();
@@ -65,11 +60,6 @@
             dgvPhieuMuon = new Guna.UI2.WinForms.Guna2DataGridView();
             guna2Panel1.SuspendLayout();
             panelUserInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)guna2PictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvPhieuMuon).BeginInit();
             SuspendLayout();
             // 
@@ -142,12 +132,12 @@
             // 
             panelUserInfo.BackColor = Color.Transparent;
             panelUserInfo.BorderRadius = 10;
+            panelUserInfo.Controls.Add(label6);
+            panelUserInfo.Controls.Add(label5);
+            panelUserInfo.Controls.Add(label4);
+            panelUserInfo.Controls.Add(label3);
+            panelUserInfo.Controls.Add(label2);
             panelUserInfo.Controls.Add(lblMaNguoiDung);
-            panelUserInfo.Controls.Add(pictureBox3);
-            panelUserInfo.Controls.Add(pictureBox2);
-            panelUserInfo.Controls.Add(pictureBox1);
-            panelUserInfo.Controls.Add(guna2PictureBox2);
-            panelUserInfo.Controls.Add(guna2PictureBox1);
             panelUserInfo.Controls.Add(lblTrangThaiThe);
             panelUserInfo.Controls.Add(lblNgayHetThe);
             panelUserInfo.Controls.Add(lblNgayTaoThe);
@@ -155,15 +145,60 @@
             panelUserInfo.Controls.Add(lblSDT);
             panelUserInfo.Controls.Add(lblEmail);
             panelUserInfo.Controls.Add(lblTenNguoiDung);
-            panelUserInfo.CustomizableEdges = customizableEdges11;
+            panelUserInfo.CustomizableEdges = customizableEdges7;
             panelUserInfo.FillColor = Color.LightSteelBlue;
             panelUserInfo.FillColor2 = Color.AliceBlue;
             panelUserInfo.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             panelUserInfo.Location = new Point(12, 152);
             panelUserInfo.Name = "panelUserInfo";
-            panelUserInfo.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            panelUserInfo.ShadowDecoration.CustomizableEdges = customizableEdges8;
             panelUserInfo.Size = new Size(241, 296);
             panelUserInfo.TabIndex = 3;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(12, 259);
+            label6.Name = "label6";
+            label6.Size = new Size(62, 15);
+            label6.TabIndex = 31;
+            label6.Text = "Trạng thái:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(6, 197);
+            label5.Name = "label5";
+            label5.Size = new Size(53, 15);
+            label5.TabIndex = 30;
+            label5.Text = "Thời hạn";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(17, 158);
+            label4.Name = "label4";
+            label4.Size = new Size(30, 15);
+            label4.TabIndex = 29;
+            label4.Text = "SĐT:";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(12, 118);
+            label3.Name = "label3";
+            label3.Size = new Size(39, 15);
+            label3.TabIndex = 28;
+            label3.Text = "Email:";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(12, 50);
+            label2.Name = "label2";
+            label2.Size = new Size(47, 15);
+            label2.TabIndex = 27;
+            label2.Text = "Mã thẻ:";
             // 
             // lblMaNguoiDung
             // 
@@ -175,68 +210,11 @@
             lblMaNguoiDung.TabIndex = 26;
             lblMaNguoiDung.Text = "Mã người dùng";
             // 
-            // pictureBox3
-            // 
-            pictureBox3.BackColor = Color.Transparent;
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.InitialImage = (Image)resources.GetObject("pictureBox3.InitialImage");
-            pictureBox3.Location = new Point(14, 245);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(33, 31);
-            pictureBox3.TabIndex = 15;
-            pictureBox3.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.BackColor = Color.Transparent;
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(12, 199);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(37, 34);
-            pictureBox2.TabIndex = 16;
-            pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(12, 150);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(35, 38);
-            pictureBox1.TabIndex = 17;
-            pictureBox1.TabStop = false;
-            // 
-            // guna2PictureBox2
-            // 
-            guna2PictureBox2.BackColor = Color.Transparent;
-            guna2PictureBox2.CustomizableEdges = customizableEdges7;
-            guna2PictureBox2.Image = (Image)resources.GetObject("guna2PictureBox2.Image");
-            guna2PictureBox2.ImageRotate = 0F;
-            guna2PictureBox2.Location = new Point(12, 113);
-            guna2PictureBox2.Name = "guna2PictureBox2";
-            guna2PictureBox2.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2PictureBox2.Size = new Size(32, 39);
-            guna2PictureBox2.TabIndex = 18;
-            guna2PictureBox2.TabStop = false;
-            // 
-            // guna2PictureBox1
-            // 
-            guna2PictureBox1.CustomizableEdges = customizableEdges9;
-            guna2PictureBox1.FillColor = Color.Transparent;
-            guna2PictureBox1.Image = (Image)resources.GetObject("guna2PictureBox1.Image");
-            guna2PictureBox1.ImageRotate = 0F;
-            guna2PictureBox1.Location = new Point(12, 42);
-            guna2PictureBox1.Name = "guna2PictureBox1";
-            guna2PictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            guna2PictureBox1.Size = new Size(35, 34);
-            guna2PictureBox1.TabIndex = 19;
-            guna2PictureBox1.TabStop = false;
-            // 
             // lblTrangThaiThe
             // 
             lblTrangThaiThe.AutoSize = true;
             lblTrangThaiThe.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTrangThaiThe.Location = new Point(53, 251);
+            lblTrangThaiThe.Location = new Point(80, 251);
             lblTrangThaiThe.Name = "lblTrangThaiThe";
             lblTrangThaiThe.Size = new Size(132, 25);
             lblTrangThaiThe.TabIndex = 25;
@@ -256,7 +234,7 @@
             // 
             lblNgayTaoThe.AutoSize = true;
             lblNgayTaoThe.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblNgayTaoThe.Location = new Point(53, 191);
+            lblNgayTaoThe.Location = new Point(56, 191);
             lblNgayTaoThe.Name = "lblNgayTaoThe";
             lblNgayTaoThe.Size = new Size(102, 21);
             lblNgayTaoThe.TabIndex = 23;
@@ -371,11 +349,6 @@
             guna2Panel1.ResumeLayout(false);
             panelUserInfo.ResumeLayout(false);
             panelUserInfo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)guna2PictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvPhieuMuon).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -390,11 +363,6 @@
         private Guna.UI2.WinForms.Guna2GradientPanel panelUserInfo;
         private Label lblTenNguoiDung;
         private Label lblMaNguoiDung;
-        private PictureBox pictureBox3;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox1;
-        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
-        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
         private Label lblTrangThaiThe;
         private Label lblNgayHetThe;
         private Label lblNgayTaoThe;
@@ -402,5 +370,10 @@
         private Label lblSDT;
         private Label lblEmail;
         private Guna.UI2.WinForms.Guna2DataGridView dgvPhieuMuon;
+        private Label label2;
+        private Label label6;
+        private Label label5;
+        private Label label4;
+        private Label label3;
     }
 }
