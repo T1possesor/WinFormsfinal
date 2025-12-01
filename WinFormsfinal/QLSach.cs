@@ -41,6 +41,8 @@ namespace DoAn_1
             txtbMoTa.WordWrap = false;
             txtbMoTa.Height = 31;                       // cùng chiều cao với các textbox khác (nếu muốn)
             txtbMoTa.TextOffset = new Point(5, 0);      // đẩy chữ ra khỏi sát mép trái
+            txtbNamXB.MaxLength = 4;   // chỉ cho gõ tối đa 4 ký tự
+
         }
 
         private void Form2_FormClosing_1(object sender, FormClosingEventArgs e)

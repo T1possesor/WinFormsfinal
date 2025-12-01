@@ -17,7 +17,7 @@ namespace DoAn_1
 {
     public partial class QLNhapSach : Form
     {
-        //Chuỗi kết nối
+        // Chuỗi kết nối
         string strConnectionString = string.Format(@"Data Source ={0}\project_final.db;Version=3;", Application.StartupPath);
         // Đối tượng kết nối dữ liệu
         SQLiteConnection conn = null;
@@ -26,11 +26,15 @@ namespace DoAn_1
         // Đối tượng chứa dữ liệu trong bộ nhớ
         DataSet ds = null;
 
-        //Tạo DataTable
+        // Tạo DataTable làm nguồn cho dgCTPhieuNhap khi chưa save DB
         DataTable dataTable = new DataTable();
 
         int index;
         private DateTime defaultDate;
+
+        // Cờ chặn chuyển tab Chi tiết nếu user tự bấm
+        private bool choPhepChuyenTabBangCode = false;
+
         public QLNhapSach()
         {
             InitializeComponent();
@@ -38,16 +42,23 @@ namespace DoAn_1
 
         private void Form4_Load(object sender, EventArgs e)
         {
-            //Khởi động kết nối
+            // Khởi động kết nối
             conn = new SQLiteConnection(strConnectionString);
-            //Mở kết nối
+            // Mở kết nối
             conn.Open();
+
             LoadPhieuNhap();
             LoadNguoiLapToCombo();
             LoadCTPhieuNhap();
+
             dtpNgayNhap.Value = DateTime.Now;
             defaultDate = dtpNgayNhap.Value.Date;
 
+            // Không cho hiện dòng trống New Row ở dgPhieuNhap
+            dgPhieuNhap.AllowUserToAddRows = false;
+
+            // Gắn handler chặn chuyển tab
+            tabControl1.Selecting += tabControl1_Selecting;
 
             // Tăng chiều cao hàng tiêu đề
             dgPhieuNhap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
@@ -55,18 +66,24 @@ namespace DoAn_1
 
             dgCTPhieuNhap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             dgCTPhieuNhap.ColumnHeadersHeight = 40;
+        }
 
-
+        // Handler chặn chuyển tab Chi tiết nếu user tự bấm
+        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (e.TabPage == tabPage2 && !choPhepChuyenTabBangCode)
+            {
+                e.Cancel = true; // Ngăn chuyển tab Chi tiết khi chưa chọn phiếu
+            }
         }
 
         private void Form4_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //ds.Dispose();
-            // ds = null;
-            conn.Close();
+            //ds?.Dispose();
+            conn?.Close();
             conn = null;
-
         }
+
         void LoadPhieuNhap()
         {
             try
@@ -83,7 +100,6 @@ namespace DoAn_1
                 {
                     if (isLocTheoNgay)
                     {
-
                         DateTime tuNgay = dtpTuNgay.Value.Date;
                         DateTime denNgay = dtpDenNgay.Value.Date;
 
@@ -96,6 +112,7 @@ namespace DoAn_1
                         cmd.Parameters.AddWithValue("@TuNgay", tuNgay.ToString("yyyyMMdd"));
                         cmd.Parameters.AddWithValue("@DenNgay", denNgay.ToString("yyyyMMdd"));
                     }
+
                     SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
                     DataSet ds = new DataSet();
                     da.Fill(ds, "PhieuNhap");
@@ -127,11 +144,13 @@ namespace DoAn_1
                 MessageBox.Show("File SQLite đang dùng:\n" + strConnectionString);
             }
         }
-        //Mỗi khi thay đổi trạng thái lọc sẽ thực hiện load lại phiếu nhập
+
+        // Mỗi khi thay đổi trạng thái lọc sẽ thực hiện load lại phiếu nhập
         private void chboxLoc_CheckedChanged(object sender, EventArgs e)
         {
             LoadPhieuNhap();
         }
+
         // Thực hiện load người lập đã tồn tại trong db vào combobox
         private void LoadNguoiLapToCombo()
         {
@@ -151,8 +170,9 @@ namespace DoAn_1
                 }
             }
             conTemp.Close();
-
         }
+
+        // Load chi tiết phiếu nhập; đồng thời khóa/mở nút Thêm/Xóa phù hợp
         void LoadCTPhieuNhap()
         {
             string sqlCheck = "SELECT COUNT(*) FROM ChiTietPhieuNhap WHERE MaPhieuNhap=@MaPN";
@@ -164,7 +184,7 @@ namespace DoAn_1
                     int count = Convert.ToInt32(cmd.ExecuteScalar());
                     if (count > 0)
                     {
-                        // Trường hợp: Nếu có dữ liệu trong DB  thì tải lên DataGridView
+                        // Có dữ liệu trong DB: tải lên DataGridView và KHÓA thêm/xóa
                         string sqlLoad = "SELECT MaPhieuNhap,MaSach,SoLuong,DonGia FROM ChiTietPhieuNhap WHERE MaPhieuNhap=@MaPN";
                         using (SQLiteDataAdapter da = new SQLiteDataAdapter(sqlLoad, conn))
                         {
@@ -173,24 +193,27 @@ namespace DoAn_1
                             da.Fill(dataTable);
                             dgCTPhieuNhap.DataSource = dataTable;
                         }
+                        btnXoa.Enabled = false;
+                        btnThem.Enabled = false;
                     }
-                    // Trường hợp chưa có thì thực hiện thêm header vào datagridview
                     else
                     {
+                        // Chưa có dữ liệu: cho phép thêm/xóa vào dataTable tạm
+                        btnXoa.Enabled = true;
+                        btnThem.Enabled = true;
+
                         dataTable = new DataTable();
-                        // dataTable.Columns.Add("Mã phiếu nhập", typeof(string));
                         dataTable.Columns.Add("MaPhieuNhap", typeof(string));
                         dataTable.Columns.Add("MaSach", typeof(string));
                         dataTable.Columns.Add("SoLuong", typeof(int));
                         dataTable.Columns.Add("DonGia", typeof(double));
-                        // Liên kết DataTable với DataGridView
                         dgCTPhieuNhap.DataSource = dataTable;
                     }
+
                     dgCTPhieuNhap.Columns["MaPhieuNhap"].HeaderText = "Mã phiếu nhập";
                     dgCTPhieuNhap.Columns["MaSach"].HeaderText = "Mã sách";
                     dgCTPhieuNhap.Columns["SoLuong"].HeaderText = "Số lượng";
                     dgCTPhieuNhap.Columns["DonGia"].HeaderText = "Đơn giá";
-
                 }
             }
             catch (Exception ex)
@@ -198,6 +221,7 @@ namespace DoAn_1
                 MessageBox.Show(ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         // hàm lấy mã phiếu nhập ở dòng cuối cùng trong bảng phiếu nhập
         public string LayMaPN()
         {
@@ -212,11 +236,11 @@ namespace DoAn_1
                 {
                     MaPN = result.ToString();
                 }
-
             }
-            return MaPN;
             connTemp.Close();
+            return MaPN;
         }
+
         // hàm để thực hiện sinh ra mã phiếu nhập dựa trên dòng cuối cùng của mã phiếu nhập
         public string SinhMaPN()
         {
@@ -239,6 +263,7 @@ namespace DoAn_1
             bool value = true;
             string maPN = SinhMaPN();
             txtbMaPhieu.Text = maPN;
+
             if (string.IsNullOrEmpty(txtbNCC.Text))
             {
                 erorNCC.SetError(txtbNCC, "Vui lòng điền Nhà cung cấp");
@@ -249,28 +274,26 @@ namespace DoAn_1
                 erorNguoiLap.SetError(cboNguoiLap, "Vui lòng điền người lập phiếu");
                 value = false;
             }
-            if (!value)
-            {
-                return;
-            }
+            if (!value) return;
+
             DateTime ngayChon = dtpNgayNhap.Value.Date;
             if (ngayChon == defaultDate)
-            {   // Hiển thị cảnh báo về ngày nhập đang để ở mặc định
+            {
                 DialogResult rs = MessageBox.Show("Ngày nhập có phải là ngày mặc định là hôm nay?",
-                    "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning
-                );
-                // Nếu chọn No thì sẽ không thực hiện lưu
+                    "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
                 if (rs == DialogResult.No)
                 {
                     dtpNgayNhap.Focus();
                     return;
                 }
+
                 try
                 {
                     string sql = @"
-                    INSERT INTO PhieuNhap (MaPhieuNhap,NgayNhap,NhaCungCap,NguoiLap)
-                    VALUES (@MaPhieu,@NgayNhap,@NhaCungCap,@NguoiLap);
-                    ";
+INSERT INTO PhieuNhap (MaPhieuNhap,NgayNhap,NhaCungCap,NguoiLap)
+VALUES (@MaPhieu,@NgayNhap,@NhaCungCap,@NguoiLap);
+";
                     using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
                     {
                         cmd.Parameters.AddWithValue("@MaPhieu", maPN);
@@ -290,14 +313,17 @@ namespace DoAn_1
                 }
             }
         }
+
         private void txtbNCC_TextChanged(object sender, EventArgs e)
         {
             erorNCC.Clear();
         }
+
         private void cboNguoiLap_TextChanged_1(object sender, EventArgs e)
         {
             erorNguoiLap.Clear();
         }
+
         void ResetTTPN()
         {
             dtpNgayNhap.Value = defaultDate;
@@ -305,18 +331,122 @@ namespace DoAn_1
             txtbNCC.ResetText();
             cboNguoiLap.Text = "";
         }
+
+        // Kiểm tra: nếu số lượng còn lại + mất < số lượng nhập của PN -> có mượn/hao hụt nên không cho xóa
+        bool KiemTraSachKhachDung(string maPN, out string loi)
+        {
+            loi = "";
+            string sqlChiTiet = "SELECT MaSach, SoLuong FROM ChiTietPhieuNhap WHERE MaPhieuNhap = @MaPN";
+            using (SQLiteCommand cmd = new SQLiteCommand(sqlChiTiet, conn))
+            {
+                cmd.Parameters.AddWithValue("@MaPN", maPN);
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string maSach = reader["MaSach"].ToString();
+                        int soLuongPN = Convert.ToInt32(reader["SoLuong"]);
+
+                        string sqlSoLuong = "SELECT SoLuongConLai, SoLuongMat FROM Sach WHERE MaSach = @MaSach";
+                        using (SQLiteCommand cmd2 = new SQLiteCommand(sqlSoLuong, conn))
+                        {
+                            cmd2.Parameters.AddWithValue("@MaSach", maSach);
+                            using (SQLiteDataReader r = cmd2.ExecuteReader())
+                            {
+                                if (r.Read())
+                                {
+                                    int soLuongConLai = Convert.ToInt32(r["SoLuongConLai"]);
+                                    int soLuongMat = Convert.ToInt32(r["SoLuongMat"]);
+
+                                    if (soLuongConLai + soLuongMat < soLuongPN)
+                                    {
+                                        loi += "/" + maSach + "/";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (loi != "")
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        // Cập nhật kho khi xóa PN: trừ số lượng nhập khỏi SoLuongTong và SoLuongConLai (không âm)
+        void CapNhatKhoKhiXoa(string maPN)
+        {
+            string sqlChiTiet = "SELECT MaSach, SoLuong FROM ChiTietPhieuNhap WHERE MaPhieuNhap = @MaPN";
+            using (SQLiteCommand cmd = new SQLiteCommand(sqlChiTiet, conn))
+            {
+                cmd.Parameters.AddWithValue("@MaPN", maPN);
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string maSach = reader["MaSach"].ToString();
+                        int soLuongPN = Convert.ToInt32(reader["SoLuong"]);
+
+                        string sqlGet = "SELECT SoLuongConLai, SoLuongTong FROM Sach WHERE MaSach=@MaSach";
+                        using (SQLiteCommand cmd2 = new SQLiteCommand(sqlGet, conn))
+                        {
+                            cmd2.Parameters.AddWithValue("@MaSach", maSach);
+                            using (SQLiteDataReader r = cmd2.ExecuteReader())
+                            {
+                                if (r.Read())
+                                {
+                                    int soLuongConLai = Convert.ToInt32(r["SoLuongConLai"]);
+                                    int soLuongTong = Convert.ToInt32(r["SoLuongTong"]);
+
+                                    int soLuongConLaiMoi = Math.Max(0, soLuongConLai - soLuongPN);
+                                    int soLuongTongMoi = soLuongTong - soLuongPN;
+
+                                    string sqlUpdate = @"
+UPDATE Sach 
+SET SoLuongConLai=@SoLuongConLaiMoi, SoLuongTong=@SoLuongTongMoi 
+WHERE MaSach=@MaSach";
+                                    using (SQLiteCommand cmdUpdate = new SQLiteCommand(sqlUpdate, conn))
+                                    {
+                                        cmdUpdate.Parameters.AddWithValue("@SoLuongConLaiMoi", soLuongConLaiMoi);
+                                        cmdUpdate.Parameters.AddWithValue("@SoLuongTongMoi", soLuongTongMoi);
+                                        cmdUpdate.Parameters.AddWithValue("@MaSach", maSach);
+                                        cmdUpdate.ExecuteNonQuery();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         void XoaPN()
         {
             if (dgPhieuNhap.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn dòng để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Vui lòng chọn dòng để xóa!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
             // Lấy dòng được chọn
             DataGridViewRow row = dgPhieuNhap.SelectedRows[0];
             string maPN = row.Cells["MaPhieuNhap"].Value.ToString();
-            string sql = "DELETE FROM PhieuNhap WHERE MaPhieuNhap = @MaPN";
+
+            // Kiểm tra ràng buộc mượn/hao hụt
+            if (!KiemTraSachKhachDung(maPN, out string maSachLoi))
+            {
+                MessageBox.Show($"Không thể xóa phiếu nhập vì sách {maSachLoi} đã được mượn.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Cập nhật kho trước khi xóa
+            CapNhatKhoKhiXoa(maPN);
+
+            string sql = @"
+DELETE FROM ChiTietPhieuNhap WHERE MaPhieuNhap = @MaPN;
+DELETE FROM PhieuNhap WHERE MaPhieuNhap = @MaPN;
+";
             try
             {
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
@@ -324,25 +454,34 @@ namespace DoAn_1
                     cmd.Parameters.AddWithValue("@MaPN", maPN);
                     cmd.ExecuteNonQuery();
                 }
-                dgPhieuNhap.Rows.RemoveAt(index);
+                if (index >= 0 && index < dgPhieuNhap.Rows.Count)
+                {
+                    // Nếu đang chọn một dòng hợp lệ, remove khỏi lưới
+                    dgPhieuNhap.Rows.RemoveAt(index);
+                }
                 LoadPhieuNhap();
-                MessageBox.Show("Đã xóa thành công" + maPN, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Đã xóa thành công " + maPN, "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ResetTTPN();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi xóa: " + ex.Message);
+                MessageBox.Show("Lỗi khi xóa: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void xóaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             XoaPN();
         }
+
         private void toolStripXoa_Click(object sender, EventArgs e)
         {
             XoaPN();
             ResetTextBox();
         }
+
         void SuaPN()
         {
             string maPN = txtbMaPhieu.Text;
@@ -356,12 +495,11 @@ namespace DoAn_1
             try
             {
                 string sql = @"
-                UPDATE PhieuNhap
-                SET NgayNhap = @NgayNhap,
-                    NhaCungCap = @NhaCungCap,
-                    NguoiLap = @NguoiLap
-                WHERE MaPhieuNhap = @MaPN";
-
+UPDATE PhieuNhap
+SET NgayNhap = @NgayNhap,
+    NhaCungCap = @NhaCungCap,
+    NguoiLap = @NguoiLap
+WHERE MaPhieuNhap = @MaPN";
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@MaPN", maPN);
@@ -380,14 +518,17 @@ namespace DoAn_1
                 MessageBox.Show("Lỗi khi cập nhật phiếu nhập: " + ex.Message);
             }
         }
+
         private void toolStripSửa_Click(object sender, EventArgs e)
         {
             SuaPN();
         }
+
         private void sửaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SuaPN();
         }
+
         private void dgPhieuNhap_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -402,24 +543,27 @@ namespace DoAn_1
                 fHoaDon.Show();
             }
         }
+
         private void toolStripLamMoi_Click(object sender, EventArgs e)
         {
             ResetTTPN();
             erorNCC.Clear();
             erorNguoiLap.Clear();
         }
+
         private void dgPhieuNhap_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
+                index = e.RowIndex;
+
                 DataGridViewRow row = dgPhieuNhap.Rows[e.RowIndex];
                 // Lấy dữ liệu hiện tại từ dòng
                 txtbMaPhieu.Text = row.Cells["MaPhieuNhap"].Value.ToString();
                 txtbNCC.Text = row.Cells["NhaCungCap"].Value.ToString();
                 cboNguoiLap.Text = row.Cells["NguoiLap"].Value.ToString();
 
-                // Nếu có cột ngày nhập            
-
+                // Nếu có cột ngày nhập
                 if (DateTime.TryParseExact(row.Cells["NgayNhap"].Value.ToString(), "dd-MM-yyyy",
                         CultureInfo.InvariantCulture,
                         DateTimeStyles.None, out DateTime ngay))
@@ -433,6 +577,7 @@ namespace DoAn_1
         {
             erorSoLuong.Clear();
         }
+
         // Chỉ cho phép nhập số đối với đơn giá
         private void txtbDonGia_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -441,20 +586,24 @@ namespace DoAn_1
                 e.Handled = true; // bỏ ký tự không hợp lệ
             }
         }
+
         // Khi chọn ngày bắt đầu lọc thì thực hiện lọc nếu checkbox lọc được checked
         private void dtpTuNgay_ValueChanged(object sender, EventArgs e)
         {
             if (chboxLoc.Checked)
                 LoadPhieuNhap();
         }
+
         // Khi chọn ngày kết thúc lọc thì thực hiện lọc nếu checkbox lọc được checked
         private void dtpDenNgay_ValueChanged(object sender, EventArgs e)
         {
             if (chboxLoc.Checked)
                 LoadPhieuNhap();
         }
+
         private string MaPhieuNhapChon;
-        // khi chọn vào chi tiết phiếu nhập sẽ hiển thị chi tiết từng sách trong phiếu nhập
+
+        // Khi chọn vào chi tiết phiếu nhập sẽ hiển thị chi tiết từng sách trong phiếu nhập
         private void chiTiếtNhậpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ResetTextBox();
@@ -469,28 +618,38 @@ namespace DoAn_1
             txtbMaPhieu_1.Text = MaPhieuNhapChon;
             txtbMaPhieu_1.Enabled = false;
 
+            // Cho phép chuyển tab bằng code
+            choPhepChuyenTabBangCode = true;
             // Chuyển tab sang tab Chi tiết
             tabControl1.SelectedTab = tabPage2;
             LoadCTPhieuNhap();
+            // Khóa lại cho lần sau
+            choPhepChuyenTabBangCode = false;
         }
+
         void TinhTong()
         {
             double tongcong = 0;
             foreach (DataGridViewRow row in dgCTPhieuNhap.Rows)
             {
-                if (row.IsNewRow)
-                {
-                    continue;
-                }
-                tongcong += ((Int32.Parse(row.Cells["SoLuong"].Value.ToString())) * (Double.Parse(row.Cells["DonGia"].Value.ToString())));
+                if (row.IsNewRow) continue;
+
+                double sl = 0;
+                double dg = 0;
+                double.TryParse(row.Cells["SoLuong"].Value?.ToString(), out sl);
+                double.TryParse(row.Cells["DonGia"].Value?.ToString(), out dg);
+
+                tongcong += sl * dg;
             }
             txtbTongCong.Text = tongcong.ToString();
         }
+
         private void btnTinhTong_Click_1(object sender, EventArgs e)
         {
             TinhTong();
         }
-        // dựa trên tên sách nhập để lấy mã sách lưu trong data grid view
+
+        // Dựa trên tên sách nhập để lấy mã sách lưu trong data grid view
         public string LayMaSachTheoTen(string TenSach)
         {
             string MaSach = null;
@@ -504,72 +663,63 @@ namespace DoAn_1
             }
             return MaSach;
         }
+
         // khi nhập mã phiếu trong chi tiết nhập sẽ kiểm tra xem có trong db thì mới thêm vào data grid view
         private bool KiemTraPhieuNhapDaTonTai(string maPN)
         {
             string sql = "SELECT COUNT(*) FROM PhieuNhap WHERE MaPhieuNhap = @ma";
-
             using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@ma", maPN);
-
                 long count = (long)cmd.ExecuteScalar();
-
                 return count > 0;
             }
-
         }
-        //lấy danh sách tên sách dựa trên text người dùng nhập trên txtbTenSach
+
+        // lấy danh sách tên sách dựa trên text người dùng nhập trên txtbTenSach
         private List<string> TimSachTheoKeyword(string keyword)
         {
             List<string> list = new List<string>();
-
             string sql = @"SELECT TenSach FROM Sach WHERE TenSach LIKE '%" + keyword + "%'";
-
             using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+            using (SQLiteDataReader rd = cmd.ExecuteReader())
             {
-                using (SQLiteDataReader rd = cmd.ExecuteReader())
+                while (rd.Read())
                 {
-                    while (rd.Read())
-                    {
-                        list.Add(rd.GetString(0));
-                    }
+                    list.Add(rd.GetString(0));
                 }
             }
             return list;
         }
-        //sự kiện textchange gọi hàm TimSachTheoKeyWord, sau đó đưa danh sách vào listbox
+
+        // sự kiện textchange gọi hàm TimSachTheoKeyWord, sau đó đưa danh sách vào listbox
         private void txtbTenSach_TextChanged(object sender, EventArgs e)
         {
             erorTenSach.Clear();
             string keyword = txtbTenSach.Text.Trim();
 
-            // Nếu trống thì không gợi ý
             if (keyword == "")
                 return;
 
-            // Lấy dữ liệu gợi ý
             var suggestions = TimSachTheoKeyword(keyword);
             if (suggestions.Count == 0)
-            {
                 return;
-            }
-            // Gán dữ liệu vào ListBox
+
             listBox1.DataSource = suggestions;
             listBox1.Visible = true;
             listBox1.Top = txtbTenSach.Bottom + 2;
             listBox1.Height = 80;
-
         }
+
         // sự kiện click 2 lần vào trong item sẽ gán vào txtbTenSach
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
             if (listBox1.SelectedItem != null)
             {
-                // Gán giá trị ListBox vào TextBox
                 txtbTenSach.Text = listBox1.SelectedItem.ToString();
             }
         }
+
         void ResetTextBox()
         {
             txtbMaPhieu_1.Enabled = false;
@@ -578,6 +728,7 @@ namespace DoAn_1
             numSoLuong.Value = 0;
             listBox1.Visible = false;
         }
+
         private void btnThem_Click(object sender, EventArgs e)
         {
             bool value = true;
@@ -587,32 +738,35 @@ namespace DoAn_1
                 MessageBox.Show("Mã phiếu nhập chưa tồn tại, vui lòng tạo phiếu nhập!");
                 return;
             }
+
             string TenSach = txtbTenSach.Text.Trim();
             string MaSach = LayMaSachTheoTen(TenSach);
+
             if (string.IsNullOrEmpty(txtbTenSach.Text))
             {
                 erorTenSach.SetError(txtbTenSach, "Vui lòng điền tên sách");
                 value = false;
             }
-            else
+            else if (MaSach == null)
             {
-                if (MaSach == null)
-                {
-                    MessageBox.Show("Không tìm thấy sách trong cơ sở dữ liệu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                MessageBox.Show("Không tìm thấy sách trong cơ sở dữ liệu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
+
             if (numSoLuong.Value <= 0)
             {
                 erorSoLuong.SetError(numSoLuong, "Số lượng phải lớn hơn 0");
                 value = false;
             }
-            if (string.IsNullOrEmpty(txtbDonGia.Text) || !string.IsNullOrEmpty(txtbDonGia.Text) && double.Parse(txtbDonGia.Text) <= 0)
+
+            if (string.IsNullOrEmpty(txtbDonGia.Text) || (double.TryParse(txtbDonGia.Text, out double tmp) && tmp <= 0) || !double.TryParse(txtbDonGia.Text, out _))
             {
-                erorDonGia.SetError(txtbDonGia, "Kiểm tra lại đơn giá không bỏ trống và phải lớn hơn 0");
+                erorDonGia.SetError(txtbDonGia, "Kiểm tra lại đơn giá: không bỏ trống và phải > 0");
                 value = false;
             }
-            if (!value) { return; }
+
+            if (!value) return;
+
             foreach (DataRow row in dataTable.Rows)
             {
                 string existingMaSach = row["MaSach"].ToString();
@@ -622,8 +776,8 @@ namespace DoAn_1
                     return;
                 }
             }
-            double DonGia;
-            if (!double.TryParse(txtbDonGia.Text, out DonGia))
+
+            if (!double.TryParse(txtbDonGia.Text, out double DonGia))
             {
                 MessageBox.Show("Đơn giá không hợp lệ!");
                 return;
@@ -637,7 +791,10 @@ namespace DoAn_1
         private void btnSua_Click(object sender, EventArgs e)
         {
             bool value = true;
+            if (index < 0 || index >= dgCTPhieuNhap.Rows.Count) return;
+
             DataGridViewRow row = dgCTPhieuNhap.Rows[index];
+
             string TenSach = txtbTenSach.Text.Trim();
             string MaSach = LayMaSachTheoTen(TenSach);
             if (MaSach == null)
@@ -655,50 +812,101 @@ namespace DoAn_1
                 erorSoLuong.SetError(numSoLuong, "Số lượng phải lớn hơn 0");
                 value = false;
             }
-            if (!value) { return; }
+            if (!value) return;
+
             row.Cells["MaSach"].Value = MaSach;
             row.Cells["SoLuong"].Value = numSoLuong.Value;
             row.Cells["DonGia"].Value = txtbDonGia.Text;
+
             ResetTextBox();
             TinhTong();
         }
+        private void btnTaiLen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var ofd = new OpenFileDialog())
+                {
+                    ofd.Title = "Chọn file CSV (MaSach,SoLuong,DonGia)";
+                    ofd.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+                    if (ofd.ShowDialog() != DialogResult.OK) return;
+
+                    // Đảm bảo dataTable đã gắn với dgCTPhieuNhap
+                    if (dgCTPhieuNhap.DataSource == null)
+                    {
+                        dataTable = new DataTable();
+                        dataTable.Columns.Add("MaPhieuNhap", typeof(string));
+                        dataTable.Columns.Add("MaSach", typeof(string));
+                        dataTable.Columns.Add("SoLuong", typeof(int));
+                        dataTable.Columns.Add("DonGia", typeof(double));
+                        dgCTPhieuNhap.DataSource = dataTable;
+                    }
+
+                    string maPN = txtbMaPhieu_1.Text.Trim();
+                    if (string.IsNullOrWhiteSpace(maPN) || !KiemTraPhieuNhapDaTonTai(maPN))
+                    {
+                        MessageBox.Show("Mã phiếu nhập không hợp lệ hoặc chưa tồn tại. Hãy tạo/chọn phiếu nhập trước khi import.",
+                                        "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    int imported = 0;
+                    foreach (var line in System.IO.File.ReadLines(ofd.FileName))
+                    {
+                        var t = line.Split(',');
+                        if (t.Length < 3) continue;
+
+                        string maSach = t[0].Trim();
+                        if (string.IsNullOrEmpty(maSach)) continue;
+
+                        if (!int.TryParse(t[1].Trim(), out int soLuong) || soLuong <= 0) continue;
+                        if (!double.TryParse(t[2].Trim(), out double donGia) || donGia <= 0) continue;
+
+                        // Tránh trùng mã sách trong dataTable tạm
+                        bool existed = dataTable.AsEnumerable().Any(r => r.Field<string>("MaSach") == maSach);
+                        if (existed) continue;
+
+                        dataTable.Rows.Add(maPN, maSach, soLuong, donGia);
+                        imported++;
+                    }
+
+                    if (imported > 0)
+                    {
+                        MessageBox.Show($"Đã thêm {imported} dòng từ file.", "Thông báo",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        TinhTong();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không có dòng hợp lệ nào được nhập.", "Thông báo",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải lên: " + ex.Message, "Lỗi",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void btnXoa_Click(object sender, EventArgs e)
         {
             DataGridViewRow row = dgCTPhieuNhap.CurrentRow;
-            if (row == null || row.IsNewRow)
-            {
-                return;
-            }
+            if (row == null || row.IsNewRow) return;
+
             dgCTPhieuNhap.Rows.Remove(row);
             ResetTextBox();
             TinhTong();
         }
 
-        private void btnLamMoi_Click(object sender, EventArgs e)
-        {
-
-            for (int i = dgCTPhieuNhap.Rows.Count - 1; i >= 0; i--)
-            {
-                if (!dgCTPhieuNhap.Rows[i].IsNewRow)
-                {
-                    dgCTPhieuNhap.Rows.RemoveAt(i);
-                }
-                txtbMaPhieu_1.Enabled = true;
-                txtbMaPhieu_1.ResetText();
-                txtbTenSach.ResetText();
-                txtbDonGia.ResetText();
-                numSoLuong.Value = 0;
-                listBox1.Visible = false;
-
-            }
-
-        }
         private void dgCTPhieuNhap_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 index = e.RowIndex;
                 DataGridViewRow row = dgCTPhieuNhap.Rows[e.RowIndex];
+
                 // Từ mã sách để ra tên sách
                 string sql = @"SELECT TenSach FROM Sach WHERE MaSach=@MaSach;";
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
@@ -709,15 +917,15 @@ namespace DoAn_1
                     {
                         txtbTenSach.Text = res.ToString();
                     }
-
                 }
+
                 numSoLuong.Text = row.Cells["SoLuong"].Value?.ToString();
                 txtbDonGia.Text = row.Cells["DonGia"].Value?.ToString();
-                //txtbMaPhieu_1.Text = row.Cells["Mã phiếu nhập"].Value?.ToString();
+
+                // Không cho sửa mã phiếu ở tab chi tiết
                 txtbMaPhieu_1.Enabled = false;
             }
         }
-
 
         private void btnLuuDL_Click_1(object sender, EventArgs e)
         {
@@ -729,16 +937,16 @@ namespace DoAn_1
                     {
                         if (row.IsNewRow) continue;
 
-                        // string MaPN = row.Cells["Mã Phiếu Nhập"].Value?.ToString();
                         string MaPN = txtbMaPhieu_1.Text.Trim();
                         string MaSach = row.Cells["MaSach"].Value?.ToString();
                         string SoLuong = row.Cells["SoLuong"].Value?.ToString();
                         string DonGia = row.Cells["DonGia"].Value?.ToString();
+
                         // Kiểm tra xem dòng đã tồn tại chưa
                         string sqlCheck = @"
-                        SELECT COUNT(*) 
-                        FROM ChiTietPhieuNhap 
-                        WHERE MaPhieuNhap=@mapn AND MaSach=@masach";
+SELECT COUNT(*) 
+FROM ChiTietPhieuNhap 
+WHERE MaPhieuNhap=@mapn AND MaSach=@masach";
 
                         int countExist = 0;
                         using (SQLiteCommand cmdCheck = new SQLiteCommand(sqlCheck, conn, trans))
@@ -750,12 +958,11 @@ namespace DoAn_1
 
                         if (countExist > 0)
                         {
-                            // Nếu đã tồn tại thì thực hiện câu lệch update
+                            // Nếu đã tồn tại thì update
                             string sqlUpdate = @"
-                        UPDATE ChiTietPhieuNhap 
-                        SET SoLuong=@sl, DonGia=@dg
-                        WHERE MaPhieuNhap=@mapn AND MaSach=@masach";
-
+UPDATE ChiTietPhieuNhap 
+SET SoLuong=@sl, DonGia=@dg
+WHERE MaPhieuNhap=@mapn AND MaSach=@masach";
                             using (SQLiteCommand cmdUpdate = new SQLiteCommand(sqlUpdate, conn, trans))
                             {
                                 cmdUpdate.Parameters.AddWithValue("@sl", SoLuong);
@@ -767,10 +974,9 @@ namespace DoAn_1
                         }
                         else
                         {
-                            // Nếu chưa tồn tại thì thực hiện insert
+                            // Nếu chưa tồn tại thì insert
                             string sql = "INSERT INTO ChiTietPhieuNhap (MaPhieuNhap,MaSach,SoLuong,DonGia) VALUES (@mapn,@masach,@sl,@dg)";
-
-                            using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+                            using (SQLiteCommand cmd = new SQLiteCommand(sql, conn, trans))
                             {
                                 cmd.Parameters.AddWithValue("@mapn", MaPN);
                                 cmd.Parameters.AddWithValue("@masach", MaSach);
@@ -780,11 +986,10 @@ namespace DoAn_1
                             }
                         }
                     }
+
                     trans.Commit();
                     MessageBox.Show("Lưu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-
                 catch (Exception ex)
                 {
                     trans.Rollback();
@@ -803,22 +1008,7 @@ namespace DoAn_1
             Application.Exit();
         }
 
-        private void btnTaiLen_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtbMaPhieu_1.Text))
-            {
-                MessageBox.Show("Bạn chưa điền mã phiếu nhập", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (!KiemTraPhieuNhapDaTonTai(txtbMaPhieu_1.Text))
-            {
-                MessageBox.Show("Mã phiếu nhập chưa tồn tại, vui lòng tạo phiếu nhập!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            LoadCTPhieuNhap();
-            txtbMaPhieu_1.Enabled = false;
-        }
-
+        // Nút làm mới trên tab Chi tiết: KHÔNG đụng vào txtbMaPhieu_1
         private void btnLamMoi_Click_1(object sender, EventArgs e)
         {
             for (int i = dgCTPhieuNhap.Rows.Count - 1; i >= 0; i--)
@@ -827,14 +1017,14 @@ namespace DoAn_1
                 {
                     dgCTPhieuNhap.Rows.RemoveAt(i);
                 }
-                txtbMaPhieu_1.Enabled = true;
-                txtbMaPhieu_1.ResetText();
-                txtbTenSach.ResetText();
-                txtbDonGia.ResetText();
-                numSoLuong.Value = 0;
-                listBox1.Visible = false;
-
             }
+
+            // KHÔNG đụng vào txtbMaPhieu_1
+            txtbTenSach.ResetText();
+            txtbDonGia.ResetText();
+            numSoLuong.Value = 0;
+            listBox1.Visible = false;
+
             txtbTongCong.ResetText();
             erorTenSach.Clear();
             erorSoLuong.Clear();

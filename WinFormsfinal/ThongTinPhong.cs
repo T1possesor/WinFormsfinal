@@ -471,19 +471,40 @@ namespace WinFormsfinal
                 //                MucDich, GhiChu, TienCoc, NgayTao
                 //         FROM DonDatPhongHocNhom;";
                 string query = @"
-                    SELECT 
-                     MaDatPhong,
-                     MaPhong,
-                     MaSoThe,
-                     date(NgayDat) AS NgayDat,
-                     time(GioBatDau) AS GioBatDau,
-                     time(GioKetThuc) AS GioKetThuc,
-                     MucDich,
-                     GhiChu,
-                     TienCoc,
-                     NgayTao,
-                    SoThanhVienThamGia
-                    FROM DonDatPhongHocNhom;";
+SELECT 
+  MaDatPhong,
+  MaPhong,
+  MaSoThe,
+
+  -- Chuẩn hoá Ngày đặt về dd/MM/yyyy
+  CASE
+    WHEN NgayDat LIKE '__-__-____'  -- dd-MM-yyyy
+      THEN substr(NgayDat,1,2) || '/' || substr(NgayDat,4,2) || '/' || substr(NgayDat,7,4)
+    WHEN NgayDat LIKE '____-__-__'  -- yyyy-MM-dd
+      THEN substr(NgayDat,9,2) || '/' || substr(NgayDat,6,2) || '/' || substr(NgayDat,1,4)
+    ELSE NgayDat
+  END AS NgayDat,
+
+  -- Hiển thị giờ HH:mm
+  CASE WHEN length(GioBatDau) >= 5 THEN substr(GioBatDau,1,5) ELSE GioBatDau END AS GioBatDau,
+  CASE WHEN length(GioKetThuc) >= 5 THEN substr(GioKetThuc,1,5) ELSE GioKetThuc END AS GioKetThuc,
+
+  MucDich,
+  GhiChu,
+  TienCoc,
+
+  -- Chuẩn hoá Ngày tạo về dd/MM/yyyy (nếu cần)
+  CASE
+    WHEN NgayTao LIKE '__-__-____'   -- dd-MM-yyyy
+      THEN substr(NgayTao,1,2) || '/' || substr(NgayTao,4,2) || '/' || substr(NgayTao,7,4)
+    WHEN NgayTao LIKE '____-__-__'   -- yyyy-MM-dd
+      THEN substr(NgayTao,9,2) || '/' || substr(NgayTao,6,2) || '/' || substr(NgayTao,1,4)
+    ELSE NgayTao
+  END AS NgayTao,
+
+  SoThanhVienThamGia
+FROM DonDatPhongHocNhom;";
+
                 SQLiteDataAdapter da = new SQLiteDataAdapter(query, conn);
                 dtDon.Clear();
                 da.Fill(dtDon);

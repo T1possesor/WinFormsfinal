@@ -61,6 +61,8 @@ namespace WinFormsfinal
         // ================== CÁC ẢNH TIN TỨC THƯ VIỆN ==================
         private Image[]? _newsImages;
         private Guna2Button? btnSachKH;
+        private Guna2Button? btnLichSuMuonKH;
+
 
         // Constructor mặc định (Designer dùng)
         public Form1()
@@ -80,6 +82,26 @@ namespace WinFormsfinal
                 Cursor = Cursors.Hand,
                 Visible = false
             };
+            btnLichSuMuonKH = new Guna2Button
+            {
+                Name = "btnLichSuMuonKH",
+                Text = "Lịch sử mượn",
+                Size = btnDatPhong.Size,                 // đồng bộ kích thước
+                BorderRadius = btnDatPhong.BorderRadius,
+                Font = btnDatPhong.Font,
+                FillColor = btnDatPhong.FillColor,
+                ForeColor = btnDatPhong.ForeColor,
+                HoverState = { FillColor = btnDatPhong.HoverState.FillColor },
+                Cursor = Cursors.Hand,
+                Visible = false
+            };
+
+            // dùng luôn handler mở form lịch sử mượn (đã có sẵn)
+            btnLichSuMuonKH.Click += OpenLichSuMuon;
+
+            // Thêm lên cùng thanh với Đặt phòng/Sách (khách hàng)
+            (btnDatPhong.Parent ?? this).Controls.Add(btnLichSuMuonKH);
+
 
             // Gán sự kiện click mở form sách
             btnSachKH.Click += OpenSachForCustomer;
@@ -94,26 +116,22 @@ namespace WinFormsfinal
             // private void guna2Button1_Click(object sender, EventArgs e)
 
             var mnuDauSach = new ToolStripMenuItem("Đầu sách");
-            mnuDauSach.Click += OpenDauSach;          // gọi hàm mở form Đầu sách
+            mnuDauSach.Click += OpenDauSach;
 
             var mnuMuonSach = new ToolStripMenuItem("Mượn sách");
-            mnuMuonSach.Click += OpenMuonSach;        // gọi hàm mở form Mượn sách
+            mnuMuonSach.Click += OpenMuonSach;
 
             var mnuTraSach = new ToolStripMenuItem("Trả sách");
-            mnuTraSach.Click += OpenTraSach;          // gọi hàm mở form Trả sách
+            mnuTraSach.Click += OpenTraSach;
 
-            var mnuLichSuMuon = new ToolStripMenuItem("Lịch sử mượn");
-            mnuLichSuMuon.Click += OpenLichSuMuon;    // gọi hàm mở form Lịch sử mượn
-
-            // Xóa item cũ (nếu có) rồi thêm mới
             guna2ContextMenuStrip1.Items.Clear();
             guna2ContextMenuStrip1.Items.AddRange(new ToolStripItem[]
             {
-        mnuDauSach,
-        mnuMuonSach,
-        mnuTraSach,
-        mnuLichSuMuon
+    mnuDauSach,
+    mnuMuonSach,
+    mnuTraSach
             });
+
 
             // =================================================================
             // >>> THÊM ĐOẠN NÀY: TẠO MENU CON CHO NÚT PHÒNG (ADMIN) <<<
@@ -1047,15 +1065,15 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
             // Sections
             // Sections (mỗi thanh một màu riêng)
             var sectionSach = CreateSectionPanel(
-                "SÁCH",
-                new (string, EventHandler)[] {
+    "SÁCH",
+    new (string, EventHandler)[] {
         ("Đầu sách", OpenDauSach),
         ("Mượn sách", OpenMuonSach),
-        ("Trả sách", OpenTraSach),
-        ("Lịch sử mượn", OpenLichSuMuon)
-                },
-                headerColor: Color.FromArgb(144, 213, 255) // xanh lam đậm
-            );
+        ("Trả sách", OpenTraSach)
+    },
+    headerColor: Color.FromArgb(144, 213, 255)
+);
+
 
             var sectionPhong = CreateSectionPanel(
                 "PHÒNG",
@@ -1311,6 +1329,7 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
             AddIf(btnTheThuVien, isCustomer);
             AddIf(btnDatPhong, isCustomer);      // <--- thêm
             AddIf(btnSachKH!, isCustomer);
+            AddIf(btnLichSuMuonKH!, isCustomer);
             AddIf(btnThongTinCN, isCustomer);
 
             // --- HẠ RIÊNG NÚT THẺ THƯ VIỆN XUỐNG 10px ---
