@@ -31,6 +31,7 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LichSuMuon));
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             dgvLichSu = new Guna.UI2.WinForms.Guna2DataGridView();
             MaSach = new DataGridViewTextBoxColumn();
@@ -202,6 +203,7 @@
             Controls.Add(guna2HtmlLabel2);
             Controls.Add(dgvLichSu);
             Controls.Add(guna2HtmlLabel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4, 5, 4, 5);
             Name = "LichSuMuon";
             Text = "LichSuMuon";

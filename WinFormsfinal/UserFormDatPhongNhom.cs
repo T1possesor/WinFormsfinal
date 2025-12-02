@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
+using System.Threading;
 
 namespace WinFormsfinal
 {
@@ -27,6 +29,16 @@ namespace WinFormsfinal
 
         private void UserDatPhongHocNhom_Load(object sender, EventArgs e)
         {
+            // Culture Việt Nam để "Thứ hai", "Tháng 12", v.v.
+            var vi = new CultureInfo("vi-VN");
+            Thread.CurrentThread.CurrentCulture = vi;
+            Thread.CurrentThread.CurrentUICulture = vi;
+
+            // Định dạng hiển thị theo: Thứ …, ngày … tháng … năm …
+            dateNgayDat.Format = DateTimePickerFormat.Custom;
+            dateNgayDat.CustomFormat = "dd/MM/yyyy";
+
+
             LoadDanhSachPhong();
             LoadGioComboBox();
         }

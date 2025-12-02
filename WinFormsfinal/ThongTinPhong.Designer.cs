@@ -52,7 +52,6 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ThongTinPhong));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -65,6 +64,7 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ThongTinPhong));
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             tabQuanLyPhong = new TabControl();
             tabPageThongTinPhong = new TabPage();
@@ -286,9 +286,9 @@
             // clbCSVC
             // 
             clbCSVC.FormattingEnabled = true;
-            clbCSVC.Location = new Point(667, 53);
+            clbCSVC.Location = new Point(685, 56);
             clbCSVC.Name = "clbCSVC";
-            clbCSVC.Size = new Size(142, 4);
+            clbCSVC.Size = new Size(124, 32);
             clbCSVC.TabIndex = 17;
             clbCSVC.ItemCheck += clbCSVC_ItemCheck;
             // 
@@ -467,7 +467,6 @@
             // PicSearch
             // 
             PicSearch.CustomizableEdges = customizableEdges21;
-            PicSearch.Image = (Image)resources.GetObject("PicSearch.Image");
             PicSearch.ImageRotate = 0F;
             PicSearch.Location = new Point(1170, 6);
             PicSearch.Name = "PicSearch";
@@ -608,7 +607,6 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(1173, 13);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(31, 27);
@@ -707,6 +705,7 @@
             Controls.Add(tabQuanLyPhong);
             Controls.Add(guna2HtmlLabel1);
             Controls.Add(panelMainPhong);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ThongTinPhong";
             Text = "Quản lý phòng";
             WindowState = FormWindowState.Maximized;

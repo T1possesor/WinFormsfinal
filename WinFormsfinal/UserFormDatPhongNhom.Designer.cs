@@ -42,6 +42,7 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserDatPhongHocNhom));
             guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             pictureBox1 = new PictureBox();
@@ -71,7 +72,7 @@
             guna2HtmlLabel2.Font = new Font("Segoe UI Black", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2HtmlLabel2.ForeColor = Color.DarkBlue;
             guna2HtmlLabel2.Location = new Point(519, 0);
-            guna2HtmlLabel2.Margin = new Padding(4, 4, 4, 4);
+            guna2HtmlLabel2.Margin = new Padding(4);
             guna2HtmlLabel2.Name = "guna2HtmlLabel2";
             guna2HtmlLabel2.Size = new Size(594, 67);
             guna2HtmlLabel2.TabIndex = 2;
@@ -82,7 +83,7 @@
             guna2HtmlLabel1.BackColor = Color.Transparent;
             guna2HtmlLabel1.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2HtmlLabel1.Location = new Point(648, 431);
-            guna2HtmlLabel1.Margin = new Padding(4, 4, 4, 4);
+            guna2HtmlLabel1.Margin = new Padding(4);
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
             guna2HtmlLabel1.Size = new Size(345, 32);
             guna2HtmlLabel1.TabIndex = 3;
@@ -92,7 +93,7 @@
             // 
             pictureBox1.Image = Properties.Resources.room_rent;
             pictureBox1.Location = new Point(564, 138);
-            pictureBox1.Margin = new Padding(4, 4, 4, 4);
+            pictureBox1.Margin = new Padding(4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(521, 268);
             pictureBox1.TabIndex = 5;
@@ -104,7 +105,7 @@
             guna2HtmlLabel4.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2HtmlLabel4.ForeColor = Color.SteelBlue;
             guna2HtmlLabel4.Location = new Point(578, 89);
-            guna2HtmlLabel4.Margin = new Padding(4, 4, 4, 4);
+            guna2HtmlLabel4.Margin = new Padding(4);
             guna2HtmlLabel4.Name = "guna2HtmlLabel4";
             guna2HtmlLabel4.Size = new Size(486, 40);
             guna2HtmlLabel4.TabIndex = 7;
@@ -115,7 +116,7 @@
             guna2HtmlLabel3.BackColor = Color.Transparent;
             guna2HtmlLabel3.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2HtmlLabel3.Location = new Point(552, 486);
-            guna2HtmlLabel3.Margin = new Padding(4, 4, 4, 4);
+            guna2HtmlLabel3.Margin = new Padding(4);
             guna2HtmlLabel3.Name = "guna2HtmlLabel3";
             guna2HtmlLabel3.Size = new Size(527, 32);
             guna2HtmlLabel3.TabIndex = 8;
@@ -137,7 +138,7 @@
             guna2GroupBox1.Font = new Font("Segoe UI", 9F);
             guna2GroupBox1.ForeColor = Color.FromArgb(125, 137, 149);
             guna2GroupBox1.Location = new Point(6, 552);
-            guna2GroupBox1.Margin = new Padding(4, 4, 4, 4);
+            guna2GroupBox1.Margin = new Padding(4);
             guna2GroupBox1.Name = "guna2GroupBox1";
             guna2GroupBox1.ShadowDecoration.CustomizableEdges = customizableEdges10;
             guna2GroupBox1.Size = new Size(1655, 341);
@@ -155,7 +156,7 @@
             cbbPhong.ForeColor = Color.FromArgb(68, 88, 112);
             cbbPhong.ItemHeight = 30;
             cbbPhong.Location = new Point(415, 105);
-            cbbPhong.Margin = new Padding(4, 4, 4, 4);
+            cbbPhong.Margin = new Padding(4);
             cbbPhong.Name = "cbbPhong";
             cbbPhong.ShadowDecoration.CustomizableEdges = customizableEdges2;
             cbbPhong.Size = new Size(320, 36);
@@ -173,7 +174,7 @@
             cbbGioKT.ForeColor = Color.FromArgb(68, 88, 112);
             cbbGioKT.ItemHeight = 30;
             cbbGioKT.Location = new Point(995, 222);
-            cbbGioKT.Margin = new Padding(4, 4, 4, 4);
+            cbbGioKT.Margin = new Padding(4);
             cbbGioKT.Name = "cbbGioKT";
             cbbGioKT.ShadowDecoration.CustomizableEdges = customizableEdges4;
             cbbGioKT.Size = new Size(325, 36);
@@ -191,7 +192,7 @@
             cbbGioBD.ForeColor = Color.FromArgb(68, 88, 112);
             cbbGioBD.ItemHeight = 30;
             cbbGioBD.Location = new Point(995, 105);
-            cbbGioBD.Margin = new Padding(4, 4, 4, 4);
+            cbbGioBD.Margin = new Padding(4);
             cbbGioBD.Name = "cbbGioBD";
             cbbGioBD.ShadowDecoration.CustomizableEdges = customizableEdges6;
             cbbGioBD.Size = new Size(325, 36);
@@ -205,7 +206,7 @@
             dateNgayDat.Font = new Font("Segoe UI", 9F);
             dateNgayDat.Format = DateTimePickerFormat.Long;
             dateNgayDat.Location = new Point(415, 222);
-            dateNgayDat.Margin = new Padding(4, 4, 4, 4);
+            dateNgayDat.Margin = new Padding(4);
             dateNgayDat.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
             dateNgayDat.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             dateNgayDat.Name = "dateNgayDat";
@@ -219,7 +220,7 @@
             guna2HtmlLabel9.BackColor = Color.Transparent;
             guna2HtmlLabel9.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2HtmlLabel9.Location = new Point(995, 184);
-            guna2HtmlLabel9.Margin = new Padding(4, 4, 4, 4);
+            guna2HtmlLabel9.Margin = new Padding(4);
             guna2HtmlLabel9.Name = "guna2HtmlLabel9";
             guna2HtmlLabel9.Size = new Size(125, 30);
             guna2HtmlLabel9.TabIndex = 4;
@@ -230,7 +231,7 @@
             guna2HtmlLabel8.BackColor = Color.Transparent;
             guna2HtmlLabel8.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2HtmlLabel8.Location = new Point(995, 69);
-            guna2HtmlLabel8.Margin = new Padding(4, 4, 4, 4);
+            guna2HtmlLabel8.Margin = new Padding(4);
             guna2HtmlLabel8.Name = "guna2HtmlLabel8";
             guna2HtmlLabel8.Size = new Size(120, 30);
             guna2HtmlLabel8.TabIndex = 3;
@@ -241,7 +242,7 @@
             guna2HtmlLabel7.BackColor = Color.Transparent;
             guna2HtmlLabel7.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2HtmlLabel7.Location = new Point(995, 30);
-            guna2HtmlLabel7.Margin = new Padding(4, 4, 4, 4);
+            guna2HtmlLabel7.Margin = new Padding(4);
             guna2HtmlLabel7.Name = "guna2HtmlLabel7";
             guna2HtmlLabel7.Size = new Size(169, 32);
             guna2HtmlLabel7.TabIndex = 2;
@@ -252,7 +253,7 @@
             guna2HtmlLabel6.BackColor = Color.Transparent;
             guna2HtmlLabel6.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2HtmlLabel6.Location = new Point(415, 66);
-            guna2HtmlLabel6.Margin = new Padding(4, 4, 4, 4);
+            guna2HtmlLabel6.Margin = new Padding(4);
             guna2HtmlLabel6.Name = "guna2HtmlLabel6";
             guna2HtmlLabel6.Size = new Size(76, 32);
             guna2HtmlLabel6.TabIndex = 1;
@@ -263,7 +264,7 @@
             guna2HtmlLabel5.BackColor = Color.Transparent;
             guna2HtmlLabel5.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2HtmlLabel5.Location = new Point(415, 181);
-            guna2HtmlLabel5.Margin = new Padding(4, 4, 4, 4);
+            guna2HtmlLabel5.Margin = new Padding(4);
             guna2HtmlLabel5.Name = "guna2HtmlLabel5";
             guna2HtmlLabel5.Size = new Size(105, 32);
             guna2HtmlLabel5.TabIndex = 0;
@@ -281,7 +282,7 @@
             btnTroLai.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnTroLai.ForeColor = Color.White;
             btnTroLai.Location = new Point(648, 929);
-            btnTroLai.Margin = new Padding(4, 4, 4, 4);
+            btnTroLai.Margin = new Padding(4);
             btnTroLai.Name = "btnTroLai";
             btnTroLai.ShadowDecoration.CustomizableEdges = customizableEdges12;
             btnTroLai.Size = new Size(158, 49);
@@ -301,7 +302,7 @@
             btnTiepTheo.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnTiepTheo.ForeColor = Color.White;
             btnTiepTheo.Location = new Point(866, 929);
-            btnTiepTheo.Margin = new Padding(4, 4, 4, 4);
+            btnTiepTheo.Margin = new Padding(4);
             btnTiepTheo.Name = "btnTiepTheo";
             btnTiepTheo.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnTiepTheo.Size = new Size(158, 49);
@@ -322,7 +323,7 @@
             panelMain.Controls.Add(pictureBox1);
             panelMain.Controls.Add(guna2HtmlLabel1);
             panelMain.Location = new Point(5, 55);
-            panelMain.Margin = new Padding(4, 4, 4, 4);
+            panelMain.Margin = new Padding(4);
             panelMain.Name = "panelMain";
             panelMain.Size = new Size(1665, 982);
             panelMain.TabIndex = 12;
@@ -334,7 +335,8 @@
             BackColor = SystemColors.Window;
             ClientSize = new Size(1685, 1039);
             Controls.Add(panelMain);
-            Margin = new Padding(4, 4, 4, 4);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4);
             Name = "UserDatPhongHocNhom";
             Text = "UserDatPhongHocNhom";
             WindowState = FormWindowState.Maximized;

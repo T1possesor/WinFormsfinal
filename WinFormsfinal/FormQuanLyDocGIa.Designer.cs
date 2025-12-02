@@ -28,263 +28,294 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.panelHeader = new Guna.UI2.WinForms.Guna2Panel();
-            this.labelTieuDe = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.panelCongCu = new Guna.UI2.WinForms.Guna2Panel();
-            this.buttonXoa = new Guna.UI2.WinForms.Guna2Button();
-            this.buttonSua = new Guna.UI2.WinForms.Guna2Button();
-            this.buttonThem = new Guna.UI2.WinForms.Guna2Button();
-            this.comboBoxTrangThai = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.textBoxTimKiem = new Guna.UI2.WinForms.Guna2TextBox();
-            this.gridViewDocGia = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.contextMenuDocGia = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuItemSua = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemXoa = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelHeader.SuspendLayout();
-            this.panelCongCu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewDocGia)).BeginInit();
-            this.contextMenuDocGia.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormQuanLyDocGia));
+            panelHeader = new Guna.UI2.WinForms.Guna2Panel();
+            labelTieuDe = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            panelCongCu = new Guna.UI2.WinForms.Guna2Panel();
+            buttonXoa = new Guna.UI2.WinForms.Guna2Button();
+            buttonSua = new Guna.UI2.WinForms.Guna2Button();
+            buttonThem = new Guna.UI2.WinForms.Guna2Button();
+            comboBoxTrangThai = new Guna.UI2.WinForms.Guna2ComboBox();
+            textBoxTimKiem = new Guna.UI2.WinForms.Guna2TextBox();
+            gridViewDocGia = new Guna.UI2.WinForms.Guna2DataGridView();
+            contextMenuDocGia = new ContextMenuStrip(components);
+            menuItemSua = new ToolStripMenuItem();
+            menuItemXoa = new ToolStripMenuItem();
+            panelHeader.SuspendLayout();
+            panelCongCu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)gridViewDocGia).BeginInit();
+            contextMenuDocGia.SuspendLayout();
+            SuspendLayout();
             // 
             // panelHeader
             // 
-            this.panelHeader.Controls.Add(this.labelTieuDe);
-            this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelHeader.FillColor = System.Drawing.Color.White;
-            this.panelHeader.Location = new System.Drawing.Point(0, 0);
-            this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Padding = new System.Windows.Forms.Padding(5);
-            this.panelHeader.Size = new System.Drawing.Size(1864, 77);
-            this.panelHeader.TabIndex = 0;
+            panelHeader.Controls.Add(labelTieuDe);
+            panelHeader.CustomizableEdges = customizableEdges1;
+            panelHeader.Dock = DockStyle.Top;
+            panelHeader.FillColor = Color.White;
+            panelHeader.Location = new Point(0, 0);
+            panelHeader.Margin = new Padding(2, 3, 2, 3);
+            panelHeader.Name = "panelHeader";
+            panelHeader.Padding = new Padding(4, 5, 4, 5);
+            panelHeader.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            panelHeader.Size = new Size(1553, 77);
+            panelHeader.TabIndex = 0;
             // 
             // labelTieuDe
             // 
-            this.labelTieuDe.BackColor = System.Drawing.Color.Transparent;
-            this.labelTieuDe.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelTieuDe.Font = new System.Drawing.Font("Segoe UI", 16.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTieuDe.ForeColor = System.Drawing.Color.Black;
-            this.labelTieuDe.Location = new System.Drawing.Point(5, 5);
-            this.labelTieuDe.Name = "labelTieuDe";
-            this.labelTieuDe.Size = new System.Drawing.Size(1854, 61);
-            this.labelTieuDe.TabIndex = 0;
-            this.labelTieuDe.Text = "QUẢN LÝ ĐỘC GIẢ";
-            this.labelTieuDe.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
-            this.labelTieuDe.Click += new System.EventHandler(this.labelTieuDe_Click);
+            labelTieuDe.BackColor = Color.Transparent;
+            labelTieuDe.Dock = DockStyle.Top;
+            labelTieuDe.Font = new Font("Segoe UI", 16.125F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelTieuDe.ForeColor = Color.Black;
+            labelTieuDe.Location = new Point(4, 5);
+            labelTieuDe.Margin = new Padding(2, 3, 2, 3);
+            labelTieuDe.Name = "labelTieuDe";
+            labelTieuDe.Size = new Size(284, 47);
+            labelTieuDe.TabIndex = 0;
+            labelTieuDe.Text = "QUẢN LÝ ĐỘC GIẢ";
+            labelTieuDe.TextAlignment = ContentAlignment.TopCenter;
+            labelTieuDe.Click += labelTieuDe_Click;
             // 
             // panelCongCu
             // 
-            this.panelCongCu.Controls.Add(this.buttonXoa);
-            this.panelCongCu.Controls.Add(this.buttonSua);
-            this.panelCongCu.Controls.Add(this.buttonThem);
-            this.panelCongCu.Controls.Add(this.comboBoxTrangThai);
-            this.panelCongCu.Controls.Add(this.textBoxTimKiem);
-            this.panelCongCu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelCongCu.Location = new System.Drawing.Point(0, 77);
-            this.panelCongCu.Name = "panelCongCu";
-            this.panelCongCu.Size = new System.Drawing.Size(1864, 241);
-            this.panelCongCu.TabIndex = 1;
+            panelCongCu.Controls.Add(buttonXoa);
+            panelCongCu.Controls.Add(buttonSua);
+            panelCongCu.Controls.Add(buttonThem);
+            panelCongCu.Controls.Add(comboBoxTrangThai);
+            panelCongCu.Controls.Add(textBoxTimKiem);
+            panelCongCu.CustomizableEdges = customizableEdges13;
+            panelCongCu.Dock = DockStyle.Top;
+            panelCongCu.Location = new Point(0, 77);
+            panelCongCu.Margin = new Padding(2, 3, 2, 3);
+            panelCongCu.Name = "panelCongCu";
+            panelCongCu.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            panelCongCu.Size = new Size(1553, 241);
+            panelCongCu.TabIndex = 1;
             // 
             // buttonXoa
             // 
-            this.buttonXoa.BorderRadius = 10;
-            this.buttonXoa.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.buttonXoa.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.buttonXoa.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.buttonXoa.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.buttonXoa.FillColor = System.Drawing.Color.Maroon;
-            this.buttonXoa.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonXoa.ForeColor = System.Drawing.Color.White;
-            this.buttonXoa.Location = new System.Drawing.Point(708, 135);
-            this.buttonXoa.Name = "buttonXoa";
-            this.buttonXoa.Size = new System.Drawing.Size(250, 71);
-            this.buttonXoa.TabIndex = 4;
-            this.buttonXoa.Text = "Xóa";
+            buttonXoa.BorderRadius = 10;
+            buttonXoa.CustomizableEdges = customizableEdges3;
+            buttonXoa.DisabledState.BorderColor = Color.DarkGray;
+            buttonXoa.DisabledState.CustomBorderColor = Color.DarkGray;
+            buttonXoa.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            buttonXoa.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            buttonXoa.FillColor = Color.Maroon;
+            buttonXoa.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonXoa.ForeColor = Color.White;
+            buttonXoa.Location = new Point(590, 135);
+            buttonXoa.Margin = new Padding(2, 3, 2, 3);
+            buttonXoa.Name = "buttonXoa";
+            buttonXoa.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            buttonXoa.Size = new Size(208, 71);
+            buttonXoa.TabIndex = 4;
+            buttonXoa.Text = "Xóa";
             // 
             // buttonSua
             // 
-            this.buttonSua.BorderRadius = 10;
-            this.buttonSua.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.buttonSua.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.buttonSua.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.buttonSua.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.buttonSua.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSua.ForeColor = System.Drawing.Color.White;
-            this.buttonSua.Location = new System.Drawing.Point(355, 135);
-            this.buttonSua.Name = "buttonSua";
-            this.buttonSua.Size = new System.Drawing.Size(250, 71);
-            this.buttonSua.TabIndex = 3;
-            this.buttonSua.Text = "Sửa đã chọn";
+            buttonSua.BorderRadius = 10;
+            buttonSua.CustomizableEdges = customizableEdges5;
+            buttonSua.DisabledState.BorderColor = Color.DarkGray;
+            buttonSua.DisabledState.CustomBorderColor = Color.DarkGray;
+            buttonSua.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            buttonSua.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            buttonSua.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonSua.ForeColor = Color.White;
+            buttonSua.Location = new Point(296, 135);
+            buttonSua.Margin = new Padding(2, 3, 2, 3);
+            buttonSua.Name = "buttonSua";
+            buttonSua.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            buttonSua.Size = new Size(208, 71);
+            buttonSua.TabIndex = 3;
+            buttonSua.Text = "Sửa đã chọn";
             // 
             // buttonThem
             // 
-            this.buttonThem.BorderRadius = 10;
-            this.buttonThem.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.buttonThem.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.buttonThem.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.buttonThem.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.buttonThem.FillColor = System.Drawing.Color.Green;
-            this.buttonThem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonThem.ForeColor = System.Drawing.Color.White;
-            this.buttonThem.Location = new System.Drawing.Point(29, 135);
-            this.buttonThem.Name = "buttonThem";
-            this.buttonThem.Size = new System.Drawing.Size(250, 71);
-            this.buttonThem.TabIndex = 2;
-            this.buttonThem.Text = "Thêm độc giả";
+            buttonThem.BorderRadius = 10;
+            buttonThem.CustomizableEdges = customizableEdges7;
+            buttonThem.DisabledState.BorderColor = Color.DarkGray;
+            buttonThem.DisabledState.CustomBorderColor = Color.DarkGray;
+            buttonThem.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            buttonThem.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            buttonThem.FillColor = Color.Green;
+            buttonThem.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonThem.ForeColor = Color.White;
+            buttonThem.Location = new Point(24, 135);
+            buttonThem.Margin = new Padding(2, 3, 2, 3);
+            buttonThem.Name = "buttonThem";
+            buttonThem.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            buttonThem.Size = new Size(208, 71);
+            buttonThem.TabIndex = 2;
+            buttonThem.Text = "Thêm độc giả";
             // 
             // comboBoxTrangThai
             // 
-            this.comboBoxTrangThai.BackColor = System.Drawing.Color.Transparent;
-            this.comboBoxTrangThai.BorderRadius = 10;
-            this.comboBoxTrangThai.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBoxTrangThai.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxTrangThai.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.comboBoxTrangThai.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.comboBoxTrangThai.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.comboBoxTrangThai.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.comboBoxTrangThai.ItemHeight = 30;
-            this.comboBoxTrangThai.Items.AddRange(new object[] {
-            "Tất cả",
-            "Hoạt động",
-            "Bị khóa"});
-            this.comboBoxTrangThai.Location = new System.Drawing.Point(482, 55);
-            this.comboBoxTrangThai.Margin = new System.Windows.Forms.Padding(0);
-            this.comboBoxTrangThai.Name = "comboBoxTrangThai";
-            this.comboBoxTrangThai.Size = new System.Drawing.Size(202, 36);
-            this.comboBoxTrangThai.TabIndex = 1;
-            this.comboBoxTrangThai.SelectedIndexChanged += new System.EventHandler(this.comboBoxTrangThai_SelectedIndexChanged);
+            comboBoxTrangThai.BackColor = Color.Transparent;
+            comboBoxTrangThai.BorderRadius = 10;
+            comboBoxTrangThai.CustomizableEdges = customizableEdges9;
+            comboBoxTrangThai.DrawMode = DrawMode.OwnerDrawFixed;
+            comboBoxTrangThai.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxTrangThai.FocusedColor = Color.FromArgb(94, 148, 255);
+            comboBoxTrangThai.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            comboBoxTrangThai.Font = new Font("Segoe UI", 10F);
+            comboBoxTrangThai.ForeColor = Color.FromArgb(68, 88, 112);
+            comboBoxTrangThai.ItemHeight = 30;
+            comboBoxTrangThai.Items.AddRange(new object[] { "Tất cả", "Hoạt động", "Bị khóa" });
+            comboBoxTrangThai.Location = new Point(402, 55);
+            comboBoxTrangThai.Margin = new Padding(0);
+            comboBoxTrangThai.Name = "comboBoxTrangThai";
+            comboBoxTrangThai.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            comboBoxTrangThai.Size = new Size(169, 36);
+            comboBoxTrangThai.TabIndex = 1;
+            comboBoxTrangThai.SelectedIndexChanged += comboBoxTrangThai_SelectedIndexChanged;
             // 
             // textBoxTimKiem
             // 
-            this.textBoxTimKiem.BorderRadius = 10;
-            this.textBoxTimKiem.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBoxTimKiem.DefaultText = "";
-            this.textBoxTimKiem.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.textBoxTimKiem.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.textBoxTimKiem.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.textBoxTimKiem.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.textBoxTimKiem.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.textBoxTimKiem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.textBoxTimKiem.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            
-            this.textBoxTimKiem.Location = new System.Drawing.Point(29, 34);
-            this.textBoxTimKiem.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.textBoxTimKiem.Name = "textBoxTimKiem";
-            this.textBoxTimKiem.PlaceholderText = "Tìm theo Tên, Mã thẻ, SĐT...";
-            this.textBoxTimKiem.SelectedText = "";
-            this.textBoxTimKiem.Size = new System.Drawing.Size(408, 77);
-            this.textBoxTimKiem.TabIndex = 0;
+            textBoxTimKiem.BorderRadius = 10;
+            textBoxTimKiem.Cursor = Cursors.IBeam;
+            textBoxTimKiem.CustomizableEdges = customizableEdges11;
+            textBoxTimKiem.DefaultText = "";
+            textBoxTimKiem.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            textBoxTimKiem.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            textBoxTimKiem.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            textBoxTimKiem.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            textBoxTimKiem.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            textBoxTimKiem.Font = new Font("Segoe UI", 9F);
+            textBoxTimKiem.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            textBoxTimKiem.Location = new Point(24, 34);
+            textBoxTimKiem.Margin = new Padding(5, 6, 5, 6);
+            textBoxTimKiem.Name = "textBoxTimKiem";
+            textBoxTimKiem.PlaceholderText = "Tìm theo Tên, Mã thẻ, SĐT...";
+            textBoxTimKiem.SelectedText = "";
+            textBoxTimKiem.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            textBoxTimKiem.Size = new Size(340, 77);
+            textBoxTimKiem.TabIndex = 0;
             // 
             // gridViewDocGia
             // 
-            this.gridViewDocGia.AllowUserToAddRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(229)))), ((int)(((byte)(251)))));
-            this.gridViewDocGia.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(169)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridViewDocGia.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.gridViewDocGia.ColumnHeadersHeight = 4;
-            this.gridViewDocGia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.gridViewDocGia.ContextMenuStrip = this.contextMenuDocGia;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(237)))), ((int)(((byte)(252)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(197)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridViewDocGia.DefaultCellStyle = dataGridViewCellStyle7;
-            this.gridViewDocGia.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridViewDocGia.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(230)))), ((int)(((byte)(251)))));
-            this.gridViewDocGia.Location = new System.Drawing.Point(0, 318);
-            this.gridViewDocGia.MultiSelect = false;
-            this.gridViewDocGia.Name = "gridViewDocGia";
-            this.gridViewDocGia.ReadOnly = true;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI Semibold", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridViewDocGia.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            this.gridViewDocGia.RowHeadersVisible = false;
-            this.gridViewDocGia.RowHeadersWidth = 82;
-            this.gridViewDocGia.RowTemplate.Height = 33;
-            this.gridViewDocGia.Size = new System.Drawing.Size(1864, 691);
-            this.gridViewDocGia.TabIndex = 2;
-            this.gridViewDocGia.Theme = Guna.UI2.WinForms.Enums.DataGridViewPresetThemes.LightBlue;
-            this.gridViewDocGia.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(229)))), ((int)(((byte)(251)))));
-            this.gridViewDocGia.ThemeStyle.AlternatingRowsStyle.Font = null;
-            this.gridViewDocGia.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-            this.gridViewDocGia.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.gridViewDocGia.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.gridViewDocGia.ThemeStyle.BackColor = System.Drawing.Color.White;
-            this.gridViewDocGia.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(230)))), ((int)(((byte)(251)))));
-            this.gridViewDocGia.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(169)))), ((int)(((byte)(243)))));
-            this.gridViewDocGia.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.gridViewDocGia.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gridViewDocGia.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.gridViewDocGia.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.gridViewDocGia.ThemeStyle.HeaderStyle.Height = 4;
-            this.gridViewDocGia.ThemeStyle.ReadOnly = true;
-            this.gridViewDocGia.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(237)))), ((int)(((byte)(252)))));
-            this.gridViewDocGia.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.gridViewDocGia.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gridViewDocGia.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Black;
-            this.gridViewDocGia.ThemeStyle.RowsStyle.Height = 33;
-            this.gridViewDocGia.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(197)))), ((int)(((byte)(247)))));
-            this.gridViewDocGia.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
+            gridViewDocGia.AllowUserToAddRows = false;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(180, 229, 251);
+            gridViewDocGia.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(3, 169, 243);
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 7.875F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            gridViewDocGia.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            gridViewDocGia.ColumnHeadersHeight = 4;
+            gridViewDocGia.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            gridViewDocGia.ContextMenuStrip = contextMenuDocGia;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(205, 237, 252);
+            dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 7.875F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(87, 197, 247);
+            dataGridViewCellStyle3.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            gridViewDocGia.DefaultCellStyle = dataGridViewCellStyle3;
+            gridViewDocGia.Dock = DockStyle.Fill;
+            gridViewDocGia.GridColor = Color.FromArgb(179, 230, 251);
+            gridViewDocGia.Location = new Point(0, 318);
+            gridViewDocGia.Margin = new Padding(2, 3, 2, 3);
+            gridViewDocGia.MultiSelect = false;
+            gridViewDocGia.Name = "gridViewDocGia";
+            gridViewDocGia.ReadOnly = true;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(52, 73, 94);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI Semibold", 7.875F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = SystemColors.Window;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            gridViewDocGia.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            gridViewDocGia.RowHeadersVisible = false;
+            gridViewDocGia.RowHeadersWidth = 82;
+            gridViewDocGia.Size = new Size(1553, 691);
+            gridViewDocGia.TabIndex = 2;
+            gridViewDocGia.Theme = Guna.UI2.WinForms.Enums.DataGridViewPresetThemes.LightBlue;
+            gridViewDocGia.ThemeStyle.AlternatingRowsStyle.BackColor = Color.FromArgb(180, 229, 251);
+            gridViewDocGia.ThemeStyle.AlternatingRowsStyle.Font = null;
+            gridViewDocGia.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
+            gridViewDocGia.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
+            gridViewDocGia.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
+            gridViewDocGia.ThemeStyle.BackColor = Color.White;
+            gridViewDocGia.ThemeStyle.GridColor = Color.FromArgb(179, 230, 251);
+            gridViewDocGia.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(3, 169, 243);
+            gridViewDocGia.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
+            gridViewDocGia.ThemeStyle.HeaderStyle.Font = new Font("Microsoft Sans Serif", 7.875F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            gridViewDocGia.ThemeStyle.HeaderStyle.ForeColor = Color.White;
+            gridViewDocGia.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            gridViewDocGia.ThemeStyle.HeaderStyle.Height = 4;
+            gridViewDocGia.ThemeStyle.ReadOnly = true;
+            gridViewDocGia.ThemeStyle.RowsStyle.BackColor = Color.FromArgb(205, 237, 252);
+            gridViewDocGia.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            gridViewDocGia.ThemeStyle.RowsStyle.Font = new Font("Microsoft Sans Serif", 7.875F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            gridViewDocGia.ThemeStyle.RowsStyle.ForeColor = Color.Black;
+            gridViewDocGia.ThemeStyle.RowsStyle.Height = 33;
+            gridViewDocGia.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(87, 197, 247);
+            gridViewDocGia.ThemeStyle.RowsStyle.SelectionForeColor = Color.Black;
             // 
             // contextMenuDocGia
             // 
-            this.contextMenuDocGia.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.contextMenuDocGia.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuItemSua,
-            this.menuItemXoa});
-            this.contextMenuDocGia.Name = "contextMenuDocGia";
-            this.contextMenuDocGia.Size = new System.Drawing.Size(129, 80);
+            contextMenuDocGia.ImageScalingSize = new Size(32, 32);
+            contextMenuDocGia.Items.AddRange(new ToolStripItem[] { menuItemSua, menuItemXoa });
+            contextMenuDocGia.Name = "contextMenuDocGia";
+            contextMenuDocGia.Size = new Size(116, 68);
             // 
             // menuItemSua
             // 
-            this.menuItemSua.Name = "menuItemSua";
-            this.menuItemSua.Size = new System.Drawing.Size(128, 38);
-            this.menuItemSua.Text = "Sửa";
+            menuItemSua.Name = "menuItemSua";
+            menuItemSua.Size = new Size(115, 32);
+            menuItemSua.Text = "Sửa";
             // 
             // menuItemXoa
             // 
-            this.menuItemXoa.Name = "menuItemXoa";
-            this.menuItemXoa.Size = new System.Drawing.Size(128, 38);
-            this.menuItemXoa.Text = "Xóa";
+            menuItemXoa.Name = "menuItemXoa";
+            menuItemXoa.Size = new Size(115, 32);
+            menuItemXoa.Text = "Xóa";
             // 
             // FormQuanLyDocGia
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1864, 1009);
-            this.Controls.Add(this.gridViewDocGia);
-            this.Controls.Add(this.panelCongCu);
-            this.Controls.Add(this.panelHeader);
-            this.Name = "FormQuanLyDocGia";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Hệ thống Thư viện - Quản lý Độc giả";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.panelHeader.ResumeLayout(false);
-            this.panelHeader.PerformLayout();
-            this.panelCongCu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewDocGia)).EndInit();
-            this.contextMenuDocGia.ResumeLayout(false);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Window;
+            ClientSize = new Size(1553, 1009);
+            Controls.Add(gridViewDocGia);
+            Controls.Add(panelCongCu);
+            Controls.Add(panelHeader);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(2, 3, 2, 3);
+            Name = "FormQuanLyDocGia";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Hệ thống Thư viện - Quản lý Độc giả";
+            WindowState = FormWindowState.Maximized;
+            panelHeader.ResumeLayout(false);
+            panelHeader.PerformLayout();
+            panelCongCu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)gridViewDocGia).EndInit();
+            contextMenuDocGia.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 

@@ -49,6 +49,7 @@ namespace WinFormsfinal
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             guna2Panel1 = new Guna2Panel();
             btnLogOut = new Guna2Button();
             btnThongTinCN = new Guna2Button();
@@ -396,6 +397,7 @@ namespace WinFormsfinal
             ClientSize = new Size(1924, 892);
             Controls.Add(panelContent);
             Controls.Add(guna2Panel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4, 5, 4, 5);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;

@@ -115,7 +115,7 @@ namespace WinFormsfinal
             area.AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
             area.AxisX.LabelStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
             area.AxisY.LabelStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
-            area.AxisX.Title = "Mục đích";
+            
             area.AxisY.Title = "Số đơn đặt";
 
             var seriesPhongNho = new Series("Phòng ≤ 5 chỗ")

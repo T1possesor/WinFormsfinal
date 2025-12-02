@@ -62,11 +62,11 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges33 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BieuMauDatPhong));
             guna2GroupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
             txtSucChua = new Guna.UI2.WinForms.Guna2TextBox();
             txtCSVC = new Guna.UI2.WinForms.Guna2TextBox();
             cbbPhong = new Guna.UI2.WinForms.Guna2ComboBox();
-
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
@@ -104,7 +104,6 @@
             guna2GroupBox1.Controls.Add(txtSucChua);
             guna2GroupBox1.Controls.Add(txtCSVC);
             guna2GroupBox1.Controls.Add(cbbPhong);
-
             guna2GroupBox1.Controls.Add(label3);
             guna2GroupBox1.Controls.Add(label2);
             guna2GroupBox1.Controls.Add(label1);
@@ -112,10 +111,11 @@
             guna2GroupBox1.CustomizableEdges = customizableEdges7;
             guna2GroupBox1.Font = new Font("Segoe UI", 9F);
             guna2GroupBox1.ForeColor = Color.FromArgb(125, 137, 149);
-            guna2GroupBox1.Location = new Point(22, 60);
+            guna2GroupBox1.Location = new Point(28, 75);
+            guna2GroupBox1.Margin = new Padding(4, 4, 4, 4);
             guna2GroupBox1.Name = "guna2GroupBox1";
             guna2GroupBox1.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2GroupBox1.Size = new Size(757, 146);
+            guna2GroupBox1.Size = new Size(946, 182);
             guna2GroupBox1.TabIndex = 0;
             guna2GroupBox1.Text = "Thông tin phòng";
             // 
@@ -130,14 +130,14 @@
             txtSucChua.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             txtSucChua.Font = new Font("Segoe UI", 9F);
             txtSucChua.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtSucChua.Location = new Point(602, 93);
-            txtSucChua.Margin = new Padding(3, 4, 3, 4);
+            txtSucChua.Location = new Point(752, 116);
+            txtSucChua.Margin = new Padding(4, 5, 4, 5);
             txtSucChua.Name = "txtSucChua";
             txtSucChua.PlaceholderText = "";
             txtSucChua.ReadOnly = true;
             txtSucChua.SelectedText = "";
             txtSucChua.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            txtSucChua.Size = new Size(60, 26);
+            txtSucChua.Size = new Size(75, 32);
             txtSucChua.TabIndex = 5;
             // 
             // txtCSVC
@@ -151,17 +151,15 @@
             txtCSVC.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             txtCSVC.Font = new Font("Segoe UI", 9F);
             txtCSVC.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtCSVC.Location = new Point(133, 93);
-            txtCSVC.Margin = new Padding(3, 4, 3, 4);
+            txtCSVC.Location = new Point(166, 116);
+            txtCSVC.Margin = new Padding(4, 5, 4, 5);
             txtCSVC.Name = "txtCSVC";
             txtCSVC.PlaceholderText = "";
             txtCSVC.ReadOnly = true;
             txtCSVC.SelectedText = "";
             txtCSVC.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            txtCSVC.Size = new Size(358, 26);
+            txtCSVC.Size = new Size(448, 32);
             txtCSVC.TabIndex = 4;
-            // 
-            // txtTenPhong
             // 
             // cbbPhong
             // 
@@ -174,20 +172,21 @@
             cbbPhong.Font = new Font("Segoe UI", 9F);
             cbbPhong.ForeColor = Color.FromArgb(68, 88, 112);
             cbbPhong.ItemHeight = 20;
-            cbbPhong.Location = new Point(109, 51);
+            cbbPhong.Location = new Point(136, 64);
+            cbbPhong.Margin = new Padding(4, 4, 4, 4);
             cbbPhong.Name = "cbbPhong";
             cbbPhong.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            cbbPhong.Size = new Size(382, 26);
+            cbbPhong.Size = new Size(476, 26);
             cbbPhong.TabIndex = 3;
-
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(520, 99);
+            label3.Location = new Point(650, 124);
+            label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(76, 20);
+            label3.Size = new Size(95, 25);
             label3.TabIndex = 2;
             label3.Text = "Sức chứa:";
             // 
@@ -195,9 +194,10 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(16, 99);
+            label2.Location = new Point(20, 124);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(111, 20);
+            label2.Size = new Size(137, 25);
             label2.TabIndex = 1;
             label2.Text = "Cơ sở vật chất:";
             // 
@@ -205,9 +205,10 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(16, 57);
+            label1.Location = new Point(20, 71);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(87, 20);
+            label1.Size = new Size(107, 25);
             label1.TabIndex = 0;
             label1.Text = "Tên phòng:";
             // 
@@ -216,9 +217,10 @@
             guna2HtmlLabel1.BackColor = Color.Transparent;
             guna2HtmlLabel1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2HtmlLabel1.ForeColor = Color.DarkBlue;
-            guna2HtmlLabel1.Location = new Point(22, 12);
+            guna2HtmlLabel1.Location = new Point(28, 15);
+            guna2HtmlLabel1.Margin = new Padding(4, 4, 4, 4);
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            guna2HtmlLabel1.Size = new Size(307, 33);
+            guna2HtmlLabel1.Size = new Size(375, 40);
             guna2HtmlLabel1.TabIndex = 1;
             guna2HtmlLabel1.Text = "Thông tin đặt phòng chi tiết";
             // 
@@ -240,10 +242,11 @@
             guna2GroupBox2.CustomizableEdges = customizableEdges21;
             guna2GroupBox2.Font = new Font("Segoe UI", 9F);
             guna2GroupBox2.ForeColor = Color.FromArgb(125, 137, 149);
-            guna2GroupBox2.Location = new Point(22, 212);
+            guna2GroupBox2.Location = new Point(28, 265);
+            guna2GroupBox2.Margin = new Padding(4, 4, 4, 4);
             guna2GroupBox2.Name = "guna2GroupBox2";
             guna2GroupBox2.ShadowDecoration.CustomizableEdges = customizableEdges22;
-            guna2GroupBox2.Size = new Size(757, 227);
+            guna2GroupBox2.Size = new Size(946, 284);
             guna2GroupBox2.TabIndex = 1;
             guna2GroupBox2.Text = "Thông tin đặt phòng";
             // 
@@ -258,23 +261,24 @@
             txtTienCoc.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             txtTienCoc.Font = new Font("Segoe UI", 9F);
             txtTienCoc.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtTienCoc.Location = new Point(92, 186);
-            txtTienCoc.Margin = new Padding(3, 4, 3, 4);
+            txtTienCoc.Location = new Point(115, 232);
+            txtTienCoc.Margin = new Padding(4, 5, 4, 5);
             txtTienCoc.Name = "txtTienCoc";
             txtTienCoc.PlaceholderText = "";
             txtTienCoc.ReadOnly = true;
             txtTienCoc.SelectedText = "";
             txtTienCoc.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            txtTienCoc.Size = new Size(258, 26);
+            txtTienCoc.Size = new Size(322, 32);
             txtTienCoc.TabIndex = 16;
             // 
             // label9
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(16, 192);
+            label9.Location = new Point(20, 240);
+            label9.Margin = new Padding(4, 0, 4, 0);
             label9.Name = "label9";
-            label9.Size = new Size(70, 20);
+            label9.Size = new Size(88, 25);
             label9.TabIndex = 15;
             label9.Text = "Tiền cọc:";
             // 
@@ -289,22 +293,23 @@
             txtKhac.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             txtKhac.Font = new Font("Segoe UI", 9F);
             txtKhac.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtKhac.Location = new Point(453, 144);
-            txtKhac.Margin = new Padding(3, 4, 3, 4);
+            txtKhac.Location = new Point(566, 180);
+            txtKhac.Margin = new Padding(4, 5, 4, 5);
             txtKhac.Name = "txtKhac";
             txtKhac.PlaceholderText = "";
             txtKhac.SelectedText = "";
             txtKhac.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            txtKhac.Size = new Size(283, 26);
+            txtKhac.Size = new Size(354, 32);
             txtKhac.TabIndex = 6;
             // 
             // label8
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(393, 150);
+            label8.Location = new Point(491, 188);
+            label8.Margin = new Padding(4, 0, 4, 0);
             label8.Name = "label8";
-            label8.Size = new Size(54, 20);
+            label8.Size = new Size(67, 25);
             label8.TabIndex = 14;
             label8.Text = "*Khác:";
             // 
@@ -319,10 +324,11 @@
             cbbLyDo.Font = new Font("Segoe UI", 10F);
             cbbLyDo.ForeColor = Color.FromArgb(68, 88, 112);
             cbbLyDo.ItemHeight = 20;
-            cbbLyDo.Location = new Point(149, 144);
+            cbbLyDo.Location = new Point(186, 180);
+            cbbLyDo.Margin = new Padding(4, 4, 4, 4);
             cbbLyDo.Name = "cbbLyDo";
             cbbLyDo.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            cbbLyDo.Size = new Size(201, 26);
+            cbbLyDo.Size = new Size(250, 26);
             cbbLyDo.TabIndex = 13;
             // 
             // cbbGioKT
@@ -336,10 +342,11 @@
             cbbGioKT.Font = new Font("Segoe UI", 10F);
             cbbGioKT.ForeColor = Color.FromArgb(68, 88, 112);
             cbbGioKT.ItemHeight = 20;
-            cbbGioKT.Location = new Point(497, 102);
+            cbbGioKT.Location = new Point(621, 128);
+            cbbGioKT.Margin = new Padding(4, 4, 4, 4);
             cbbGioKT.Name = "cbbGioKT";
             cbbGioKT.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            cbbGioKT.Size = new Size(239, 26);
+            cbbGioKT.Size = new Size(298, 26);
             cbbGioKT.TabIndex = 12;
             // 
             // cbbGioBD
@@ -353,10 +360,11 @@
             cbbGioBD.Font = new Font("Segoe UI", 10F);
             cbbGioBD.ForeColor = Color.FromArgb(68, 88, 112);
             cbbGioBD.ItemHeight = 20;
-            cbbGioBD.Location = new Point(109, 102);
+            cbbGioBD.Location = new Point(136, 128);
+            cbbGioBD.Margin = new Padding(4, 4, 4, 4);
             cbbGioBD.Name = "cbbGioBD";
             cbbGioBD.ShadowDecoration.CustomizableEdges = customizableEdges18;
-            cbbGioBD.Size = new Size(239, 26);
+            cbbGioBD.Size = new Size(298, 26);
             cbbGioBD.TabIndex = 11;
             // 
             // dateNgayDat
@@ -367,12 +375,13 @@
             dateNgayDat.FillColor = SystemColors.Control;
             dateNgayDat.Font = new Font("Segoe UI", 9F);
             dateNgayDat.Format = DateTimePickerFormat.Long;
-            dateNgayDat.Location = new Point(109, 57);
+            dateNgayDat.Location = new Point(136, 71);
+            dateNgayDat.Margin = new Padding(4, 4, 4, 4);
             dateNgayDat.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
             dateNgayDat.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             dateNgayDat.Name = "dateNgayDat";
             dateNgayDat.ShadowDecoration.CustomizableEdges = customizableEdges20;
-            dateNgayDat.Size = new Size(251, 28);
+            dateNgayDat.Size = new Size(314, 35);
             dateNgayDat.TabIndex = 10;
             dateNgayDat.Value = new DateTime(2025, 11, 19, 1, 3, 14, 450);
             // 
@@ -380,9 +389,10 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(16, 108);
+            label7.Location = new Point(20, 135);
+            label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
-            label7.Size = new Size(94, 20);
+            label7.Size = new Size(116, 25);
             label7.TabIndex = 9;
             label7.Text = "Giờ bắt đầu:";
             // 
@@ -390,9 +400,10 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(393, 108);
+            label6.Location = new Point(491, 135);
+            label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
-            label6.Size = new Size(98, 20);
+            label6.Size = new Size(121, 25);
             label6.TabIndex = 8;
             label6.Text = "Giờ kết thúc:";
             // 
@@ -400,9 +411,10 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(16, 150);
+            label5.Location = new Point(20, 188);
+            label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new Size(127, 20);
+            label5.Size = new Size(155, 25);
             label5.TabIndex = 7;
             label5.Text = "Lý do đặt phòng:";
             // 
@@ -410,9 +422,10 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(16, 65);
+            label4.Location = new Point(20, 81);
+            label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new Size(77, 20);
+            label4.Size = new Size(95, 25);
             label4.TabIndex = 6;
             label4.Text = "Ngày đặt:";
             // 
@@ -428,10 +441,11 @@
             guna2GroupBox3.CustomizableEdges = customizableEdges29;
             guna2GroupBox3.Font = new Font("Segoe UI", 9F);
             guna2GroupBox3.ForeColor = Color.FromArgb(125, 137, 149);
-            guna2GroupBox3.Location = new Point(22, 445);
+            guna2GroupBox3.Location = new Point(28, 556);
+            guna2GroupBox3.Margin = new Padding(4, 4, 4, 4);
             guna2GroupBox3.Name = "guna2GroupBox3";
             guna2GroupBox3.ShadowDecoration.CustomizableEdges = customizableEdges30;
-            guna2GroupBox3.Size = new Size(757, 196);
+            guna2GroupBox3.Size = new Size(946, 245);
             guna2GroupBox3.TabIndex = 15;
             guna2GroupBox3.Text = "Người tham gia";
             guna2GroupBox3.Click += guna2GroupBox3_Click;
@@ -441,11 +455,11 @@
             nudSoLuong.BackColor = Color.Transparent;
             nudSoLuong.CustomizableEdges = customizableEdges23;
             nudSoLuong.Font = new Font("Segoe UI", 9F);
-            nudSoLuong.Location = new Point(233, 143);
-            nudSoLuong.Margin = new Padding(3, 4, 3, 4);
+            nudSoLuong.Location = new Point(291, 179);
+            nudSoLuong.Margin = new Padding(4, 5, 4, 5);
             nudSoLuong.Name = "nudSoLuong";
             nudSoLuong.ShadowDecoration.CustomizableEdges = customizableEdges24;
-            nudSoLuong.Size = new Size(210, 27);
+            nudSoLuong.Size = new Size(262, 34);
             nudSoLuong.TabIndex = 16;
             nudSoLuong.UpDownButtonFillColor = Color.SteelBlue;
             // 
@@ -460,13 +474,13 @@
             txtMaTheThuVien.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             txtMaTheThuVien.Font = new Font("Segoe UI", 9F);
             txtMaTheThuVien.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtMaTheThuVien.Location = new Point(164, 102);
-            txtMaTheThuVien.Margin = new Padding(3, 4, 3, 4);
+            txtMaTheThuVien.Location = new Point(205, 128);
+            txtMaTheThuVien.Margin = new Padding(4, 5, 4, 5);
             txtMaTheThuVien.Name = "txtMaTheThuVien";
             txtMaTheThuVien.PlaceholderText = "";
             txtMaTheThuVien.SelectedText = "";
             txtMaTheThuVien.ShadowDecoration.CustomizableEdges = customizableEdges26;
-            txtMaTheThuVien.Size = new Size(283, 26);
+            txtMaTheThuVien.Size = new Size(354, 32);
             txtMaTheThuVien.TabIndex = 15;
             // 
             // txtNguoiDatPhong
@@ -480,22 +494,23 @@
             txtNguoiDatPhong.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             txtNguoiDatPhong.Font = new Font("Segoe UI", 9F);
             txtNguoiDatPhong.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtNguoiDatPhong.Location = new Point(149, 59);
-            txtNguoiDatPhong.Margin = new Padding(3, 4, 3, 4);
+            txtNguoiDatPhong.Location = new Point(186, 74);
+            txtNguoiDatPhong.Margin = new Padding(4, 5, 4, 5);
             txtNguoiDatPhong.Name = "txtNguoiDatPhong";
             txtNguoiDatPhong.PlaceholderText = "";
             txtNguoiDatPhong.SelectedText = "";
             txtNguoiDatPhong.ShadowDecoration.CustomizableEdges = customizableEdges28;
-            txtNguoiDatPhong.Size = new Size(298, 26);
+            txtNguoiDatPhong.Size = new Size(372, 32);
             txtNguoiDatPhong.TabIndex = 6;
             // 
             // label10
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label10.Location = new Point(16, 108);
+            label10.Location = new Point(20, 135);
+            label10.Margin = new Padding(4, 0, 4, 0);
             label10.Name = "label10";
-            label10.Size = new Size(144, 20);
+            label10.Size = new Size(177, 25);
             label10.TabIndex = 9;
             label10.Text = "Mã số thẻ thư viện:";
             // 
@@ -503,9 +518,10 @@
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label12.Location = new Point(16, 150);
+            label12.Location = new Point(20, 188);
+            label12.Margin = new Padding(4, 0, 4, 0);
             label12.Name = "label12";
-            label12.Size = new Size(219, 20);
+            label12.Size = new Size(269, 25);
             label12.TabIndex = 7;
             label12.Text = "Số lượng thành viên tham gia:";
             // 
@@ -513,9 +529,10 @@
             // 
             label13.AutoSize = true;
             label13.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label13.Location = new Point(16, 65);
+            label13.Location = new Point(20, 81);
+            label13.Margin = new Padding(4, 0, 4, 0);
             label13.Name = "label13";
-            label13.Size = new Size(133, 20);
+            label13.Size = new Size(163, 25);
             label13.TabIndex = 6;
             label13.Text = "Người đặt phòng:";
             // 
@@ -530,10 +547,11 @@
             btnDatPhong.FillColor = Color.SteelBlue;
             btnDatPhong.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnDatPhong.ForeColor = Color.White;
-            btnDatPhong.Location = new Point(255, 661);
+            btnDatPhong.Location = new Point(319, 826);
+            btnDatPhong.Margin = new Padding(4, 4, 4, 4);
             btnDatPhong.Name = "btnDatPhong";
             btnDatPhong.ShadowDecoration.CustomizableEdges = customizableEdges32;
-            btnDatPhong.Size = new Size(115, 31);
+            btnDatPhong.Size = new Size(144, 39);
             btnDatPhong.TabIndex = 16;
             btnDatPhong.Text = "Đặt phòng";
             btnDatPhong.Click += btnDatPhong_Click;
@@ -549,20 +567,21 @@
             btnHuy.FillColor = SystemColors.ControlDark;
             btnHuy.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnHuy.ForeColor = Color.White;
-            btnHuy.Location = new Point(415, 661);
+            btnHuy.Location = new Point(519, 826);
+            btnHuy.Margin = new Padding(4, 4, 4, 4);
             btnHuy.Name = "btnHuy";
             btnHuy.ShadowDecoration.CustomizableEdges = customizableEdges34;
-            btnHuy.Size = new Size(115, 31);
+            btnHuy.Size = new Size(144, 39);
             btnHuy.TabIndex = 17;
             btnHuy.Text = "Hủy";
             btnHuy.Click += guna2Button2_Click;
             // 
             // BieuMauDatPhong
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
-            ClientSize = new Size(805, 704);
+            ClientSize = new Size(1006, 880);
             Controls.Add(btnHuy);
             Controls.Add(btnDatPhong);
             Controls.Add(guna2GroupBox3);
@@ -570,6 +589,8 @@
             Controls.Add(guna2HtmlLabel1);
             Controls.Add(guna2GroupBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4, 4, 4, 4);
             MaximizeBox = false;
             Name = "BieuMauDatPhong";
             Text = "BieuMauDatPhong";
