@@ -3,6 +3,7 @@ using System;
 using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
+using System.Security.Cryptography; // vẫn giữ, không ảnh hưởng
 using System.Windows.Forms;
 
 namespace WinFormsfinal
@@ -45,7 +46,6 @@ namespace WinFormsfinal
             // cấu hình nút con mắt cho 2 textbox mật khẩu
             // SetupEyeButtons();
             SetupEyeIcons();
-
 
             // ====== Ghi lại vị trí gốc sau khi designer set ======
             _baseY_lblUser = lblUser.Top;
@@ -148,7 +148,6 @@ namespace WinFormsfinal
                     : Properties.Resources.eye_closed;
             };
         }
-
 
         // ẩn dòng lỗi dưới nút
         private void HideBottomError()
@@ -260,23 +259,63 @@ namespace WinFormsfinal
             }
         }
 
-        private string GenerateNewMaSoThe(SQLiteConnection conn)
+        // === NEW: Bảng sequence & sinh số thẻ tăng dần ===
+        private void EnsureUniqueIndexForMaSoThe(SQLiteConnection conn)
         {
-            string sql = @"
-                SELECT MaSoThe
-                FROM NguoiDung
-                ORDER BY MaSoThe DESC
-                LIMIT 1
+            const string sql = @"
+                CREATE UNIQUE INDEX IF NOT EXISTS idx_nguoidung_masothe_unique
+                ON NguoiDung(MaSoThe);
             ";
             using (var cmd = new SQLiteCommand(sql, conn))
             {
-                var result = cmd.ExecuteScalar() as string;
-                if (string.IsNullOrEmpty(result)) return "TV0001";
-                string numberPart = result.Substring(2);
-                if (!int.TryParse(numberPart, out int num)) num = 0;
-                num++;
-                return "TV" + num.ToString("D4");
+                cmd.ExecuteNonQuery();
             }
+        }
+
+        // === NEW: tạo bảng CardSeq và khởi tạo next_value từ MAX(MaSoThe)
+        private void EnsureCardSequence(SQLiteConnection conn, long defaultStart = 1000000)
+        {
+            // 1) tạo bảng giữ sequence nếu chưa có
+            using (var cmd = new SQLiteCommand(@"
+                CREATE TABLE IF NOT EXISTS CardSeq(
+                    id INTEGER PRIMARY KEY CHECK(id=1),
+                    next_value INTEGER NOT NULL
+                );
+            ", conn))
+            {
+                cmd.ExecuteNonQuery();
+            }
+
+            // 2) nếu chưa có hàng id=1, khởi tạo từ MAX(MaSoThe) hiện tại
+            using (var cmd = new SQLiteCommand(@"
+                INSERT OR IGNORE INTO CardSeq(id, next_value)
+                SELECT 1, COALESCE(MAX(CAST(MaSoThe AS INTEGER)), @start)
+                FROM NguoiDung;
+            ", conn))
+            {
+                cmd.Parameters.AddWithValue("@start", defaultStart);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        // === NEW: lấy số kế tiếp an toàn trong transaction
+        private string GenerateNextLibraryCard(SQLiteConnection conn)
+        {
+            // khóa ghi sớm để tránh 2 tiến trình cùng đọc/tăng
+            using (var begin = new SQLiteCommand("BEGIN IMMEDIATE;", conn))
+                begin.ExecuteNonQuery();
+
+            long next;
+            using (var inc = new SQLiteCommand("UPDATE CardSeq SET next_value = next_value + 1 WHERE id = 1;", conn))
+                inc.ExecuteNonQuery();
+
+            using (var sel = new SQLiteCommand("SELECT next_value FROM CardSeq WHERE id = 1;", conn))
+                next = (long)(sel.ExecuteScalar() ?? 0L);
+
+            using (var commit = new SQLiteCommand("COMMIT;", conn))
+                commit.ExecuteNonQuery();
+
+            return next.ToString(); // không pad, là số tăng dần thuần
         }
 
         private bool IsUserExists(SQLiteConnection conn, string username)
@@ -400,6 +439,10 @@ namespace WinFormsfinal
                     using (var fkCmd = new SQLiteCommand("PRAGMA foreign_keys = ON;", conn))
                         fkCmd.ExecuteNonQuery();
 
+                    // đảm bảo có UNIQUE index cho MaSoThe & có sequence
+                    EnsureUniqueIndexForMaSoThe(conn);         // === NEW
+                    EnsureCardSequence(conn, 1000000);         // === NEW (mốc bắt đầu nếu bảng rỗng)
+
                     // ====== check trùng và HIỂN THỊ LỖI INLINE + ĐẨY LAYOUT ======
                     bool anyInline = false;
 
@@ -433,7 +476,8 @@ namespace WinFormsfinal
 
                     string maTk = GenerateNewMaTaiKhoan(conn);
                     string maNguoiDung = GenerateNewMaNguoiDung(conn);
-                    string maSoThe = GenerateNewMaSoThe(conn);
+                    // —— sinh mã thẻ tăng dần (theo sequence)
+                    string maSoThe = GenerateNextLibraryCard(conn);   // === NEW
 
                     using (var tran = conn.BeginTransaction())
                     {
@@ -453,7 +497,17 @@ VALUES
                             cmdNguoi.Parameters.AddWithValue("@sdt", sdt);
                             cmdNguoi.Parameters.AddWithValue("@mail", (object)email ?? DBNull.Value);
                             cmdNguoi.Parameters.AddWithValue("@diaChi", (object)diaChi ?? DBNull.Value);
-                            cmdNguoi.ExecuteNonQuery();
+                            try
+                            {
+                                cmdNguoi.ExecuteNonQuery();
+                            }
+                            catch (SQLiteException ex) when (ex.ResultCode == SQLiteErrorCode.Constraint)
+                            {
+                                // cực hiếm: nếu vẫn va UNIQUE (race condition) → lấy số mới và thử lại 1 lần
+                                maSoThe = GenerateNextLibraryCard(conn);
+                                cmdNguoi.Parameters["@maSoThe"].Value = maSoThe;
+                                cmdNguoi.ExecuteNonQuery();
+                            }
                         }
 
                         // 2) TaiKhoan
