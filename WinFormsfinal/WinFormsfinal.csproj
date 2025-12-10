@@ -155,10 +155,32 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="FormDSPhieuNhap.cs">
+      <SubType>Form</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="FormInPN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormSuaPN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormThemMoiSach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormThemPN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ImportHĐCT.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="UserControlCTPN.cs">
+      <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
 

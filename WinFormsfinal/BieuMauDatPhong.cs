@@ -23,6 +23,7 @@ namespace WinFormsfinal
 
         DataTable dsPhong;
         decimal donGiaPhong = 0;
+        decimal tienCoc = 0;
 
         public BieuMauDatPhong(string maPhong, DateTime ngay, TimeSpan bd, TimeSpan kt)
         {
@@ -156,7 +157,8 @@ namespace WinFormsfinal
                 using (var cmd = new SQLiteCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@phong", maPhong);
-                    cmd.Parameters.AddWithValue("@ngay", ngay.ToString("yyyy-MM-dd"));
+                    cmd.Parameters.AddWithValue("@ngay", ngay.ToString("dd-MM-yyyy"));
+
                     cmd.Parameters.AddWithValue("@bd", gioBD.ToString(@"hh\:mm"));
                     cmd.Parameters.AddWithValue("@kt", gioKT.ToString(@"hh\:mm"));
                     int count = Convert.ToInt32(cmd.ExecuteScalar());
@@ -186,8 +188,14 @@ namespace WinFormsfinal
             if (soGio <= 0) return;
 
             decimal tongTien = donGiaPhong * (decimal)soGio;
-            txtTienCoc.Text = (tongTien * 0.3m).ToString("N0");
+
+            // CỌC 20% TỔNG TIỀN
+            tienCoc = tongTien * 0.2m;
+
+            // Hiển thị lên textbox có định dạng
+            txtTienCoc.Text = tienCoc.ToString("N0");
         }
+
 
 
         private void btnDatPhong_Click(object sender, EventArgs e)
@@ -263,13 +271,16 @@ namespace WinFormsfinal
                         cmd.Parameters.AddWithValue("@ma", maDatPhong);
                         cmd.Parameters.AddWithValue("@phong", maPhong);
                         cmd.Parameters.AddWithValue("@the", txtMaTheThuVien.Text);
-                        cmd.Parameters.AddWithValue("@ngay", ngayDat.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@ngay", ngayDat.ToString("dd-MM-yyyy"));
+
                         cmd.Parameters.AddWithValue("@bd", gioBD.ToString(@"hh\:mm"));
                         cmd.Parameters.AddWithValue("@kt", gioKT.ToString(@"hh\:mm"));
                         cmd.Parameters.AddWithValue("@mucdich", cbbLyDo.Text);
                         cmd.Parameters.AddWithValue("@ghichu", txtKhac.Text);
-                        cmd.Parameters.AddWithValue("@tiencoc", txtTienCoc.Text);
-                        cmd.Parameters.AddWithValue("@ngaytao", DateTime.Now.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@tiencoc", tienCoc);
+
+                        cmd.Parameters.AddWithValue("@ngaytao", DateTime.Now.ToString("dd-MM-yyyy"));
+
                         // THAM SỐ MỚI
                         cmd.Parameters.AddWithValue("@soThanhVien", soLuong);
 
@@ -279,8 +290,8 @@ namespace WinFormsfinal
                     // ==== VietQR ====
                     string bank = "OCB";
                     string account = "0024100013455002";
-                    string soTien = txtTienCoc.Text.Replace(",", "");
-                    string noiDung = $"DatPhong_{maPhong},{txtMaTheThuVien.Text}, {ngayDat:yyyy-MM-dd}";
+                    string soTien = txtTienCoc.Text.Replace(".", "").Replace(",", "");
+                    string noiDung = $"DatPhong_{maPhong},{txtMaTheThuVien.Text}, {ngayDat:dd-MM-yyyy}";
 
                     string vietQR =
                         $"https://img.vietqr.io/image/{bank}-{account}-print.png?amount={soTien}&addInfo={noiDung}";

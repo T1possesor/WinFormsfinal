@@ -42,8 +42,7 @@ namespace DoAn_1
             //Khởi động kết nối
             conn = new SQLiteConnection(strConnectionString);
             //Mở kết nối
-            conn.Open();
-
+            conn.Open();           
             txtbMaPN.Text = MaPN;
             txtbMaPN.Enabled = false;
 
@@ -51,6 +50,43 @@ namespace DoAn_1
             guna2Panel3.Controls.Add(pdfiumViewer1);
             pdfiumViewer1.BringToFront();
             pdfiumViewer1.Dock = DockStyle.Fill;
+
+            LoadHD();
+
+        }
+        void LoadHD()
+        {
+            byte[] fileFromDb = null;
+            string sql = "SELECT HoaDonDT FROM PhieuNhap WHERE MaPhieuNhap=@MaPN";
+            using (conn = new SQLiteConnection(strConnectionString))
+            {
+                conn.Open();
+                using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaPN", txtbMaPN.Text);
+                    SQLiteDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        if (reader["HoaDonDT"] != DBNull.Value)
+                            fileFromDb = (byte[])reader["HoaDonDT"];
+                    }
+                    reader.Close();
+                    reader.Dispose();
+                }
+            }
+            pdfiumViewer1.Document?.Dispose();
+            pdfiumViewer1.Document = null;
+            if (fileFromDb == null)
+            {
+                MessageBox.Show("Chưa có PDF trong database!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            MemoryStream ms = new MemoryStream(fileFromDb);
+            var pdfDoc = PdfiumViewer.PdfDocument.Load(ms);
+            pdfiumViewer1.Document = pdfDoc;
+
+
 
         }
 
@@ -61,27 +97,38 @@ namespace DoAn_1
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
+            if (KTHDTrongDB(txtbMaPN.Text))
+            {
+                MessageBox.Show("Phiếu nhập này đã có PDF! Không thể ghi đè.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (pdfBytes == null)
             {
                 MessageBox.Show("Bạn chưa chọn file PDF nào!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             string sql = "UPDATE PhieuNhap SET HoaDonDT = @file WHERE MaPhieuNhap = @MaPN";
-            try
+            using (conn = new SQLiteConnection(strConnectionString))
             {
-                using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+                conn.Open();
+                try
                 {
-                    cmd.Parameters.AddWithValue("@MaPN", txtbMaPN.Text);
-                    cmd.Parameters.Add("@file", System.Data.DbType.Binary).Value = pdfBytes;
-                    cmd.ExecuteNonQuery();
+                    using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@MaPN", txtbMaPN.Text);
+                        cmd.Parameters.Add("@file", System.Data.DbType.Binary).Value = pdfBytes;
+                        cmd.ExecuteNonQuery();
+                    }
+                    MessageBox.Show("Lưu PDF vào database thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    pdfBytes = null;
                 }
-                MessageBox.Show("Lưu PDF vào database thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                pdfBytes = null;
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi không tải lên CSDL" + ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi không tải lên CSDL" + ex.Message);
-            }
+
 
         }
 
@@ -102,37 +149,7 @@ namespace DoAn_1
                 }
             }
         }
-
-        private void btnXem_Click(object sender, EventArgs e)
-        {
-
-            byte[] fileFromDb = null;
-            string sql = "SELECT HoaDonDT FROM PhieuNhap WHERE MaPhieuNhap=@MaPN";
-            using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
-            {
-                cmd.Parameters.AddWithValue("@MaPN", txtbMaPN.Text);
-                using (SQLiteDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        if (reader["HoaDonDT"] != DBNull.Value)
-                            fileFromDb = (byte[])reader["HoaDonDT"];
-                    }
-                }
-            }
-
-            if (fileFromDb == null)
-            {
-                MessageBox.Show("Chưa có PDF trong database!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            // Hiển thị trên PdfiumViewer
-            var pdfDocument = PdfiumViewer.PdfDocument.Load(new MemoryStream(fileFromDb));
-            pdfiumViewer1.Document?.Dispose();
-            pdfiumViewer1.Document = pdfDocument;
-        }
-
+        
         private void btnXoa_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtbMaPN.Text))
@@ -140,43 +157,62 @@ namespace DoAn_1
                 MessageBox.Show("Không có mã phiếu nhập!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            object file = null;
-            string checkSql = "SELECT HoaDonDT FROM PhieuNhap WHERE MaPhieuNhap=@MaPN";
-            using (SQLiteCommand cmdCheck = new SQLiteCommand(checkSql, conn))
+            if (!KTHDTrongDB(txtbMaPN.Text))
             {
-                cmdCheck.Parameters.AddWithValue("@MaPN", txtbMaPN.Text);
-                file = cmdCheck.ExecuteScalar();
-                if (file == null || file == DBNull.Value)
-                {
-                    MessageBox.Show("Phiếu nhập này chưa có file PDF để xóa!",
-                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
+                MessageBox.Show("Phiếu nhập này không có file PDF để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
+
             DialogResult result = MessageBox.Show("Bạn có chắc muốn xóa hóa đơn PDF?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (result == DialogResult.No) return;
-            string sql = "UPDATE PhieuNhap SET HoaDonDT = NULL WHERE MaPhieuNhap=@MaPN";
-
-            try
+            using (conn = new SQLiteConnection(strConnectionString))
             {
-                using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+                conn.Open();
+                string sql = "UPDATE PhieuNhap SET HoaDonDT = NULL WHERE MaPhieuNhap=@MaPN";
+
+                try
                 {
-                    cmd.Parameters.AddWithValue("@MaPN", txtbMaPN.Text);
-                    cmd.ExecuteNonQuery();
+                    using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@MaPN", txtbMaPN.Text);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // Xóa hiển thị hiện tại
+                    pdfiumViewer1.Document?.Dispose();
+                    pdfiumViewer1.Document = null;
+
+                    MessageBox.Show("Đã xóa PDF thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-                // Xóa hiển thị hiện tại
-                pdfiumViewer1.Document?.Dispose();
-                pdfiumViewer1.Document = null;
-
-                MessageBox.Show("Đã xóa PDF thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xóa PDF: " + ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi xóa PDF: " + ex.Message);
-            }
+
         }
+        private bool KTHDTrongDB(string maPN)
+ {
+     string sql = "SELECT HoaDonDT FROM PhieuNhap WHERE MaPhieuNhap=@MaPN";
+     using (conn = new SQLiteConnection(strConnectionString))
+     {
+         conn.Open();
+         using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+         {
+             cmd.Parameters.AddWithValue("@MaPN", maPN);
+             object result = cmd.ExecuteScalar();
+
+             if (result is byte[] data)
+             {
+                 return data.Length > 0;
+             }
+
+             return false; // NULL hoặc không phải byte[]
+         }
+     }
+ }
+
 
 
     }

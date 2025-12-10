@@ -45,6 +45,26 @@ namespace QuanLyThuVien_PhanHeDocGia
             return sb.ToString().Normalize(NormalizationForm.FormC).ToLower();
         }
 
+        // ====== PARSE NGÀY LINH HOẠT (để chuẩn hóa dd/MM/yyyy) ======
+        private static bool TryParseDateFlexible(string input, out DateTime d)
+        {
+            d = default;
+            if (string.IsNullOrWhiteSpace(input)) return false;
+
+            var vi = CultureInfo.GetCultureInfo("vi-VN");
+            string[] formats =
+            {
+                "dd/MM/yyyy", "d/M/yyyy",
+                "dd-MM-yyyy", "d-M-yyyy",
+                "yyyy-MM-dd", "yyyy/MM/dd",
+                "MM/dd/yyyy", "M/d/yyyy"
+            };
+
+            return DateTime.TryParseExact(input, formats, vi, DateTimeStyles.None, out d)
+                || DateTime.TryParse(input, vi, DateTimeStyles.None, out d)
+                || DateTime.TryParse(input, CultureInfo.InvariantCulture, DateTimeStyles.None, out d);
+        }
+
         // ====== SỰ KIỆN / WIRING ======
         private void CaiDatSuKien()
         {
@@ -88,16 +108,8 @@ namespace QuanLyThuVien_PhanHeDocGia
         }
 
         // ====== HANDLER ĐƯỢC GÁN TỪ DESIGNER (ĐỂ KHỎI LỖI THIẾU) ======
-        private void labelTieuDe_Click(object? sender, EventArgs e)
-        {
-            // Không làm gì — Designer đang gán Click, ta để rỗng để khỏi lỗi.
-        }
-
-        private void comboBoxTrangThai_SelectedIndexChanged(object? sender, EventArgs e)
-        {
-            // Designer có gán — thực tế đã gọi TaiDanhSachDocGia() trong CaiDatSuKien
-            // Để trống vì đã handle bằng lambda; vẫn giữ để khỏi lỗi method-missing nếu Designer gán trực tiếp.
-        }
+        private void labelTieuDe_Click(object? sender, EventArgs e) { }
+        private void comboBoxTrangThai_SelectedIndexChanged(object? sender, EventArgs e) { }
 
         private void gridViewDocGia_CellMouseDown(object? sender, DataGridViewCellMouseEventArgs e)
         {
@@ -161,6 +173,18 @@ WHERE 1=1";
 
                     dt = rows.Any() ? rows.CopyToDataTable() : dt.Clone();
                 }
+
+                // === CHUẨN HÓA HIỂN THỊ NGÀY SINH: dd/MM/yyyy ===
+                foreach (DataRow r in dt.Rows)
+                {
+                    var raw = r["NgaySinh"]?.ToString();
+                    if (!string.IsNullOrWhiteSpace(raw) &&
+                        TryParseDateFlexible(raw!, out var d))
+                    {
+                        r["NgaySinh"] = d.ToString("dd/MM/yyyy");
+                    }
+                }
+                // ================================================
 
                 gridViewDocGia.DataSource = dt;
                 CauHinhCotGrid();
@@ -273,9 +297,6 @@ WHERE 1=1";
         }
 
         // ====== OPTIONAL: LẤY ICON TỪ DB (nếu bạn muốn) ======
-        // 1) Tạo bảng: CREATE TABLE IF NOT EXISTS AppAssets(Key TEXT PRIMARY KEY, ImageBlob BLOB);
-        // 2) Insert 1 ảnh với Key = 'search_icon'.
-        // 3) Tắt gán IconLeft ở Designer, rồi gọi hàm này sau InitializeComponent().
         private Image? LoadImageBlobFromDb(string key)
         {
             try
@@ -298,7 +319,6 @@ WHERE 1=1";
 
         private void ApplySearchIconFromDb()
         {
-            // Gọi chỗ nào bạn muốn, ví dụ trong ctor sau InitializeComponent():
             // textBoxTimKiem.IconLeft = LoadImageBlobFromDb("search_icon");
         }
     }

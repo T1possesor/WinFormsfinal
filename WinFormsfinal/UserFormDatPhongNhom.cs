@@ -136,7 +136,7 @@ namespace WinFormsfinal
                 using (var cmd = new SQLiteCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@phong", maPhong);
-                    cmd.Parameters.AddWithValue("@ngay", ngayDat.ToString("yyyy-MM-dd"));
+                    cmd.Parameters.AddWithValue("@ngay", ngayDat.ToString("dd-MM-yyyy"));
                     cmd.Parameters.AddWithValue("@bd", bd.ToString(@"hh\:mm"));
                     cmd.Parameters.AddWithValue("@kt", kt.ToString(@"hh\:mm"));
                     int count = Convert.ToInt32(cmd.ExecuteScalar());

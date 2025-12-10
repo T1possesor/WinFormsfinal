@@ -10,6 +10,7 @@ using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using QLNhapSach_new;
 
 namespace WinFormsfinal
 {
@@ -1523,7 +1524,7 @@ trừ kỳ nghỉ Tết Nguyên Đán (sẽ thông báo cụ thể trên trang c
 
         private void OpenKho(object? sender, EventArgs e)
         {
-            using (var frm = new QLNhapSach())
+            using (var frm = new FormDSPhieuNhap())
             {
                 frm.StartPosition = FormStartPosition.CenterParent; // hiện giữa Form1
                 frm.ShowDialog(this);                               // mở dạng dialog

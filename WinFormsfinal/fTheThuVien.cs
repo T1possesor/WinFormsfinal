@@ -167,7 +167,20 @@ namespace WinFormsfinal
 
                                 txtMaSoThe.Text = rd["MaSoThe"] as string ?? "";
                                 txtHoTen.Text = rd["HoTen"] as string ?? "";
-                                txtNgaySinh.Text = rd["NgaySinh"] as string ?? "";
+
+                                // ==== SỬA: Định dạng Ngày sinh thành dd/MM/yyyy ====
+                                var nsVal = rd["NgaySinh"];
+                                if (nsVal != DBNull.Value)
+                                {
+                                    var rawNS = nsVal.ToString();
+                                    if (TryParseDateFlexible(rawNS!, out var dNS))
+                                        txtNgaySinh.Text = dNS.ToString("dd/MM/yyyy");
+                                    else
+                                        txtNgaySinh.Text = rawNS ?? "";
+                                }
+                                else txtNgaySinh.Text = "";
+                                // ================================================
+
                                 txtSDT.Text = rd["SoDienThoai"] as string ?? "";
                                 txtEmail.Text = rd["Email"] as string ?? "";
                                 txtDiaChi.Text = rd["DiaChi"] as string ?? "";
