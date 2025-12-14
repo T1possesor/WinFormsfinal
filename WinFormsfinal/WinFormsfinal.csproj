@@ -8,4 +8,187 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\BookCovers\cau_truc_du_lieu.jpg" />
+    <None Remove="Images\BookCovers\co_so_du_lieu_sql.jpg" />
+    <None Remove="Images\BookCovers\dia_ly_the_gioi.jpg" />
+    <None Remove="Images\BookCovers\giai_tich_1.jpg" />
+    <None Remove="Images\BookCovers\giai_tich_2.jpg" />
+    <None Remove="Images\BookCovers\hoa_hoc_co_ban.jpg" />
+    <None Remove="Images\BookCovers\kinh_te_vi_mo.jpg" />
+    <None Remove="Images\BookCovers\kinh_te_vi_mo2.jpg" />
+    <None Remove="Images\BookCovers\lap_trinh_csharp.jpg" />
+    <None Remove="Images\BookCovers\lap_trinh_java.jpg" />
+    <None Remove="Images\BookCovers\lich_su_viet_nam.jpg" />
+    <None Remove="Images\BookCovers\luat_dan_su.jpg" />
+    <None Remove="Images\BookCovers\luat_hinh_su.jpg" />
+    <None Remove="Images\BookCovers\marketing_can_ban.jpg" />
+    <None Remove="Images\BookCovers\marketing_nang_cao.jpg" />
+    <None Remove="Images\BookCovers\phan_tich_he_thong.jpg" />
+    <None Remove="Images\BookCovers\python_nang_cao.jpg" />
+    <None Remove="Images\BookCovers\quan_tri_du_an.jpg" />
+    <None Remove="Images\BookCovers\quan_tri_nhan_su.jpg" />
+    <None Remove="Images\BookCovers\tai_chinh_doanh_nghiep.jpg" />
+    <None Remove="Images\BookCovers\thiet_ke_web_co_ban.jpg" />
+    <None Remove="Images\BookCovers\thiet_ke_web_nang_cao.jpg" />
+    <None Remove="Images\BookCovers\tieng_anh_co_ban.jpg" />
+    <None Remove="Images\BookCovers\tieng_nhat_co_ban.jpg" />
+    <None Remove="Images\BookCovers\tieng_phap_cho_nguoi_moi.jpg" />
+    <None Remove="Images\BookCovers\tieu_thuyet_trinh_tham.jpg" />
+    <None Remove="Images\BookCovers\toan_cao_cap.jpg" />
+    <None Remove="Images\BookCovers\van_hoc_the_gioi.jpg" />
+    <None Remove="Images\BookCovers\van_hoc_viet_nam.jpg" />
+    <None Remove="Images\BookCovers\vat_ly_dai_cuong.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\BookCovers\tieu_thuyet_trinh_tham.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\BookCovers\thiet_ke_web_co_ban.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\BookCovers\cau_truc_du_lieu.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\co_so_du_lieu_sql.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\dia_ly_the_gioi.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\giai_tich_1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\giai_tich_2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\hoa_hoc_co_ban.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\kinh_te_vi_mo.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\kinh_te_vi_mo2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\lap_trinh_csharp.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\lap_trinh_java.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\lich_su_viet_nam.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\luat_dan_su.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\luat_hinh_su.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\marketing_can_ban.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\marketing_nang_cao.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\BookCovers\phan_tich_he_thong.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\python_nang_cao.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\quan_tri_du_an.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\quan_tri_nhan_su.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\tai_chinh_doanh_nghiep.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\thiet_ke_web_nang_cao.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\tieng_anh_co_ban.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\tieng_nhat_co_ban.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\tieng_phap_cho_nguoi_moi.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\toan_cao_cap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\van_hoc_the_gioi.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\van_hoc_viet_nam.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BookCovers\vat_ly_dai_cuong.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DataGridViewAutoFilter" Version="1.0.0" />
+    <PackageReference Include="Guna.UI2.WinForms" Version="2.0.4.7" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3595.46" />
+    <PackageReference Include="PdfiumViewer" Version="2.13.0" />
+    <PackageReference Include="PdfiumViewer.Native.x86_64.v8-xfa" Version="2018.4.8.256" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
+    <PackageReference Include="WinForms.DataVisualization" Version="1.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="FormDSPhieuNhap.cs">
+      <SubType>Form</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="FormInPN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormSuaPN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormThemMoiSach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormThemPN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ImportHĐCT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="UserControlCTPN.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,872 @@
+﻿namespace DoAn_1
+{
+    partial class QLSach
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            components = new System.ComponentModel.Container();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges33 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QLSach));
+            splitContainer1 = new System.Windows.Forms.SplitContainer();
+            flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            btnThem = new Guna.UI2.WinForms.Guna2Button();
+            btnSua = new Guna.UI2.WinForms.Guna2Button();
+            btnXoa = new Guna.UI2.WinForms.Guna2Button();
+            btnLuu = new Guna.UI2.WinForms.Guna2Button();
+            btnThoat = new Guna.UI2.WinForms.Guna2Button();
+            btnTim = new Guna.UI2.WinForms.Guna2Button();
+            txtbKeyWord = new Guna.UI2.WinForms.Guna2TextBox();
+            guna2GroupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
+            tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            txtbMoTa = new Guna.UI2.WinForms.Guna2TextBox();
+            lblMoTa = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            txtbNXB = new Guna.UI2.WinForms.Guna2TextBox();
+            txtbTacGia = new Guna.UI2.WinForms.Guna2TextBox();
+            txtbMaSach = new Guna.UI2.WinForms.Guna2TextBox();
+            txtbViTriKe = new Guna.UI2.WinForms.Guna2TextBox();
+            lblViTriKe = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            txtbGiaBia = new Guna.UI2.WinForms.Guna2TextBox();
+            lblGiaBia = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            txtbNamXB = new Guna.UI2.WinForms.Guna2TextBox();
+            txtbTheLoai = new Guna.UI2.WinForms.Guna2TextBox();
+            txtbTenSach = new Guna.UI2.WinForms.Guna2TextBox();
+            lblTenSach = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            lblMaSach = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            lblTacGia = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            lblNXB = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            lblTheLoai = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            lblNamXB = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            dgSach = new Guna.UI2.WinForms.Guna2DataGridView();
+            erorTenSach = new System.Windows.Forms.ErrorProvider(components);
+            erorTacGia = new System.Windows.Forms.ErrorProvider(components);
+            erorTheLoai = new System.Windows.Forms.ErrorProvider(components);
+            erorNXB = new System.Windows.Forms.ErrorProvider(components);
+            erorNamXB = new System.Windows.Forms.ErrorProvider(components);
+            erorGiaBia = new System.Windows.Forms.ErrorProvider(components);
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
+            guna2GroupBox1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgSach).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)erorTenSach).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)erorTacGia).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)erorTheLoai).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)erorNXB).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)erorNamXB).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)erorGiaBia).BeginInit();
+            SuspendLayout();
+            // 
+            // splitContainer1
+            // 
+            splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer1.Location = new System.Drawing.Point(0, 0);
+            splitContainer1.Name = "splitContainer1";
+            splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Window;
+            splitContainer1.Panel1.Controls.Add(flowLayoutPanel1);
+            splitContainer1.Panel1.Controls.Add(btnTim);
+            splitContainer1.Panel1.Controls.Add(txtbKeyWord);
+            splitContainer1.Panel1.Controls.Add(guna2GroupBox1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.Controls.Add(dgSach);
+            splitContainer1.Size = new System.Drawing.Size(1410, 789);
+            splitContainer1.SplitterDistance = 380;
+            splitContainer1.SplitterWidth = 2;
+            splitContainer1.TabIndex = 0;
+            // 
+            // flowLayoutPanel1
+            // 
+            // CHỈNH Ở ĐÂY: Top | Right, không Bottom, chiều cao nhỏ để 3 nút rồi quấn
+            flowLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            flowLayoutPanel1.Controls.Add(btnThem);
+            flowLayoutPanel1.Controls.Add(btnSua);
+            flowLayoutPanel1.Controls.Add(btnXoa);
+            flowLayoutPanel1.Controls.Add(btnLuu);
+            flowLayoutPanel1.Controls.Add(btnThoat);
+            flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            flowLayoutPanel1.WrapContents = true;        // cho phép quấn sang cột thứ 2
+            flowLayoutPanel1.Location = new System.Drawing.Point(1004, 132);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new System.Drawing.Size(313, 170); // chiều cao chỉ đủ 3 nút
+            flowLayoutPanel1.TabIndex = 1;
+            // 
+            // btnThem
+            // 
+            btnThem.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnThem.BorderRadius = 5;
+            btnThem.CustomizableEdges = customizableEdges1;
+            btnThem.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            btnThem.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            btnThem.DisabledState.FillColor = System.Drawing.Color.FromArgb(169, 169, 169);
+            btnThem.DisabledState.ForeColor = System.Drawing.Color.FromArgb(141, 141, 141);
+            btnThem.FillColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            btnThem.Font = new System.Drawing.Font("Segoe UI", 10.125F, System.Drawing.FontStyle.Bold);
+            btnThem.ForeColor = System.Drawing.SystemColors.Desktop;
+            btnThem.Location = new System.Drawing.Point(2, 2);
+            btnThem.Margin = new System.Windows.Forms.Padding(2);
+            btnThem.Name = "btnThem";
+            btnThem.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnThem.Size = new System.Drawing.Size(123, 44);
+            btnThem.TabIndex = 51;
+            btnThem.Text = "Thêm ";
+            btnThem.Click += btnThem_Click;
+            // 
+            // btnSua
+            // 
+            btnSua.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnSua.BorderRadius = 5;
+            btnSua.CustomizableEdges = customizableEdges3;
+            btnSua.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            btnSua.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            btnSua.DisabledState.FillColor = System.Drawing.Color.FromArgb(169, 169, 169);
+            btnSua.DisabledState.ForeColor = System.Drawing.Color.FromArgb(141, 141, 141);
+            btnSua.FillColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            btnSua.Font = new System.Drawing.Font("Segoe UI", 10.125F, System.Drawing.FontStyle.Bold);
+            btnSua.ForeColor = System.Drawing.SystemColors.Desktop;
+            btnSua.Location = new System.Drawing.Point(2, 50);
+            btnSua.Margin = new System.Windows.Forms.Padding(2);
+            btnSua.Name = "btnSua";
+            btnSua.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnSua.Size = new System.Drawing.Size(123, 44);
+            btnSua.TabIndex = 52;
+            btnSua.Text = "Sửa";
+            btnSua.Click += btnSua_Click;
+            // 
+            // btnXoa
+            // 
+            btnXoa.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnXoa.BorderRadius = 5;
+            btnXoa.CustomizableEdges = customizableEdges5;
+            btnXoa.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            btnXoa.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            btnXoa.DisabledState.FillColor = System.Drawing.Color.FromArgb(169, 169, 169);
+            btnXoa.DisabledState.ForeColor = System.Drawing.Color.FromArgb(141, 141, 141);
+            btnXoa.FillColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            btnXoa.Font = new System.Drawing.Font("Segoe UI", 10.125F, System.Drawing.FontStyle.Bold);
+            btnXoa.ForeColor = System.Drawing.SystemColors.Desktop;
+            btnXoa.Location = new System.Drawing.Point(2, 98);
+            btnXoa.Margin = new System.Windows.Forms.Padding(2);
+            btnXoa.Name = "btnXoa";
+            btnXoa.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnXoa.Size = new System.Drawing.Size(123, 44);
+            btnXoa.TabIndex = 53;
+            btnXoa.Text = "Xóa";
+            btnXoa.Click += btnXoa_Click_1;
+            // 
+            // btnLuu
+            // 
+            btnLuu.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnLuu.BorderRadius = 5;
+            btnLuu.CustomizableEdges = customizableEdges7;
+            btnLuu.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            btnLuu.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            btnLuu.DisabledState.FillColor = System.Drawing.Color.FromArgb(169, 169, 169);
+            btnLuu.DisabledState.ForeColor = System.Drawing.Color.FromArgb(141, 141, 141);
+            btnLuu.FillColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            btnLuu.Font = new System.Drawing.Font("Segoe UI", 10.125F, System.Drawing.FontStyle.Bold);
+            btnLuu.ForeColor = System.Drawing.SystemColors.Desktop;
+            btnLuu.Location = new System.Drawing.Point(129, 2);
+            btnLuu.Margin = new System.Windows.Forms.Padding(2);
+            btnLuu.Name = "btnLuu";
+            btnLuu.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnLuu.Size = new System.Drawing.Size(123, 44);
+            btnLuu.TabIndex = 54;
+            btnLuu.Text = "Lưu";
+            btnLuu.Click += btnLuu_Click;
+            // 
+            // btnThoat
+            // 
+            btnThoat.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnThoat.BorderRadius = 5;
+            btnThoat.CustomizableEdges = customizableEdges9;
+            btnThoat.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            btnThoat.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            btnThoat.DisabledState.FillColor = System.Drawing.Color.FromArgb(169, 169, 169);
+            btnThoat.DisabledState.ForeColor = System.Drawing.Color.FromArgb(141, 141, 141);
+            btnThoat.FillColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            btnThoat.Font = new System.Drawing.Font("Segoe UI", 10.125F, System.Drawing.FontStyle.Bold);
+            btnThoat.ForeColor = System.Drawing.SystemColors.Desktop;
+            btnThoat.Location = new System.Drawing.Point(129, 50);
+            btnThoat.Margin = new System.Windows.Forms.Padding(2);
+            btnThoat.Name = "btnThoat";
+            btnThoat.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnThoat.Size = new System.Drawing.Size(123, 44);
+            btnThoat.TabIndex = 55;
+            btnThoat.Text = "Thoát";
+            btnThoat.Click += btnThoat_Click;
+            // 
+            // btnTim
+            // 
+            btnTim.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnTim.BorderRadius = 10;
+            btnTim.CustomizableEdges = customizableEdges11;
+            btnTim.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            btnTim.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            btnTim.DisabledState.FillColor = System.Drawing.Color.FromArgb(169, 169, 169);
+            btnTim.DisabledState.ForeColor = System.Drawing.Color.FromArgb(141, 141, 141);
+            btnTim.Font = new System.Drawing.Font("Segoe UI", 9F);
+            btnTim.ForeColor = System.Drawing.Color.White;
+            btnTim.Location = new System.Drawing.Point(1325, 79);
+            btnTim.Margin = new System.Windows.Forms.Padding(2);
+            btnTim.Name = "btnTim";
+            btnTim.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnTim.Size = new System.Drawing.Size(74, 50);
+            btnTim.TabIndex = 59;
+            btnTim.Text = "Tìm";
+            btnTim.Click += btnTim_Click_1;
+            // 
+            // txtbKeyWord
+            // 
+            txtbKeyWord.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            txtbKeyWord.BorderColor = System.Drawing.Color.RoyalBlue;
+            txtbKeyWord.BorderRadius = 10;
+            txtbKeyWord.Cursor = System.Windows.Forms.Cursors.IBeam;
+            txtbKeyWord.CustomizableEdges = customizableEdges13;
+            txtbKeyWord.DefaultText = "";
+            txtbKeyWord.DisabledState.BorderColor = System.Drawing.Color.FromArgb(208, 208, 208);
+            txtbKeyWord.DisabledState.FillColor = System.Drawing.Color.FromArgb(226, 226, 226);
+            txtbKeyWord.DisabledState.ForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbKeyWord.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbKeyWord.FillColor = System.Drawing.SystemColors.InactiveBorder;
+            txtbKeyWord.FocusedState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbKeyWord.Font = new System.Drawing.Font("Segoe UI", 9F);
+            txtbKeyWord.HoverState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbKeyWord.Location = new System.Drawing.Point(1004, 82);
+            txtbKeyWord.Margin = new System.Windows.Forms.Padding(6);
+            txtbKeyWord.Name = "txtbKeyWord";
+            txtbKeyWord.PlaceholderText = "";
+            txtbKeyWord.SelectedText = "";
+            txtbKeyWord.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            txtbKeyWord.Size = new System.Drawing.Size(313, 41);
+            txtbKeyWord.TabIndex = 57;
+            txtbKeyWord.TextChanged += txtbKeyWord_TextChanged;
+            // 
+            // guna2GroupBox1
+            // 
+            guna2GroupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            guna2GroupBox1.BackColor = System.Drawing.SystemColors.Control;
+            guna2GroupBox1.Controls.Add(tableLayoutPanel2);
+            guna2GroupBox1.Controls.Add(tableLayoutPanel1);
+            guna2GroupBox1.CustomBorderColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            guna2GroupBox1.CustomizableEdges = customizableEdges33;
+            guna2GroupBox1.FillColor = System.Drawing.SystemColors.InactiveCaption;
+            guna2GroupBox1.Font = new System.Drawing.Font("Segoe UI", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 163);
+            guna2GroupBox1.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            guna2GroupBox1.Location = new System.Drawing.Point(23, 23);
+            guna2GroupBox1.Name = "guna2GroupBox1";
+            guna2GroupBox1.ShadowDecoration.CustomizableEdges = customizableEdges34;
+            guna2GroupBox1.Size = new System.Drawing.Size(962, 344);
+            guna2GroupBox1.TabIndex = 44;
+            guna2GroupBox1.Text = "Thông tin sách";
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tableLayoutPanel2.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            tableLayoutPanel2.ColumnCount = 3;
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 178F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableLayoutPanel2.Controls.Add(txtbMoTa, 1, 0);
+            tableLayoutPanel2.Controls.Add(lblMoTa, 0, 0);
+            tableLayoutPanel2.Location = new System.Drawing.Point(15, 283);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new System.Drawing.Size(921, 54);
+            tableLayoutPanel2.TabIndex = 2;
+            // 
+            // txtbMoTa
+            // 
+            txtbMoTa.AllowDrop = true;
+            txtbMoTa.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtbMoTa.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            txtbMoTa.Cursor = System.Windows.Forms.Cursors.IBeam;
+            txtbMoTa.CustomizableEdges = customizableEdges15;
+            txtbMoTa.DefaultText = "";
+            txtbMoTa.DisabledState.BorderColor = System.Drawing.Color.FromArgb(208, 208, 208);
+            txtbMoTa.DisabledState.FillColor = System.Drawing.Color.FromArgb(226, 226, 226);
+            txtbMoTa.DisabledState.ForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbMoTa.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbMoTa.FocusedState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbMoTa.Font = new System.Drawing.Font("Segoe UI", 9F);
+            txtbMoTa.HoverState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbMoTa.Location = new System.Drawing.Point(184, 11);
+            txtbMoTa.Margin = new System.Windows.Forms.Padding(6);
+            txtbMoTa.Multiline = true;
+            txtbMoTa.Name = "txtbMoTa";
+            txtbMoTa.PlaceholderText = "";
+            txtbMoTa.SelectedText = "";
+            txtbMoTa.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            txtbMoTa.Size = new System.Drawing.Size(711, 31);
+            txtbMoTa.TabIndex = 20;
+            txtbMoTa.WordWrap = false;
+            // 
+            // lblMoTa
+            // 
+            lblMoTa.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            lblMoTa.AutoSize = false;
+            lblMoTa.BackColor = System.Drawing.Color.Transparent;
+            lblMoTa.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 163);
+            lblMoTa.ForeColor = System.Drawing.Color.Black;
+            lblMoTa.Location = new System.Drawing.Point(3, 10);
+            lblMoTa.Name = "lblMoTa";
+            lblMoTa.Size = new System.Drawing.Size(105, 33);
+            lblMoTa.TabIndex = 19;
+            lblMoTa.Text = "Mô tả";
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tableLayoutPanel1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            tableLayoutPanel1.ColumnCount = 6;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.22963F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.74303F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.01093F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.0164F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableLayoutPanel1.Controls.Add(txtbNXB, 1, 2);
+            tableLayoutPanel1.Controls.Add(txtbTacGia, 1, 1);
+            tableLayoutPanel1.Controls.Add(txtbMaSach, 1, 0);
+            tableLayoutPanel1.Controls.Add(txtbViTriKe, 4, 3);
+            tableLayoutPanel1.Controls.Add(lblViTriKe, 3, 3);
+            tableLayoutPanel1.Controls.Add(txtbGiaBia, 1, 3);
+            tableLayoutPanel1.Controls.Add(lblGiaBia, 0, 3);
+            tableLayoutPanel1.Controls.Add(txtbNamXB, 4, 2);
+            tableLayoutPanel1.Controls.Add(txtbTheLoai, 4, 1);
+            tableLayoutPanel1.Controls.Add(txtbTenSach, 4, 0);
+            tableLayoutPanel1.Controls.Add(lblTenSach, 3, 0);
+            tableLayoutPanel1.Controls.Add(lblMaSach, 0, 0);
+            tableLayoutPanel1.Controls.Add(lblTacGia, 0, 1);
+            tableLayoutPanel1.Controls.Add(lblNXB, 0, 2);
+            tableLayoutPanel1.Controls.Add(lblTheLoai, 3, 1);
+            tableLayoutPanel1.Controls.Add(lblNamXB, 3, 2);
+            tableLayoutPanel1.Location = new System.Drawing.Point(15, 52);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 4;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(921, 229);
+            tableLayoutPanel1.TabIndex = 1;
+            // 
+            // txtbNXB
+            // 
+            txtbNXB.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtbNXB.Cursor = System.Windows.Forms.Cursors.IBeam;
+            txtbNXB.CustomizableEdges = customizableEdges17;
+            txtbNXB.DefaultText = "";
+            txtbNXB.DisabledState.BorderColor = System.Drawing.Color.FromArgb(208, 208, 208);
+            txtbNXB.DisabledState.FillColor = System.Drawing.Color.FromArgb(226, 226, 226);
+            txtbNXB.DisabledState.ForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbNXB.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbNXB.FillColor = System.Drawing.SystemColors.ButtonHighlight;
+            txtbNXB.FocusedState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbNXB.Font = new System.Drawing.Font("Segoe UI", 9F);
+            txtbNXB.HoverState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbNXB.Location = new System.Drawing.Point(184, 127);
+            txtbNXB.Margin = new System.Windows.Forms.Padding(6);
+            txtbNXB.Name = "txtbNXB";
+            txtbNXB.PlaceholderText = "";
+            txtbNXB.SelectedText = "";
+            txtbNXB.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            txtbNXB.Size = new System.Drawing.Size(250, 31);
+            txtbNXB.TabIndex = 42;
+            txtbNXB.TextChanged += txtbNXB_TextChanged;
+            // 
+            // txtbTacGia
+            // 
+            txtbTacGia.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtbTacGia.Cursor = System.Windows.Forms.Cursors.IBeam;
+            txtbTacGia.CustomizableEdges = customizableEdges19;
+            txtbTacGia.DefaultText = "";
+            txtbTacGia.DisabledState.BorderColor = System.Drawing.Color.FromArgb(208, 208, 208);
+            txtbTacGia.DisabledState.FillColor = System.Drawing.Color.FromArgb(226, 226, 226);
+            txtbTacGia.DisabledState.ForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbTacGia.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbTacGia.FillColor = System.Drawing.SystemColors.ButtonHighlight;
+            txtbTacGia.FocusedState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbTacGia.Font = new System.Drawing.Font("Segoe UI", 9F);
+            txtbTacGia.HoverState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbTacGia.Location = new System.Drawing.Point(184, 70);
+            txtbTacGia.Margin = new System.Windows.Forms.Padding(6);
+            txtbTacGia.Name = "txtbTacGia";
+            txtbTacGia.PlaceholderText = "";
+            txtbTacGia.SelectedText = "";
+            txtbTacGia.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            txtbTacGia.Size = new System.Drawing.Size(250, 31);
+            txtbTacGia.TabIndex = 41;
+            txtbTacGia.Validated += txtbTacGia_TextChanged;
+            // 
+            // txtbMaSach
+            // 
+            txtbMaSach.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtbMaSach.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            txtbMaSach.Cursor = System.Windows.Forms.Cursors.IBeam;
+            txtbMaSach.CustomizableEdges = customizableEdges21;
+            txtbMaSach.DefaultText = "";
+            txtbMaSach.DisabledState.BorderColor = System.Drawing.Color.FromArgb(208, 208, 208);
+            txtbMaSach.DisabledState.FillColor = System.Drawing.Color.FromArgb(226, 226, 226);
+            txtbMaSach.DisabledState.ForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbMaSach.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbMaSach.FillColor = System.Drawing.SystemColors.ButtonHighlight;
+            txtbMaSach.FocusedState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbMaSach.Font = new System.Drawing.Font("Segoe UI", 9F);
+            txtbMaSach.HoverState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbMaSach.Location = new System.Drawing.Point(184, 13);
+            txtbMaSach.Margin = new System.Windows.Forms.Padding(6);
+            txtbMaSach.Name = "txtbMaSach";
+            txtbMaSach.PlaceholderText = "";
+            txtbMaSach.SelectedText = "";
+            txtbMaSach.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            txtbMaSach.Size = new System.Drawing.Size(250, 31);
+            txtbMaSach.TabIndex = 40;
+            // 
+            // txtbViTriKe
+            // 
+            txtbViTriKe.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtbViTriKe.Cursor = System.Windows.Forms.Cursors.IBeam;
+            txtbViTriKe.CustomizableEdges = customizableEdges23;
+            txtbViTriKe.DefaultText = "";
+            txtbViTriKe.DisabledState.BorderColor = System.Drawing.Color.FromArgb(208, 208, 208);
+            txtbViTriKe.DisabledState.FillColor = System.Drawing.Color.FromArgb(226, 226, 226);
+            txtbViTriKe.DisabledState.ForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbViTriKe.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbViTriKe.FillColor = System.Drawing.SystemColors.ButtonHighlight;
+            txtbViTriKe.FocusedState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbViTriKe.Font = new System.Drawing.Font("Segoe UI", 9F);
+            txtbViTriKe.HoverState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbViTriKe.Location = new System.Drawing.Point(642, 184);
+            txtbViTriKe.Margin = new System.Windows.Forms.Padding(6);
+            txtbViTriKe.Name = "txtbViTriKe";
+            txtbViTriKe.PlaceholderText = "";
+            txtbViTriKe.SelectedText = "";
+            txtbViTriKe.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            txtbViTriKe.Size = new System.Drawing.Size(252, 31);
+            txtbViTriKe.TabIndex = 39;
+            // 
+            // lblViTriKe
+            // 
+            lblViTriKe.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            lblViTriKe.AutoSize = false;
+            lblViTriKe.BackColor = System.Drawing.Color.Transparent;
+            lblViTriKe.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 163);
+            lblViTriKe.ForeColor = System.Drawing.Color.Black;
+            lblViTriKe.Location = new System.Drawing.Point(463, 183);
+            lblViTriKe.Name = "lblViTriKe";
+            lblViTriKe.Size = new System.Drawing.Size(93, 33);
+            lblViTriKe.TabIndex = 38;
+            lblViTriKe.Text = "Vị trí kệ";
+            // 
+            // txtbGiaBia
+            // 
+            txtbGiaBia.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtbGiaBia.Cursor = System.Windows.Forms.Cursors.IBeam;
+            txtbGiaBia.CustomizableEdges = customizableEdges25;
+            txtbGiaBia.DefaultText = "";
+            txtbGiaBia.DisabledState.BorderColor = System.Drawing.Color.FromArgb(208, 208, 208);
+            txtbGiaBia.DisabledState.FillColor = System.Drawing.Color.FromArgb(226, 226, 226);
+            txtbGiaBia.DisabledState.ForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbGiaBia.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbGiaBia.FillColor = System.Drawing.SystemColors.ButtonHighlight;
+            txtbGiaBia.FocusedState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbGiaBia.Font = new System.Drawing.Font("Segoe UI", 9F);
+            txtbGiaBia.HoverState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbGiaBia.Location = new System.Drawing.Point(184, 184);
+            txtbGiaBia.Margin = new System.Windows.Forms.Padding(6);
+            txtbGiaBia.Name = "txtbGiaBia";
+            txtbGiaBia.PlaceholderText = "";
+            txtbGiaBia.SelectedText = "";
+            txtbGiaBia.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            txtbGiaBia.Size = new System.Drawing.Size(250, 31);
+            txtbGiaBia.TabIndex = 37;
+            txtbGiaBia.TextChanged += txtbGiaBia_TextChanged;
+            txtbGiaBia.KeyPress += txtbGiaBia_KeyPress;
+            // 
+            // lblGiaBia
+            // 
+            lblGiaBia.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            lblGiaBia.AutoSize = false;
+            lblGiaBia.BackColor = System.Drawing.Color.Transparent;
+            lblGiaBia.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 163);
+            lblGiaBia.ForeColor = System.Drawing.Color.Black;
+            lblGiaBia.Location = new System.Drawing.Point(3, 183);
+            lblGiaBia.Name = "lblGiaBia";
+            lblGiaBia.Size = new System.Drawing.Size(88, 33);
+            lblGiaBia.TabIndex = 33;
+            lblGiaBia.Text = "Giá bìa";
+            // 
+            // txtbNamXB
+            // 
+            txtbNamXB.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtbNamXB.Cursor = System.Windows.Forms.Cursors.IBeam;
+            txtbNamXB.CustomizableEdges = customizableEdges27;
+            txtbNamXB.DefaultText = "";
+            txtbNamXB.DisabledState.BorderColor = System.Drawing.Color.FromArgb(208, 208, 208);
+            txtbNamXB.DisabledState.FillColor = System.Drawing.Color.FromArgb(226, 226, 226);
+            txtbNamXB.DisabledState.ForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbNamXB.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbNamXB.FillColor = System.Drawing.SystemColors.ButtonHighlight;
+            txtbNamXB.FocusedState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbNamXB.Font = new System.Drawing.Font("Segoe UI", 9F);
+            txtbNamXB.HoverState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbNamXB.Location = new System.Drawing.Point(642, 127);
+            txtbNamXB.Margin = new System.Windows.Forms.Padding(6);
+            txtbNamXB.Name = "txtbNamXB";
+            txtbNamXB.PlaceholderText = "";
+            txtbNamXB.SelectedText = "";
+            txtbNamXB.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            txtbNamXB.Size = new System.Drawing.Size(252, 31);
+            txtbNamXB.TabIndex = 36;
+            txtbNamXB.TextChanged += txtbNamXB_TextChanged;
+            txtbNamXB.KeyPress += txtbNamXB_KeyPress_1;
+            // 
+            // txtbTheLoai
+            // 
+            txtbTheLoai.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtbTheLoai.Cursor = System.Windows.Forms.Cursors.IBeam;
+            txtbTheLoai.CustomizableEdges = customizableEdges29;
+            txtbTheLoai.DefaultText = "";
+            txtbTheLoai.DisabledState.BorderColor = System.Drawing.Color.FromArgb(208, 208, 208);
+            txtbTheLoai.DisabledState.FillColor = System.Drawing.Color.FromArgb(226, 226, 226);
+            txtbTheLoai.DisabledState.ForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbTheLoai.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbTheLoai.FillColor = System.Drawing.SystemColors.ButtonHighlight;
+            txtbTheLoai.FocusedState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbTheLoai.Font = new System.Drawing.Font("Segoe UI", 9F);
+            txtbTheLoai.HoverState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbTheLoai.Location = new System.Drawing.Point(642, 70);
+            txtbTheLoai.Margin = new System.Windows.Forms.Padding(6);
+            txtbTheLoai.Name = "txtbTheLoai";
+            txtbTheLoai.PlaceholderText = "";
+            txtbTheLoai.SelectedText = "";
+            txtbTheLoai.ShadowDecoration.CustomizableEdges = customizableEdges30;
+            txtbTheLoai.Size = new System.Drawing.Size(252, 31);
+            txtbTheLoai.TabIndex = 35;
+            txtbTheLoai.TextChanged += txtbTheLoai_TextChanged;
+            // 
+            // txtbTenSach
+            // 
+            txtbTenSach.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtbTenSach.Cursor = System.Windows.Forms.Cursors.IBeam;
+            txtbTenSach.CustomizableEdges = customizableEdges31;
+            txtbTenSach.DefaultText = "";
+            txtbTenSach.DisabledState.BorderColor = System.Drawing.Color.FromArgb(208, 208, 208);
+            txtbTenSach.DisabledState.FillColor = System.Drawing.Color.FromArgb(226, 226, 226);
+            txtbTenSach.DisabledState.ForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbTenSach.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            txtbTenSach.FillColor = System.Drawing.SystemColors.ButtonHighlight;
+            txtbTenSach.FocusedState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbTenSach.Font = new System.Drawing.Font("Segoe UI", 9F);
+            txtbTenSach.HoverState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            txtbTenSach.Location = new System.Drawing.Point(642, 13);
+            txtbTenSach.Margin = new System.Windows.Forms.Padding(6);
+            txtbTenSach.Name = "txtbTenSach";
+            txtbTenSach.PlaceholderText = "";
+            txtbTenSach.SelectedText = "";
+            txtbTenSach.ShadowDecoration.CustomizableEdges = customizableEdges32;
+            txtbTenSach.Size = new System.Drawing.Size(252, 31);
+            txtbTenSach.TabIndex = 34;
+            txtbTenSach.TextChanged += txtbTenSach_TextChanged;
+            txtbTenSach.Leave += txtbTenSach_Leave;
+            // 
+            // lblTenSach
+            // 
+            lblTenSach.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            lblTenSach.AutoSize = false;
+            lblTenSach.BackColor = System.Drawing.Color.Transparent;
+            lblTenSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 163);
+            lblTenSach.ForeColor = System.Drawing.Color.Black;
+            lblTenSach.Location = new System.Drawing.Point(463, 12);
+            lblTenSach.Name = "lblTenSach";
+            lblTenSach.Size = new System.Drawing.Size(115, 33);
+            lblTenSach.TabIndex = 30;
+            lblTenSach.Text = "Tên sách";
+            // 
+            // lblMaSach
+            // 
+            lblMaSach.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            lblMaSach.AutoSize = false;
+            lblMaSach.BackColor = System.Drawing.Color.Transparent;
+            lblMaSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 163);
+            lblMaSach.ForeColor = System.Drawing.Color.Black;
+            lblMaSach.Location = new System.Drawing.Point(3, 12);
+            lblMaSach.Name = "lblMaSach";
+            lblMaSach.Size = new System.Drawing.Size(105, 33);
+            lblMaSach.TabIndex = 18;
+            lblMaSach.Text = "Mã sách";
+            // 
+            // lblTacGia
+            // 
+            lblTacGia.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            lblTacGia.AutoSize = false;
+            lblTacGia.BackColor = System.Drawing.Color.Transparent;
+            lblTacGia.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 163);
+            lblTacGia.ForeColor = System.Drawing.Color.Black;
+            lblTacGia.Location = new System.Drawing.Point(3, 69);
+            lblTacGia.Name = "lblTacGia";
+            lblTacGia.Size = new System.Drawing.Size(92, 33);
+            lblTacGia.TabIndex = 22;
+            lblTacGia.Text = "Tác giả";
+            // 
+            // lblNXB
+            // 
+            lblNXB.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            lblNXB.AutoSize = false;
+            lblNXB.BackColor = System.Drawing.Color.Transparent;
+            lblNXB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 163);
+            lblNXB.ForeColor = System.Drawing.Color.Black;
+            lblNXB.Location = new System.Drawing.Point(3, 126);
+            lblNXB.Name = "lblNXB";
+            lblNXB.Size = new System.Drawing.Size(169, 33);
+            lblNXB.TabIndex = 23;
+            lblNXB.Text = "Nhà xuất bản";
+            // 
+            // lblTheLoai
+            // 
+            lblTheLoai.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            lblTheLoai.AutoSize = false;
+            lblTheLoai.BackColor = System.Drawing.Color.Transparent;
+            lblTheLoai.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 163);
+            lblTheLoai.ForeColor = System.Drawing.Color.Black;
+            lblTheLoai.Location = new System.Drawing.Point(463, 69);
+            lblTheLoai.Name = "lblTheLoai";
+            lblTheLoai.Size = new System.Drawing.Size(99, 33);
+            lblTheLoai.TabIndex = 31;
+            lblTheLoai.Text = "Thể loại";
+            // 
+            // lblNamXB
+            // 
+            lblNamXB.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            lblNamXB.AutoSize = false;
+            lblNamXB.BackColor = System.Drawing.Color.Transparent;
+            lblNamXB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 163);
+            lblNamXB.ForeColor = System.Drawing.Color.Black;
+            lblNamXB.Location = new System.Drawing.Point(463, 126);
+            lblNamXB.Name = "lblNamXB";
+            lblNamXB.Size = new System.Drawing.Size(170, 33);
+            lblNamXB.TabIndex = 32;
+            lblNamXB.Text = "Năm xuất bản";
+            // 
+            // dgSach
+            // 
+            dgSach.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dgSach.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 163);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dgSach.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgSach.ColumnHeadersHeight = 30;
+            dgSach.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 163);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            dgSach.DefaultCellStyle = dataGridViewCellStyle3;
+            dgSach.Dock = System.Windows.Forms.DockStyle.Fill;
+            dgSach.GridColor = System.Drawing.Color.FromArgb(231, 229, 255);
+            dgSach.Location = new System.Drawing.Point(0, 0);
+            dgSach.Name = "dgSach";
+            dgSach.RowHeadersVisible = false;
+            dgSach.RowHeadersWidth = 82;
+            dgSach.Size = new System.Drawing.Size(1410, 407);
+            dgSach.TabIndex = 0;
+            dgSach.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            dgSach.ThemeStyle.AlternatingRowsStyle.Font = null;
+            dgSach.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            dgSach.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            dgSach.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            dgSach.ThemeStyle.BackColor = System.Drawing.Color.White;
+            dgSach.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(231, 229, 255);
+            dgSach.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(100, 88, 255);
+            dgSach.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dgSach.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 163);
+            dgSach.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            dgSach.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dgSach.ThemeStyle.HeaderStyle.Height = 30;
+            dgSach.ThemeStyle.ReadOnly = false;
+            dgSach.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            dgSach.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            dgSach.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 163);
+            dgSach.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(71, 69, 94);
+            dgSach.ThemeStyle.RowsStyle.Height = 33;
+            dgSach.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(231, 229, 255);
+            dgSach.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(71, 69, 94);
+            dgSach.CellClick += dgSach_CellClick;
+            // 
+            // erorTenSach
+            // 
+            erorTenSach.ContainerControl = this;
+            // 
+            // erorTacGia
+            // 
+            erorTacGia.ContainerControl = this;
+            // 
+            // erorTheLoai
+            // 
+            erorTheLoai.ContainerControl = this;
+            // 
+            // erorNXB
+            // 
+            erorNXB.ContainerControl = this;
+            // 
+            // erorNamXB
+            // 
+            erorNamXB.ContainerControl = this;
+            // 
+            // erorGiaBia
+            // 
+            erorGiaBia.ContainerControl = this;
+            // 
+            // QLSach
+            // 
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            ClientSize = new System.Drawing.Size(1410, 789);
+            Controls.Add(splitContainer1);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Name = "QLSach";
+            Text = "Quản lý sách";
+            WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            FormClosing += Form2_FormClosing_1;
+            Load += Form2_Load_1;
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            flowLayoutPanel1.ResumeLayout(false);
+            guna2GroupBox1.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgSach).EndInit();
+            ((System.ComponentModel.ISupportInitialize)erorTenSach).EndInit();
+            ((System.ComponentModel.ISupportInitialize)erorTacGia).EndInit();
+            ((System.ComponentModel.ISupportInitialize)erorTheLoai).EndInit();
+            ((System.ComponentModel.ISupportInitialize)erorNXB).EndInit();
+            ((System.ComponentModel.ISupportInitialize)erorNamXB).EndInit();
+            ((System.ComponentModel.ISupportInitialize)erorGiaBia).EndInit();
+            ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private Guna.UI2.WinForms.Guna2GroupBox guna2GroupBox1;
+        private Guna.UI2.WinForms.Guna2DataGridView dgSach;
+        private Guna.UI2.WinForms.Guna2Button btnTim;
+        private Guna.UI2.WinForms.Guna2TextBox txtbKeyWord;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private Guna.UI2.WinForms.Guna2Button btnThem;
+        private Guna.UI2.WinForms.Guna2Button btnSua;
+        private Guna.UI2.WinForms.Guna2Button btnXoa;
+        private Guna.UI2.WinForms.Guna2Button btnLuu;
+        private System.Windows.Forms.ErrorProvider erorTenSach;
+        private System.Windows.Forms.ErrorProvider erorTacGia;
+        private System.Windows.Forms.ErrorProvider erorTheLoai;
+        private System.Windows.Forms.ErrorProvider erorNXB;
+        private System.Windows.Forms.ErrorProvider erorNamXB;
+        private System.Windows.Forms.ErrorProvider erorGiaBia;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private Guna.UI2.WinForms.Guna2TextBox txtbNXB;
+        private Guna.UI2.WinForms.Guna2TextBox txtbTacGia;
+        private Guna.UI2.WinForms.Guna2TextBox txtbMaSach;
+        private Guna.UI2.WinForms.Guna2TextBox txtbViTriKe;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblViTriKe;
+        private Guna.UI2.WinForms.Guna2TextBox txtbGiaBia;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblGiaBia;
+        private Guna.UI2.WinForms.Guna2TextBox txtbNamXB;
+        private Guna.UI2.WinForms.Guna2TextBox txtbTheLoai;
+        private Guna.UI2.WinForms.Guna2TextBox txtbTenSach;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblTenSach;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblMaSach;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblTacGia;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblNXB;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblTheLoai;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblNamXB;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblMoTa;
+        private Guna.UI2.WinForms.Guna2TextBox txtbMoTa;
+        private Guna.UI2.WinForms.Guna2Button btnThoat;
+    }
+}
